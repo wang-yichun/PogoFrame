@@ -1,0 +1,59 @@
+# =============== #
+# Unity generated #
+# =============== #
+[Ll]ibrary/
+[Tt]emp/
+[Oo]bj/
+[Bb]uild/
+Publish/
+
+# ===================================== #
+# Visual Studio / MonoDevelop generated #
+# ===================================== #
+ExportedObj/
+obj/
+*.svd
+/*.csproj
+/*.unityproj
+/*.sln
+/*.suo
+/*.user
+/*.userprefs
+/*.pidb
+/*.booproj
+
+# ============ #
+# OS generated #
+# ============ #
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+
+#Unity3D Generated File On Crash Reports
+sysinfo.txt
+
+
+# ================= #
+# Project generated #
+# ================= #
+
+/AEXiOSProj
+/AEXAndroidProj
+/AEXAndroidProj.*
+/CodePatch
+/rec_files
+/Builds
+Thumbs.db.meta
+/Assets/Resources/LogSystem/log_system_private.json
+/Assets/Resources/LogSystem/log_system_private.json.meta
+/LogFiles
+
+# ================= #
+# Excel generated   #
+# ================= #
+~$*
