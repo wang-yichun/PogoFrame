@@ -110,8 +110,6 @@ namespace uFrame.Kernel
 				SceneRoot = sceneRoot
 			});
 
-            
-
 
 			//If the scene was loaded via the api (it was queued having some name and settings)
 			if (ScenesQueue.Count > 0) {
@@ -122,7 +120,7 @@ namespace uFrame.Kernel
             //Else, means scene was the start scene (loaded before kernel)
             else {
 //				sceneRoot.Name = Application.loadedLevelName;
-				sceneRoot.Name = UnityEngine.SceneManagement.SceneManager.GetSceneAt (UnityEngine.SceneManagement.SceneManager.sceneCount - 1).name;
+				sceneRoot.Name = UnityEngine.SceneManagement.SceneManager.GetActiveScene().name;
 			}
 
 
@@ -221,7 +219,7 @@ namespace uFrame.Kernel
 			if (restrictToSingleScene &&
 			    (LoadedScenes.Any (p => p.Name == name) || ScenesQueue.Any (p => p.Name == name) ||
 //                 Application.loadedLevelName == name)) return;
-			    UnityEngine.SceneManagement.SceneManager.GetSceneAt (UnityEngine.SceneManagement.SceneManager.sceneCount - 1).name == name))
+					UnityEngine.SceneManagement.SceneManager.GetActiveScene().name == name))
 				return;
 			this.QueueSceneLoad (name, settings);
 			this.ExecuteLoad ();
@@ -238,7 +236,7 @@ namespace uFrame.Kernel
 		{
 			if (LoadedScenes.Any (p => p.Name == sceneName) || ScenesQueue.Any (p => p.Name == sceneName) ||
 //			    Application.loadedLevelName == sceneName) {
-			    UnityEngine.SceneManagement.SceneManager.GetSceneAt (UnityEngine.SceneManagement.SceneManager.sceneCount - 1).name == sceneName) {
+				UnityEngine.SceneManagement.SceneManager.GetActiveScene().name == sceneName) {
 				return;
 			}
 			ScenesQueue.Enqueue (new SceneQueueItem () {
