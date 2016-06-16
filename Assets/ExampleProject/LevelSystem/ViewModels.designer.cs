@@ -65,6 +65,10 @@ namespace uFrame.ExampleProject {
             _CurrentLevelProperty = new P<LevelDescriptor>(this, "CurrentLevel");
         }
         
+        public virtual void ExecuteFinishCurrentLevel() {
+            this.FinishCurrentLevel.OnNext(new FinishCurrentLevelCommand());
+        }
+        
         public override void Read(ISerializerStream stream) {
             base.Read(stream);
         }
