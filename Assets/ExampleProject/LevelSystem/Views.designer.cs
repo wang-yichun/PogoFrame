@@ -39,6 +39,14 @@ namespace uFrame.ExampleProject {
         [UnityEngine.Serialization.FormerlySerializedAsAttribute("_FinishCurrentLevelbutton")]
         protected UnityEngine.UI.Button _FinishCurrentLevelButton;
         
+        [UFToggleGroup("AddASprite")]
+        [UnityEngine.HideInInspector()]
+        public bool _BindAddASprite = true;
+        
+        [UFToggleGroup("LevelRootUnLoadAssets")]
+        [UnityEngine.HideInInspector()]
+        public bool _BindLevelRootUnLoadAssets = true;
+        
         public override string DefaultIdentifier {
             get {
                 return base.DefaultIdentifier;
@@ -74,15 +82,45 @@ namespace uFrame.ExampleProject {
             if (_BindFinishCurrentLevel) {
                 this.BindButtonToCommand(_FinishCurrentLevelButton, this.LevelRoot.FinishCurrentLevel);
             }
+            if (_BindAddASprite) {
+                this.BindCommandExecuted(this.LevelRoot.AddASprite, this.AddASpriteExecuted);
+            }
+            if (_BindLevelRootUnLoadAssets) {
+                this.BindCommandExecuted(this.LevelRoot.LevelRootUnLoadAssets, this.LevelRootUnLoadAssetsExecuted);
+            }
+        }
+        
+        public virtual void AddASpriteExecuted(AddASpriteCommand command) {
+        }
+        
+        public virtual void LevelRootUnLoadAssetsExecuted(LevelRootUnLoadAssetsCommand command) {
         }
         
         public virtual void ExecuteFinishCurrentLevel() {
             LevelRoot.FinishCurrentLevel.OnNext(new FinishCurrentLevelCommand() { Sender = LevelRoot });
         }
         
+        public virtual void ExecuteAddASprite() {
+            LevelRoot.AddASprite.OnNext(new AddASpriteCommand() { Sender = LevelRoot });
+        }
+        
+        public virtual void ExecuteLevelRootUnLoadAssets() {
+            LevelRoot.LevelRootUnLoadAssets.OnNext(new LevelRootUnLoadAssetsCommand() { Sender = LevelRoot });
+        }
+        
         public virtual void ExecuteFinishCurrentLevel(FinishCurrentLevelCommand command) {
             command.Sender = LevelRoot;
             LevelRoot.FinishCurrentLevel.OnNext(command);
+        }
+        
+        public virtual void ExecuteAddASprite(AddASpriteCommand command) {
+            command.Sender = LevelRoot;
+            LevelRoot.AddASprite.OnNext(command);
+        }
+        
+        public virtual void ExecuteLevelRootUnLoadAssets(LevelRootUnLoadAssetsCommand command) {
+            command.Sender = LevelRoot;
+            LevelRoot.LevelRootUnLoadAssets.OnNext(command);
         }
     }
 }

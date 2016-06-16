@@ -10,31 +10,38 @@ using uFrame.Serialization;
 
 namespace uFrame.ExampleProject
 {
-    public class LevelRootController : LevelRootControllerBase
-    {
+	public class LevelRootController : LevelRootControllerBase
+	{
 
-        public override void InitializeLevelRoot(LevelRootViewModel viewModel)
-        {
-            base.InitializeLevelRoot(viewModel);
-        }
+		public override void InitializeLevelRoot (LevelRootViewModel viewModel)
+		{
+			base.InitializeLevelRoot (viewModel);
+		}
 
 
-        public override void FinishCurrentLevel(LevelRootViewModel viewModel)
-        {
-            base.FinishCurrentLevel(viewModel);
+		public override void FinishCurrentLevel (LevelRootViewModel viewModel)
+		{
+			base.FinishCurrentLevel (viewModel);
 
-            //Simple scene transition.
+			//Simple scene transition.
 
-            Publish(new UnloadSceneCommand()
-            {
-                SceneName = viewModel.CurrentLevel.LevelScene
-            });
+			Publish (new UnloadSceneCommand () {
+				SceneName = viewModel.CurrentLevel.LevelScene
+			});
 
-            Publish(new LoadSceneCommand()
-            {
-                SceneName = "MainMenuScene"
-            });
-        }
+			Publish (new LoadSceneCommand () {
+				SceneName = "MainMenuScene"
+			});
+		}
+
+		public override void AddASprite (LevelRootViewModel viewModel)
+		{
+			base.AddASprite (viewModel);
+		}
+    
+    public override void LevelRootUnLoadAssets(LevelRootViewModel viewModel) {
+        base.LevelRootUnLoadAssets(viewModel);
     }
+	}
 }
 

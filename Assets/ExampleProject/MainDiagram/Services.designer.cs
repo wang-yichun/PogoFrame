@@ -13,12 +13,12 @@ namespace uFrame.ExampleProject {
     using System.Collections;
     using System.Collections.Generic;
     using System.Linq;
-    using uFrame.MVVM;
-    using uFrame.IOC;
-    using uFrame.Kernel;
-    using UniRx;
-    using UnityEngine;
     using uFrame.ExampleProject;
+    using uFrame.Kernel;
+    using uFrame.IOC;
+    using UnityEngine;
+    using UniRx;
+    using uFrame.MVVM;
     
     
     public class SceneFlowServiceBase : uFrame.Kernel.SystemServiceMonoBehavior {

@@ -28,6 +28,10 @@ namespace uFrame.ExampleProject {
         
         private Signal<FinishCurrentLevelCommand> _FinishCurrentLevel;
         
+        private Signal<AddASpriteCommand> _AddASprite;
+        
+        private Signal<LevelRootUnLoadAssetsCommand> _LevelRootUnLoadAssets;
+        
         public LevelRootViewModelBase(uFrame.Kernel.IEventAggregator aggregator) : 
                 base(aggregator) {
         }
@@ -59,14 +63,42 @@ namespace uFrame.ExampleProject {
             }
         }
         
+        public virtual Signal<AddASpriteCommand> AddASprite {
+            get {
+                return _AddASprite;
+            }
+            set {
+                _AddASprite = value;
+            }
+        }
+        
+        public virtual Signal<LevelRootUnLoadAssetsCommand> LevelRootUnLoadAssets {
+            get {
+                return _LevelRootUnLoadAssets;
+            }
+            set {
+                _LevelRootUnLoadAssets = value;
+            }
+        }
+        
         public override void Bind() {
             base.Bind();
             this.FinishCurrentLevel = new Signal<FinishCurrentLevelCommand>(this);
+            this.AddASprite = new Signal<AddASpriteCommand>(this);
+            this.LevelRootUnLoadAssets = new Signal<LevelRootUnLoadAssetsCommand>(this);
             _CurrentLevelProperty = new P<LevelDescriptor>(this, "CurrentLevel");
         }
         
         public virtual void ExecuteFinishCurrentLevel() {
             this.FinishCurrentLevel.OnNext(new FinishCurrentLevelCommand());
+        }
+        
+        public virtual void ExecuteAddASprite() {
+            this.AddASprite.OnNext(new AddASpriteCommand());
+        }
+        
+        public virtual void ExecuteLevelRootUnLoadAssets() {
+            this.LevelRootUnLoadAssets.OnNext(new LevelRootUnLoadAssetsCommand());
         }
         
         public override void Read(ISerializerStream stream) {
@@ -80,6 +112,8 @@ namespace uFrame.ExampleProject {
         protected override void FillCommands(System.Collections.Generic.List<uFrame.MVVM.ViewModelCommandInfo> list) {
             base.FillCommands(list);
             list.Add(new ViewModelCommandInfo("FinishCurrentLevel", FinishCurrentLevel) { ParameterType = typeof(void) });
+            list.Add(new ViewModelCommandInfo("AddASprite", AddASprite) { ParameterType = typeof(void) });
+            list.Add(new ViewModelCommandInfo("LevelRootUnLoadAssets", LevelRootUnLoadAssets) { ParameterType = typeof(void) });
         }
         
         protected override void FillProperties(System.Collections.Generic.List<uFrame.MVVM.ViewModelPropertyInfo> list) {

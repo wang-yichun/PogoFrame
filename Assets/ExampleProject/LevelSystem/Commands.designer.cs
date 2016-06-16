@@ -20,4 +20,10 @@ namespace uFrame.ExampleProject {
     
     public partial class FinishCurrentLevelCommand : uFrame.MVVM.ViewModelCommand {
     }
+    
+    public partial class AddASpriteCommand : uFrame.MVVM.ViewModelCommand {
+    }
+    
+    public partial class LevelRootUnLoadAssetsCommand : uFrame.MVVM.ViewModelCommand {
+    }
 }
