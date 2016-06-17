@@ -59,6 +59,8 @@ namespace uFrame.ExampleProject
 		{
 			yield return StartCoroutine (Initialize ());
 
+			yield return new WaitForSeconds (.1f);
+
 			Publish (new AssetLoadingProgressEvent () {
 				Message = "Loaded 100% of game assets!",
 				Progress = 1f
