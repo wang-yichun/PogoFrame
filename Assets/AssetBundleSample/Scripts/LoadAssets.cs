@@ -38,7 +38,7 @@ public class LoadAssets : MonoBehaviour
 		// AssetBundleManager.SetSourceAssetBundleURL("http://www.MyWebsite/MyAssetBundles");
 
 
-		AssetBundleManager.SetSourceAssetBundleDirectory ("/");
+		AssetBundleManager.SetSourceAssetBundleDirectory ("/Android/");
 		Debug.Log ("BaseDownloadingURL = " + AssetBundleManager.BaseDownloadingURL);
 		#endif
 			
@@ -55,8 +55,10 @@ public class LoadAssets : MonoBehaviour
 
 		// Load asset from assetBundle.
 		AssetBundleLoadAssetOperation request = AssetBundleManager.LoadAssetAsync (assetBundleName, assetName, typeof(GameObject));
-		if (request == null)
+		if (request == null) {
+			Debug.Log ("request == null");
 			yield break;
+		}
 		yield return StartCoroutine (request);
 
 		// Get the asset.
