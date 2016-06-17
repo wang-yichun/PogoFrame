@@ -9,6 +9,7 @@ using uFrame.MVVM.Bindings;
 using uFrame.Serialization;
 using UniRx;
 using UnityEngine;
+using AssetBundles;
 
 namespace uFrame.ExampleProject
 {
@@ -31,33 +32,65 @@ namespace uFrame.ExampleProject
 			// Any designer bindings are created in the base implementation.
 		}
 
+		public bool assetReady = false;
+
 		public override void AfterBind ()
 		{
 			base.AfterBind ();
-			StartCoroutine (LoadAssets ());
-		}
-
-		UnityEngine.Object Assets_Animal;
-
-		IEnumerator LoadAssets ()
-		{
-			AssetBundleRequest request = AssetLoadingService.Instance.currentAssetBundle.LoadAssetAsync ("sample_go_sprite");
-			yield return request;
-
-			Debug.Log ("loaded asset: " + request.asset.ToString ());
-			Assets_Animal = request.asset;
+			StartCoroutine (LoadAllAssets ());
 		}
 
 		public override void AddASpriteExecuted (AddASpriteCommand command)
 		{
-			
+			if (assetReady == false) {
+				Debug.Log ("asset is not ready");
+				return;
+			}
+
+			if (assetsDic != null) {
+				GameObject.Instantiate (assetsDic ["sample_go_sprite"]);
+			}
 		}
 
 		public override void LevelRootUnLoadAssetsExecuted (LevelRootUnLoadAssetsCommand command)
 		{
 			base.LevelRootUnLoadAssetsExecuted (command);
 
-			AssetLoadingService.Instance.currentAssetBundle.Unload (false);
+			AssetBundleManager.UnloadAssetBundle ("_prefabs");
+		}
+
+		public Dictionary<string, GameObject> assetsDic;
+
+		IEnumerator LoadAllAssets ()
+		{
+			yield return StartCoroutine (InstantiateGameObjectAsync ("_prefabs", "sample_go_sprite"));
+			assetReady = true;
+			Debug.Log ("asset is ready");
+		}
+
+		protected IEnumerator InstantiateGameObjectAsync (string assetBundleName, string assetName)
+		{
+			// This is simply to get the elapsed time for this phase of AssetLoading.
+			float startTime = Time.realtimeSinceStartup;
+
+			// Load asset from assetBundle.
+			AssetBundleLoadAssetOperation request = AssetBundleManager.LoadAssetAsync (assetBundleName, assetName, typeof(GameObject));
+			if (request == null)
+				yield break;
+			yield return StartCoroutine (request);
+
+			// Get the asset.
+			if (assetsDic == null) {
+				assetsDic = new Dictionary<string, GameObject> ();
+			}
+
+			GameObject prefab = request.GetAsset<GameObject> ();
+
+			assetsDic.Add (assetName, prefab);
+
+			// Calculate and display the elapsed time.
+			float elapsedTime = Time.realtimeSinceStartup - startTime;
+			Debug.Log (assetName + (prefab == null ? " was not" : " was") + " loaded successfully in " + elapsedTime + " seconds");
 		}
 	}
 }

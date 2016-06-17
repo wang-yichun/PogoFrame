@@ -8,6 +8,7 @@ using UniRx;
 using UnityEngine;
 using uFrame.MVVM;
 using pogorock;
+using AssetBundles;
 
 namespace uFrame.ExampleProject
 {
@@ -25,8 +26,7 @@ namespace uFrame.ExampleProject
 		public override void StartAssetLoadingCommandHandler (StartAssetLoadingCommand data)
 		{
 			base.StartAssetLoadingCommandHandler (data);
-//			StartCoroutine (LoadAssets ());
-			StartDownloadTargetPaths ();
+			StartCoroutine (Init ());
 		}
 
 		/*
@@ -55,50 +55,39 @@ namespace uFrame.ExampleProject
 			});
 		}
 
-		void StartDownloadTargetPaths ()
+		IEnumerator Init ()
 		{
-			var targetPaths = AssetBundleLoaderSettings.Instance.targetPaths;
-			for (int i = 0; i < targetPaths.Count; i++) {
-				var targetPath = targetPaths [i];
-				if (targetPath.enable) {
-					string url = string.Format ("{0}", "file://" + targetPath.targetPath);
-					StartCoroutine (DownloadAndCache (url, 2));
-					break;
-				}
-			}
+			yield return StartCoroutine (Initialize ());
+
+			Publish (new AssetLoadingProgressEvent () {
+				Message = "Loaded 100% of game assets!",
+				Progress = 1f
+			});
+
 		}
 
-		IEnumerator DownloadAndCache (string bundleURL, int version)
+		// Initialize the downloading url and AssetBundleManifest object.
+		protected IEnumerator Initialize ()
 		{
-			// Wait for the Caching system to be ready
-			while (!Caching.ready)
-				yield return null;
+			// Don't destroy this gameObject as we depend on it to run the loading script.
+			DontDestroyOnLoad (gameObject);
 
-			// Load the AssetBundle file from Cache if it exists with the same version or download and store it in the cache
-			using (WWW www = WWW.LoadFromCacheOrDownload (bundleURL, version)) {
-				yield return www;
-				if (www.error != null)
-					throw new Exception ("WWW download had an error:" + www.error);
-				currentAssetBundle = www.assetBundle;
+			// With this code, when in-editor or using a development builds: Always use the AssetBundle Server
+			// (This is very dependent on the production workflow of the project. 
+			// 	Another approach would be to make this configurable in the standalone player.)
+			#if DEVELOPMENT_BUILD || UNITY_EDITOR
+			AssetBundleManager.SetDevelopmentAssetBundleServer ();
+			#else
+			// Use the following code if AssetBundles are embedded in the project for example via StreamingAssets folder etc:
+			AssetBundleManager.SetSourceAssetBundleURL(Application.dataPath + "/");
+			// Or customize the URL based on your deployment or configuration
+			//AssetBundleManager.SetSourceAssetBundleURL("http://www.MyWebsite/MyAssetBundles");
+			#endif
 
-//				if (AssetName == "")
-//					Instantiate (bundle.mainAsset);
-//				else
-//					Instantiate (bundle.LoadAsset (AssetName));
-//				// Unload the AssetBundles compressed contents to conserve memory
-
-//				bundle.Unload (false);
-
-
-				yield return new WaitForSeconds (.1f);
-				Publish (new AssetLoadingProgressEvent () {
-					Message = "Loaded 100% of game assets!",
-					Progress = 1f
-				});
-
-			} // memory is freed from the web stream (www.Dispose() gets called implicitly)
+			// Initialize AssetBundleManifest which loads the AssetBundleManifest object.
+			var request = AssetBundleManager.Initialize ();
+			if (request != null)
+				yield return StartCoroutine (request);
 		}
-
-		public AssetBundle currentAssetBundle;
 	}
 }
