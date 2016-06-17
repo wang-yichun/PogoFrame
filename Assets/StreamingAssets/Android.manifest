@@ -1,0 +1,56 @@
+ManifestFileVersion: 0
+AssetBundleManifest:
+  AssetBundleInfos:
+    Info_0:
+      Name: _textures/pretty_animals
+      Dependencies: {}
+    Info_1:
+      Name: _prefabs
+      Dependencies:
+        Dependency_0: _textures/pretty_animals
+    Info_2:
+      Name: _textassets
+      Dependencies: {}
+    Info_3:
+      Name: scene-bundle
+      Dependencies:
+        Dependency_0: material-bundle
+    Info_4:
+      Name: variants/myassets.hd
+      Dependencies: {}
+    Info_5:
+      Name: variants/variant-scene
+      Dependencies:
+        Dependency_0: variants/myassets.hd
+    Info_6:
+      Name: variants/myassets.sd
+      Dependencies: {}
+    Info_7:
+      Name: tanks-scene-bundle
+      Dependencies:
+        Dependency_0: tanks-albedo.normal-hd
+    Info_8:
+      Name: tanks-albedo.desert-hd
+      Dependencies: {}
+    Info_9:
+      Name: tanks-albedo.normal-sd
+      Dependencies: {}
+    Info_10:
+      Name: tanks-albedo.normal-hd
+      Dependencies: {}
+    Info_11:
+      Name: tanks-albedo.desert-sd
+      Dependencies: {}
+    Info_12:
+      Name: banner.english
+      Dependencies: {}
+    Info_13:
+      Name: banner.danish
+      Dependencies: {}
+    Info_14:
+      Name: cube-bundle
+      Dependencies:
+        Dependency_0: material-bundle
+    Info_15:
+      Name: material-bundle
+      Dependencies: {}
