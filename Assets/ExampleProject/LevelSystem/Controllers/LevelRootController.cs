@@ -18,30 +18,12 @@ namespace uFrame.ExampleProject
 			base.InitializeLevelRoot (viewModel);
 		}
 
-
 		public override void FinishCurrentLevel (LevelRootViewModel viewModel)
 		{
 			base.FinishCurrentLevel (viewModel);
 
-			//Simple scene transition.
-
-			Publish (new UnloadSceneCommand () {
-				SceneName = viewModel.CurrentLevel.LevelScene
-			});
-
-			Publish (new LoadSceneCommand () {
-				SceneName = "MainMenuScene"
-			});
+			viewModel.StateProperty.Level_Close.OnNext (true);
 		}
-
-		public override void AddASprite (LevelRootViewModel viewModel)
-		{
-			base.AddASprite (viewModel);
-		}
-    
-    public override void LevelRootUnLoadAssets(LevelRootViewModel viewModel) {
-        base.LevelRootUnLoadAssets(viewModel);
-    }
 	}
 }
 

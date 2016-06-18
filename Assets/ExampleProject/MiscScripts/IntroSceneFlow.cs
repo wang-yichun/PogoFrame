@@ -27,6 +27,17 @@ namespace uFrame.ExampleProject
          * Simply speaking: kernel is loaded.
          */
 
+		Color solidColor;
+		Color transparentColor;
+
+		void OnEnable ()
+		{
+			solidColor = Logo.color;
+			transparentColor = new Color (solidColor.r, solidColor.g, solidColor.b, 0);
+
+			Logo.color = transparentColor;
+		}
+
 		public override void KernelLoaded ()
 		{
 			base.KernelLoaded ();
@@ -41,9 +52,9 @@ namespace uFrame.ExampleProject
 		{
 
 			//Make all the fancy stuff happen
-			var solidColor = Logo.color;
-			var transparentColor = new Color (solidColor.r, solidColor.g, solidColor.b, 0);
-			Logo.color = transparentColor;
+//			var solidColor = Logo.color;
+//			var transparentColor = new Color (solidColor.r, solidColor.g, solidColor.b, 0);
+//			Logo.color = transparentColor;
 
 			while (progress < 1f) {
 				Logo.color = Color.Lerp (transparentColor, solidColor, progress);

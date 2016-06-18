@@ -13,12 +13,12 @@ namespace uFrame.ExampleProject {
     using System.Collections;
     using System.Collections.Generic;
     using System.Linq;
-    using uFrame.ExampleProject;
-    using UniRx;
-    using uFrame.Serialization;
     using uFrame.Kernel;
-    using uFrame.IOC;
     using uFrame.MVVM;
+    using uFrame.Serialization;
+    using UniRx;
+    using uFrame.ExampleProject;
+    using uFrame.IOC;
     
     
     public class MainMenuRootControllerBase : uFrame.MVVM.Controller {

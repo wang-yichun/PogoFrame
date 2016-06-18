@@ -14,11 +14,11 @@ namespace uFrame.ExampleProject {
     using System.Collections.Generic;
     using System.Linq;
     using uFrame.ExampleProject;
-    using uFrame.Kernel;
-    using uFrame.IOC;
-    using UnityEngine;
-    using UniRx;
     using uFrame.MVVM;
+    using UniRx;
+    using UnityEngine;
+    using uFrame.IOC;
+    using uFrame.Kernel;
     
     
     public class MainMenuServiceBase : uFrame.Kernel.SystemServiceMonoBehavior {

@@ -20,20 +20,37 @@ namespace uFrame.ExampleProject {
     using uFrame.Serialization;
     using UnityEngine;
     using UniRx;
+    using uFrame.ExampleProject;
     
     
     public partial class LevelRootViewModelBase : uFrame.MVVM.ViewModel {
+        
+        private LevelSM _StateProperty;
         
         private P<LevelDescriptor> _CurrentLevelProperty;
         
         private Signal<FinishCurrentLevelCommand> _FinishCurrentLevel;
         
-        private Signal<AddASpriteCommand> _AddASprite;
-        
-        private Signal<LevelRootUnLoadAssetsCommand> _LevelRootUnLoadAssets;
-        
         public LevelRootViewModelBase(uFrame.Kernel.IEventAggregator aggregator) : 
                 base(aggregator) {
+        }
+        
+        public virtual LevelSM StateProperty {
+            get {
+                return _StateProperty;
+            }
+            set {
+                _StateProperty = value;
+            }
+        }
+        
+        public virtual Invert.StateMachine.State State {
+            get {
+                return StateProperty.Value;
+            }
+            set {
+                StateProperty.Value = value;
+            }
         }
         
         public virtual P<LevelDescriptor> CurrentLevelProperty {
@@ -63,63 +80,38 @@ namespace uFrame.ExampleProject {
             }
         }
         
-        public virtual Signal<AddASpriteCommand> AddASprite {
-            get {
-                return _AddASprite;
-            }
-            set {
-                _AddASprite = value;
-            }
-        }
-        
-        public virtual Signal<LevelRootUnLoadAssetsCommand> LevelRootUnLoadAssets {
-            get {
-                return _LevelRootUnLoadAssets;
-            }
-            set {
-                _LevelRootUnLoadAssets = value;
-            }
-        }
-        
         public override void Bind() {
             base.Bind();
             this.FinishCurrentLevel = new Signal<FinishCurrentLevelCommand>(this);
-            this.AddASprite = new Signal<AddASpriteCommand>(this);
-            this.LevelRootUnLoadAssets = new Signal<LevelRootUnLoadAssetsCommand>(this);
             _CurrentLevelProperty = new P<LevelDescriptor>(this, "CurrentLevel");
+            _StateProperty = new LevelSM(this, "State");
         }
         
         public virtual void ExecuteFinishCurrentLevel() {
             this.FinishCurrentLevel.OnNext(new FinishCurrentLevelCommand());
         }
         
-        public virtual void ExecuteAddASprite() {
-            this.AddASprite.OnNext(new AddASpriteCommand());
-        }
-        
-        public virtual void ExecuteLevelRootUnLoadAssets() {
-            this.LevelRootUnLoadAssets.OnNext(new LevelRootUnLoadAssetsCommand());
-        }
-        
         public override void Read(ISerializerStream stream) {
             base.Read(stream);
+            this._StateProperty.SetState(stream.DeserializeString("State"));
         }
         
         public override void Write(ISerializerStream stream) {
             base.Write(stream);
+            stream.SerializeString("State", this.State.Name);;
         }
         
         protected override void FillCommands(System.Collections.Generic.List<uFrame.MVVM.ViewModelCommandInfo> list) {
             base.FillCommands(list);
             list.Add(new ViewModelCommandInfo("FinishCurrentLevel", FinishCurrentLevel) { ParameterType = typeof(void) });
-            list.Add(new ViewModelCommandInfo("AddASprite", AddASprite) { ParameterType = typeof(void) });
-            list.Add(new ViewModelCommandInfo("LevelRootUnLoadAssets", LevelRootUnLoadAssets) { ParameterType = typeof(void) });
         }
         
         protected override void FillProperties(System.Collections.Generic.List<uFrame.MVVM.ViewModelPropertyInfo> list) {
             base.FillProperties(list);
             // PropertiesChildItem
             list.Add(new ViewModelPropertyInfo(_CurrentLevelProperty, false, false, false, false));
+            // PropertiesChildItem
+            list.Add(new ViewModelPropertyInfo(_StateProperty, false, false, false, false));
         }
     }
     

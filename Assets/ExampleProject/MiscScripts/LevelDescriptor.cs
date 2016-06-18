@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using System;
 using System.Collections;
 
 /*
@@ -7,11 +8,12 @@ using System.Collections;
  * If you use another source of data, you can simply remove the monobeh inharitance.
  */
 //Remove monobehaviour inheritance to use LevelDescriptor outside of unity
+[Serializable]
 public class LevelDescriptor : MonoBehaviour
 {
-    public int Id;
-    public string Title;
-    public string Description;
-    public string LevelScene;
-    public bool IsLocked;
+	public int Id;
+	public string Title;
+	public string Description;
+	public string LevelScene;
+	public bool IsLocked;
 }

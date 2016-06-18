@@ -13,11 +13,12 @@ namespace uFrame.ExampleProject {
     using System.Collections;
     using System.Collections.Generic;
     using System.Linq;
-    using UniRx;
-    using uFrame.Serialization;
     using uFrame.Kernel;
-    using uFrame.IOC;
     using uFrame.MVVM;
+    using uFrame.Serialization;
+    using UniRx;
+    using uFrame.ExampleProject;
+    using uFrame.IOC;
     
     
     public class LevelRootControllerBase : uFrame.MVVM.Controller {
@@ -62,8 +63,6 @@ namespace uFrame.ExampleProject {
         public virtual void InitializeLevelRoot(LevelRootViewModel viewModel) {
             // This is called when a LevelRootViewModel is created
             viewModel.FinishCurrentLevel.Action = this.FinishCurrentLevelHandler;
-            viewModel.AddASprite.Action = this.AddASpriteHandler;
-            viewModel.LevelRootUnLoadAssets.Action = this.LevelRootUnLoadAssetsHandler;
             LevelRootViewModelManager.Add(viewModel);
         }
         
@@ -75,22 +74,8 @@ namespace uFrame.ExampleProject {
         public virtual void FinishCurrentLevel(LevelRootViewModel viewModel) {
         }
         
-        public virtual void AddASprite(LevelRootViewModel viewModel) {
-        }
-        
-        public virtual void LevelRootUnLoadAssets(LevelRootViewModel viewModel) {
-        }
-        
         public virtual void FinishCurrentLevelHandler(FinishCurrentLevelCommand command) {
             this.FinishCurrentLevel(command.Sender as LevelRootViewModel);
-        }
-        
-        public virtual void AddASpriteHandler(AddASpriteCommand command) {
-            this.AddASprite(command.Sender as LevelRootViewModel);
-        }
-        
-        public virtual void LevelRootUnLoadAssetsHandler(LevelRootUnLoadAssetsCommand command) {
-            this.LevelRootUnLoadAssets(command.Sender as LevelRootViewModel);
         }
     }
 }

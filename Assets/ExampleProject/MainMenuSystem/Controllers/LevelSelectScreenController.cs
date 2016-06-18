@@ -47,7 +47,7 @@ namespace uFrame.ExampleProject
 
             Publish(new LoadSceneCommand()
             {
-                SceneName = arg.LevelScene // Load level scene
+                SceneName = "LevelScene" // Load level scene
             });
 
 

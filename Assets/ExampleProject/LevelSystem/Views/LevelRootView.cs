@@ -19,61 +19,67 @@ namespace uFrame.ExampleProject
 		protected override void InitializeViewModel (uFrame.MVVM.ViewModel model)
 		{
 			base.InitializeViewModel (model);
-			// NOTE: this method is only invoked if the 'Initialize ViewModel' is checked in the inspector.
-			// var vm = model as LevelManagerViewModel;
-			// This method is invoked when applying the data from the inspector to the viewmodel.  Add any view-specific customizations here.
 		}
 
 		public override void Bind ()
 		{
 			base.Bind ();
-			// Use this.LevelManager to access the viewmodel.
-			// Use this method to subscribe to the view-model.
-			// Any designer bindings are created in the base implementation.
 		}
-
-		public bool assetReady = false;
 
 		public override void AfterBind ()
 		{
 			base.AfterBind ();
+		}
+
+		#region State Machine
+
+		public override void StateChanged (Invert.StateMachine.State arg1)
+		{
+			base.StateChanged (arg1);
+			Debug.Log ("LevelRoot State Changed: " + arg1.Name);
+		}
+
+		public override void OnLevel_Loading ()
+		{
+			base.OnLevel_Loading ();
+
 			StartCoroutine (LoadAllAssets ());
 		}
 
-		public override void AddASpriteExecuted (AddASpriteCommand command)
+		public override void OnLevel_AssetsStandby ()
 		{
-			if (assetReady == false) {
-				Debug.Log ("asset is not ready");
-				return;
-			}
-
-			if (assetsDic != null) {
-				GameObject.Instantiate (assetsDic ["sample_go_sprite"]);
-			}
+			base.OnLevel_AssetsStandby ();
 		}
 
-		public override void LevelRootUnLoadAssetsExecuted (LevelRootUnLoadAssetsCommand command)
+		public override void OnLevel_Closing ()
 		{
-			base.LevelRootUnLoadAssetsExecuted (command);
+			base.OnLevel_Closing ();
 
+			assetsDic = null;
 			AssetBundleManager.UnloadAssetBundle ("_prefabs");
+
+			Publish (new UnloadSceneCommand () {
+				SceneName = "LevelScene"
+			});
+
+			Resources.UnloadUnusedAssets ();
+
+			LevelRoot.StateProperty.Level_Reset.OnNext (true);
+
+			Publish (new LoadSceneCommand () {
+				SceneName = "MainMenuScene"
+			});
 		}
+
+		#endregion
+
 
 		public Dictionary<string, GameObject> assetsDic;
 
 		IEnumerator LoadAllAssets ()
 		{
-			// Load asset from assetBundle.
-//			AssetBundleLoadAssetOperation request = AssetBundleManager.LoadAssetAsync ("_prefabs", "DummyAssetName", typeof(GameObject));
-//			if (request == null)
-//				yield break;
-//			yield return StartCoroutine (request);
-
 			yield return StartCoroutine (InstantiateGameObjectAsync ("prefabs", "sample_go_sprite"));
-			assetReady = true;
-			Debug.Log ("asset is ready");
-
-			LevelRoot.ExecuteAddASprite ();
+			LevelRoot.StateProperty.Level_LoadingFinished.OnNext (true);
 		}
 
 		protected IEnumerator InstantiateGameObjectAsync (string assetBundleName, string assetName)
