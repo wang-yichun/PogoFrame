@@ -46,9 +46,13 @@
 
 			EditorGUILayout.BeginVertical ();
 			reorderableTargetPaths.DoLayoutList ();
-			EditorGUILayout.EndVertical ();
 
 			EditorGUILayout.Space ();
+
+			var _useStreamingAssets = serializedObject.FindProperty ("useStreamingAssets");
+			_useStreamingAssets.boolValue = EditorGUILayout.ToggleLeft ("use StreamingAssets", _useStreamingAssets.boolValue);
+
+			EditorGUILayout.EndVertical ();
 
 			if (GUI.changed) {
 				serializedObject.ApplyModifiedProperties ();

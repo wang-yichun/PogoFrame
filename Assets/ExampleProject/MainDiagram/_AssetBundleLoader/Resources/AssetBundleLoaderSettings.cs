@@ -46,6 +46,8 @@
 		public List<AssetBundleLoaderTargetPath> targetPaths;
 
 		public int actionCount;
+
+		public bool useStreamingAssets;
 	}
 
 	[System.Serializable]

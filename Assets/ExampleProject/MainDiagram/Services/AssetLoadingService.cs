@@ -9,6 +9,7 @@ using UnityEngine;
 using uFrame.MVVM;
 using pogorock;
 using AssetBundles;
+using pogorock;
 
 namespace uFrame.ExampleProject
 {
@@ -74,37 +75,47 @@ namespace uFrame.ExampleProject
 			// Don't destroy this gameObject as we depend on it to run the loading script.
 			DontDestroyOnLoad (gameObject);
 
+
+//			Caching.CleanCache ();
+
 			// With this code, when in-editor or using a development builds: Always use the AssetBundle Server
 			// (This is very dependent on the production workflow of the project. 
 			// 	Another approach would be to make this configurable in the standalone player.)
-			#if DEVELOPMENT_BUILD || UNITY_EDITOR
-			AssetBundleManager.SetDevelopmentAssetBundleServer ();
+			#if UNITY_EDITOR
+
+			if (AssetBundleLoaderSettings.Instance.useStreamingAssets) {
+				// 在编辑器下使用
+				AssetBundleManager.SetSourceAssetBundleURL ("file://" + Application.dataPath + "/StreamingAssets/");
+			} else {
+				AssetBundleManager.SetDevelopmentAssetBundleServer ();
+			}
+
+			#elif DEVELOPMENT_BUILD
+				AssetBundleManager.SetDevelopmentAssetBundleServer ();
 			#else
 			// Use the following code if AssetBundles are embedded in the project for example via StreamingAssets folder etc:
 			// AssetBundleManager.SetSourceAssetBundleURL(Application.dataPath + "/");
 			// Or customize the URL based on your deployment or configuration
 			// AssetBundleManager.SetSourceAssetBundleURL("http://www.MyWebsite/MyAssetBundles");
 
+			AssetBundleManager.SetSourceAssetBundleDirectory ("/" + Utility.GetPlatformName () + "/");
+
 			#endif
 
-			/*
-			string url = 
-				
-			#if UNITY_ANDROID
-				"jar:file://" + Application.dataPath + "!/assets";
-			#elif UNITY_IOS
-				"file://" + Application.dataPath + "/Raw";
-			#elif UNITY_STANDALONE_WIN || UNITY_EDITOR
-				"file://" + Application.dataPath + "/StreamingAssets";
-			#else
-				string.Empty;
-			#endif
 
-			AssetBundleManager.SetSourceAssetBundleURL (url + "/");
-
-			*/
-
-//			AssetBundleManager.SetSourceAssetBundleDirectory ("/Android/");
+//			string url = 
+//				
+//			#if UNITY_ANDROID
+//				"jar:file://" + Application.dataPath + "!/assets";
+//			#elif UNITY_IOS
+//				"file://" + Application.dataPath + "/Raw";
+//			#elif UNITY_STANDALONE_WIN || UNITY_EDITOR
+//				"file://" + Application.dataPath + "/StreamingAssets";
+//			#else
+//				string.Empty;
+//			#endif
+//
+//			AssetBundleManager.SetSourceAssetBundleURL (url + "/");
 
 			Debug.Log ("AssetBundleManager BaseDownlingURL: " + AssetBundleManager.BaseDownloadingURL);
 				
