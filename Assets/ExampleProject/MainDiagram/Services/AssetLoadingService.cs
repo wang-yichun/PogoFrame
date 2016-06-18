@@ -81,11 +81,33 @@ namespace uFrame.ExampleProject
 			AssetBundleManager.SetDevelopmentAssetBundleServer ();
 			#else
 			// Use the following code if AssetBundles are embedded in the project for example via StreamingAssets folder etc:
-			AssetBundleManager.SetSourceAssetBundleURL(Application.dataPath + "/");
+			// AssetBundleManager.SetSourceAssetBundleURL(Application.dataPath + "/");
 			// Or customize the URL based on your deployment or configuration
-			//AssetBundleManager.SetSourceAssetBundleURL("http://www.MyWebsite/MyAssetBundles");
+			// AssetBundleManager.SetSourceAssetBundleURL("http://www.MyWebsite/MyAssetBundles");
+
 			#endif
 
+			/*
+			string url = 
+				
+			#if UNITY_ANDROID
+				"jar:file://" + Application.dataPath + "!/assets";
+			#elif UNITY_IOS
+				"file://" + Application.dataPath + "/Raw";
+			#elif UNITY_STANDALONE_WIN || UNITY_EDITOR
+				"file://" + Application.dataPath + "/StreamingAssets";
+			#else
+				string.Empty;
+			#endif
+
+			AssetBundleManager.SetSourceAssetBundleURL (url + "/");
+
+			*/
+
+			AssetBundleManager.SetSourceAssetBundleDirectory ("/Android/");
+
+			Debug.Log ("AssetBundleManager BaseDownlingURL: " + AssetBundleManager.BaseDownloadingURL);
+				
 			// Initialize AssetBundleManifest which loads the AssetBundleManifest object.
 			var request = AssetBundleManager.Initialize ();
 			if (request != null)

@@ -1,0 +1,57 @@
+ManifestFileVersion: 0
+CRC: 75325777
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 89cd0181e0edac70c42458363f564036
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 9dea23ffc7e96552740e12d1ee5309d8
+HashAppended: 0
+ClassTypes:
+- Class: 28
+  Script: {instanceID: 0}
+- Class: 213
+  Script: {instanceID: 0}
+Assets:
+- Assets/OriginAssets/_Textures/pretty_animals/25.png
+- Assets/OriginAssets/_Textures/pretty_animals/21.png
+- Assets/OriginAssets/_Textures/pretty_animals/30.png
+- Assets/OriginAssets/_Textures/pretty_animals/22.png
+- Assets/OriginAssets/_Textures/pretty_animals/1.png
+- Assets/OriginAssets/_Textures/pretty_animals/38.png
+- Assets/OriginAssets/_Textures/pretty_animals/23.png
+- Assets/OriginAssets/_Textures/pretty_animals/14.png
+- Assets/OriginAssets/_Textures/pretty_animals/12.png
+- Assets/OriginAssets/_Textures/pretty_animals/20.png
+- Assets/OriginAssets/_Textures/pretty_animals/9.png
+- Assets/OriginAssets/_Textures/pretty_animals/39.png
+- Assets/OriginAssets/_Textures/pretty_animals/29.png
+- Assets/OriginAssets/_Textures/pretty_animals/28.png
+- Assets/OriginAssets/_Textures/pretty_animals/31.png
+- Assets/OriginAssets/_Textures/pretty_animals/24.png
+- Assets/OriginAssets/_Textures/pretty_animals/27.png
+- Assets/OriginAssets/_Textures/pretty_animals/4.png
+- Assets/OriginAssets/_Textures/pretty_animals/8.png
+- Assets/OriginAssets/_Textures/pretty_animals/16.png
+- Assets/OriginAssets/_Textures/pretty_animals/36.png
+- Assets/OriginAssets/_Textures/pretty_animals/7.png
+- Assets/OriginAssets/_Textures/pretty_animals/11.png
+- Assets/OriginAssets/_Textures/pretty_animals/10.png
+- Assets/OriginAssets/_Textures/pretty_animals/35.png
+- Assets/OriginAssets/_Textures/pretty_animals/26.png
+- Assets/OriginAssets/_Textures/pretty_animals/34.png
+- Assets/OriginAssets/_Textures/pretty_animals/37.png
+- Assets/OriginAssets/_Textures/pretty_animals/33.png
+- Assets/OriginAssets/_Textures/pretty_animals/2.png
+- Assets/OriginAssets/_Textures/pretty_animals/3.png
+- Assets/OriginAssets/_Textures/pretty_animals/15.png
+- Assets/OriginAssets/_Textures/pretty_animals/18.png
+- Assets/OriginAssets/_Textures/pretty_animals/5.png
+- Assets/OriginAssets/_Textures/pretty_animals/17.png
+- Assets/OriginAssets/_Textures/pretty_animals/19.png
+- Assets/OriginAssets/_Textures/pretty_animals/32.png
+- Assets/OriginAssets/_Textures/pretty_animals/0.png
+- Assets/OriginAssets/_Textures/pretty_animals/6.png
+- Assets/OriginAssets/_Textures/pretty_animals/13.png
+Dependencies: []

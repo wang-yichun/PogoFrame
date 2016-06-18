@@ -292,6 +292,8 @@ namespace AssetBundles
 		// Where we actuall call WWW to download the assetBundle.
 		static protected bool LoadAssetBundleInternal (string assetBundleName, bool isLoadingAssetBundleManifest)
 		{
+			Debug.Log ("assetBundleName: " + assetBundleName);
+
 			// Already loaded.
 			LoadedAssetBundle bundle = null;
 			m_LoadedAssetBundles.TryGetValue(assetBundleName, out bundle);
@@ -309,7 +311,9 @@ namespace AssetBundles
 	
 			WWW download = null;
 			string url = m_BaseDownloadingURL + assetBundleName;
-		
+
+			Debug.Log ("assetBundleName: " + assetBundleName + " url: " + url);
+
 			// For manifest assetbundle, always download it as we don't have hash for it.
 			if (isLoadingAssetBundleManifest)
 				download = new WWW(url);

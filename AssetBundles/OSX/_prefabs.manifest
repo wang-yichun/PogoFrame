@@ -1,0 +1,27 @@
+ManifestFileVersion: 0
+CRC: 240804418
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: fb73fbd6928aba1211d2308906653c60
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 59115a64cf1835f9b870e5b819903277
+HashAppended: 0
+ClassTypes:
+- Class: 1
+  Script: {instanceID: 0}
+- Class: 4
+  Script: {instanceID: 0}
+- Class: 21
+  Script: {instanceID: 0}
+- Class: 48
+  Script: {instanceID: 0}
+- Class: 212
+  Script: {instanceID: 0}
+- Class: 213
+  Script: {instanceID: 0}
+Assets:
+- Assets/OriginAssets/_Prefabs/sample_go_sprite.prefab
+Dependencies:
+- AssetBundles/OSX/_textures/pretty_animals

@@ -66,6 +66,8 @@ namespace uFrame.ExampleProject
 			yield return StartCoroutine (InstantiateGameObjectAsync ("_prefabs", "sample_go_sprite"));
 			assetReady = true;
 			Debug.Log ("asset is ready");
+
+			LevelRoot.ExecuteAddASprite ();
 		}
 
 		protected IEnumerator InstantiateGameObjectAsync (string assetBundleName, string assetName)
