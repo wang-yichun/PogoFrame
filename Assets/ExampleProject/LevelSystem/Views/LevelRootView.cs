@@ -16,6 +16,8 @@ namespace uFrame.ExampleProject
 	public class LevelRootView : LevelRootViewBase
 	{
 
+		public Transform LevelContainer;
+
 		protected override void InitializeViewModel (uFrame.MVVM.ViewModel model)
 		{
 			base.InitializeViewModel (model);
@@ -49,6 +51,9 @@ namespace uFrame.ExampleProject
 		public override void OnLevel_AssetsStandby ()
 		{
 			base.OnLevel_AssetsStandby ();
+
+			GameObject go = Instantiate<GameObject> (assetsDic ["L001"]);
+			go.transform.SetParent (LevelContainer);
 		}
 
 		public override void OnLevel_Closing ()
@@ -78,7 +83,7 @@ namespace uFrame.ExampleProject
 
 		IEnumerator LoadAllAssets ()
 		{
-			yield return StartCoroutine (InstantiateGameObjectAsync ("prefabs", "sample_go_sprite"));
+			yield return StartCoroutine (InstantiateGameObjectAsync ("ingame", "L001"));
 			LevelRoot.StateProperty.Level_LoadingFinished.OnNext (true);
 		}
 

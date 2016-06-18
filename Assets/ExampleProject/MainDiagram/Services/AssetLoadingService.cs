@@ -102,9 +102,6 @@ namespace uFrame.ExampleProject
 
 			#endif
 
-
-			AssetBundleManager.SetSourceAssetBundleDirectory ("/" + Utility.GetPlatformName () + "/");
-
 //			string url = 
 //				
 //			#if UNITY_ANDROID

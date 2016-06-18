@@ -1,0 +1,83 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1ca4c4e8137725b488810621cda6cf42, type: 3}
+  m_Name: CircleStyle
+  m_EditorClassIdentifier: 
+  outline: 1
+  outlineColor1:
+    r: 0
+    g: 0.45230156
+    b: 0.60447764
+    a: 1
+  outlineColor2:
+    r: 0
+    g: 0
+    b: 0
+    a: 1
+  outlineGradient: 0
+  outlineNormalOffset: 0
+  corners: 0
+  fill: 1
+  fillColor1:
+    r: 0.6567164
+    g: 0.16172865
+    b: 0.58748734
+    a: 1
+  fillColor2:
+    r: 0.2806861
+    g: 0.57257676
+    b: 0.7835821
+    a: 1
+  landscapeBottomDepth: 0
+  landscapeOutlineAlign: 0
+  UVMapping1: 0
+  UVMapping2: 0
+  gradientOffset: {x: 5.9639907, y: -8.389431}
+  gradientAngle: 15.398262
+  gradientScale: 0.04404397
+  textureOffset: {x: -5, y: -5}
+  textureAngle: 0
+  textureScale: 0.1
+  textureOffset2: {x: 5, y: 5}
+  textureAngle2: 0
+  textureScale2: 0.1
+  emboss: 0
+  embossColor1:
+    r: 1
+    g: 1
+    b: 1
+    a: 1
+  embossColor2:
+    r: 0
+    g: 0
+    b: 0
+    a: 1
+  embossAngle: 180
+  embossOffset: 0.1
+  embossSize: 10
+  embossCurveSmoothness: 1
+  physics: 0
+  createPhysicsInEditor: 1
+  physicsMaterial: {fileID: 0}
+  vertexCount: 28
+  physicsColliderCount: 16
+  colliderZDepth: 100
+  colliderNormalOffset: 0
+  boxColliderDepth: 1
+  createConvexMeshCollider: 0
+  antiAliasingWidth: 0.51
+  outlineWidth: 0.1
+  optimize: 0
+  optimizeAngle: 5
+  outlineTexturingScale: 10
+--- !u!1002 &11400001
+EditorExtensionImpl:
+  serializedVersion: 6
