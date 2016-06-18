@@ -23,6 +23,17 @@ namespace AssetBundles
 			//@TODO: use append hash... (Make sure pipeline works correctly with it.)
 			BuildPipeline.BuildAssetBundles (outputPath, BuildAssetBundleOptions.None, EditorUserBuildSettings.activeBuildTarget);
 		}
+
+		public static void BuildAssetBundles_StreamingAssets()
+		{
+			// Choose the output path according to the build target.
+			string outputPath = Path.Combine("Assets/StreamingAssets",  Utility.GetPlatformName());
+			if (!Directory.Exists(outputPath) )
+				Directory.CreateDirectory (outputPath);
+
+			//@TODO: use append hash... (Make sure pipeline works correctly with it.)
+			BuildPipeline.BuildAssetBundles (outputPath, BuildAssetBundleOptions.None, EditorUserBuildSettings.activeBuildTarget);
+		}
 	
 		public static void WriteServerURL()
 		{

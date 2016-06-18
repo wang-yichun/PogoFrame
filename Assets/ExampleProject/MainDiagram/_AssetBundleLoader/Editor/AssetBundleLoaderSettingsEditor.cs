@@ -3,6 +3,8 @@
 	using UnityEngine;
 	using UnityEditor;
 	using UnityEditorInternal;
+	using AssetBundles;
+	using System.IO;
 
 	[CustomEditor (typeof(AssetBundleLoaderSettings))]
 	public class AssetBundleSettingsEditor : Editor
@@ -52,12 +54,28 @@
 			var _useStreamingAssets = serializedObject.FindProperty ("useStreamingAssets");
 			_useStreamingAssets.boolValue = EditorGUILayout.ToggleLeft ("use StreamingAssets", _useStreamingAssets.boolValue);
 
+			if (GUILayout.Button ("在 Assets/StreamingAssets 生成AssetBundles")) {
+				BuildAssetBundles ();
+			}
+
 			EditorGUILayout.EndVertical ();
 
 			if (GUI.changed) {
 				serializedObject.ApplyModifiedProperties ();
 				EditorUtility.SetDirty (target);
 			}
+		}
+
+		public static void BuildAssetBundles ()
+		{
+			string path = "Assets/StreamingAssets";	
+			// Choose the output path according to the build target.
+			string outputPath = Path.Combine (path, Utility.GetPlatformName ());
+			if (!Directory.Exists (outputPath))
+				Directory.CreateDirectory (outputPath);
+
+			//@TODO: use append hash... (Make sure pipeline works correctly with it.)
+			BuildPipeline.BuildAssetBundles (outputPath, BuildAssetBundleOptions.None, EditorUserBuildSettings.activeBuildTarget);
 		}
 	}
 }

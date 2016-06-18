@@ -21,10 +21,16 @@ namespace AssetBundles
 			return true;
 		}
 		
-		[MenuItem ("Assets/AssetBundles/Build AssetBundles")]
+		[MenuItem ("Assets/AssetBundles/Build AssetBundles/ to AssetBundles")]
 		static public void BuildAssetBundles ()
 		{
 			BuildScript.BuildAssetBundles();
+		}
+
+		[MenuItem ("Assets/AssetBundles/Build AssetBundles/ to Assets:StreamingAssets #&b")]
+		static public void BuildAssetBundles_StreamingAssets ()
+		{
+			BuildScript.BuildAssetBundles_StreamingAssets();
 		}
 	}
 }
