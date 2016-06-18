@@ -63,6 +63,12 @@ namespace uFrame.ExampleProject
 
 		IEnumerator LoadAllAssets ()
 		{
+			// Load asset from assetBundle.
+//			AssetBundleLoadAssetOperation request = AssetBundleManager.LoadAssetAsync ("_prefabs", "DummyAssetName", typeof(GameObject));
+//			if (request == null)
+//				yield break;
+//			yield return StartCoroutine (request);
+
 			yield return StartCoroutine (InstantiateGameObjectAsync ("_prefabs", "sample_go_sprite"));
 			assetReady = true;
 			Debug.Log ("asset is ready");

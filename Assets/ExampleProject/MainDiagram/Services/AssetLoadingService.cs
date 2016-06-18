@@ -104,7 +104,7 @@ namespace uFrame.ExampleProject
 
 			*/
 
-			AssetBundleManager.SetSourceAssetBundleDirectory ("/Android/");
+//			AssetBundleManager.SetSourceAssetBundleDirectory ("/Android/");
 
 			Debug.Log ("AssetBundleManager BaseDownlingURL: " + AssetBundleManager.BaseDownloadingURL);
 				
