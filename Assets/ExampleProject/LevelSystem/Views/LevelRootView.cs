@@ -69,7 +69,7 @@ namespace uFrame.ExampleProject
 //				yield break;
 //			yield return StartCoroutine (request);
 
-			yield return StartCoroutine (InstantiateGameObjectAsync ("_prefabs", "sample_go_sprite"));
+			yield return StartCoroutine (InstantiateGameObjectAsync ("prefabs", "sample_go_sprite"));
 			assetReady = true;
 			Debug.Log ("asset is ready");
 

@@ -76,7 +76,7 @@ namespace uFrame.ExampleProject
 			DontDestroyOnLoad (gameObject);
 
 
-//			Caching.CleanCache ();
+			Caching.CleanCache ();
 
 			// With this code, when in-editor or using a development builds: Always use the AssetBundle Server
 			// (This is very dependent on the production workflow of the project. 
@@ -102,6 +102,8 @@ namespace uFrame.ExampleProject
 
 			#endif
 
+
+			AssetBundleManager.SetSourceAssetBundleDirectory ("/" + Utility.GetPlatformName () + "/");
 
 //			string url = 
 //				

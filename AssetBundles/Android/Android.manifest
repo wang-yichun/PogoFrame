@@ -2,9 +2,9 @@ ManifestFileVersion: 0
 AssetBundleManifest:
   AssetBundleInfos:
     Info_0:
-      Name: _prefabs
-      Dependencies:
-        Dependency_0: _textures/pretty_animals
-    Info_1:
-      Name: _textures/pretty_animals
+      Name: prettyanimals
       Dependencies: {}
+    Info_1:
+      Name: prefabs
+      Dependencies:
+        Dependency_0: prettyanimals
