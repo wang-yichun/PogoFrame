@@ -45,13 +45,10 @@ sysinfo.txt
 /AEXiOSProj
 /AEXAndroidProj
 /AEXAndroidProj.*
-/CodePatch
-/rec_files
 /Builds
 Thumbs.db.meta
-/Assets/Resources/LogSystem/log_system_private.json
-/Assets/Resources/LogSystem/log_system_private.json.meta
-/LogFiles
+
+/AssetBundles
 
 # ================= #
 # Excel generated   #
