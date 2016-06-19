@@ -29,7 +29,9 @@ namespace uFrame.ExampleProject {
         
         private P<LevelDescriptor> _CurrentLevelProperty;
         
-        private Signal<FinishCurrentLevelCommand> _FinishCurrentLevel;
+        private Signal<LevelCloseCommand> _LevelClose;
+        
+        private Signal<LevelHotReloadCommand> _LevelHotReload;
         
         public LevelRootViewModelBase(uFrame.Kernel.IEventAggregator aggregator) : 
                 base(aggregator) {
@@ -71,24 +73,40 @@ namespace uFrame.ExampleProject {
             }
         }
         
-        public virtual Signal<FinishCurrentLevelCommand> FinishCurrentLevel {
+        public virtual Signal<LevelCloseCommand> LevelClose {
             get {
-                return _FinishCurrentLevel;
+                return _LevelClose;
             }
             set {
-                _FinishCurrentLevel = value;
+                _LevelClose = value;
+            }
+        }
+        
+        public virtual Signal<LevelHotReloadCommand> LevelHotReload {
+            get {
+                return _LevelHotReload;
+            }
+            set {
+                _LevelHotReload = value;
             }
         }
         
         public override void Bind() {
             base.Bind();
-            this.FinishCurrentLevel = new Signal<FinishCurrentLevelCommand>(this);
+            this.LevelClose = new Signal<LevelCloseCommand>(this);
+            this.LevelHotReload = new Signal<LevelHotReloadCommand>(this);
             _CurrentLevelProperty = new P<LevelDescriptor>(this, "CurrentLevel");
             _StateProperty = new LevelSM(this, "State");
+            LevelClose.Subscribe(_ => StateProperty.Level_Close.OnNext(true));
+            LevelHotReload.Subscribe(_ => StateProperty.Level_HotReload.OnNext(true));
         }
         
-        public virtual void ExecuteFinishCurrentLevel() {
-            this.FinishCurrentLevel.OnNext(new FinishCurrentLevelCommand());
+        public virtual void ExecuteLevelClose() {
+            this.LevelClose.OnNext(new LevelCloseCommand());
+        }
+        
+        public virtual void ExecuteLevelHotReload() {
+            this.LevelHotReload.OnNext(new LevelHotReloadCommand());
         }
         
         public override void Read(ISerializerStream stream) {
@@ -103,7 +121,8 @@ namespace uFrame.ExampleProject {
         
         protected override void FillCommands(System.Collections.Generic.List<uFrame.MVVM.ViewModelCommandInfo> list) {
             base.FillCommands(list);
-            list.Add(new ViewModelCommandInfo("FinishCurrentLevel", FinishCurrentLevel) { ParameterType = typeof(void) });
+            list.Add(new ViewModelCommandInfo("LevelClose", LevelClose) { ParameterType = typeof(void) });
+            list.Add(new ViewModelCommandInfo("LevelHotReload", LevelHotReload) { ParameterType = typeof(void) });
         }
         
         protected override void FillProperties(System.Collections.Generic.List<uFrame.MVVM.ViewModelPropertyInfo> list) {

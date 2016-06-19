@@ -44,6 +44,12 @@ namespace AssetBundles
 		static string m_BaseDownloadingURL = "";
 		static string[] m_ActiveVariants =  {  };
 		static AssetBundleManifest m_AssetBundleManifest = null;
+
+		static public bool InitReady {
+			get {
+				return m_AssetBundleManifest != null;
+			}
+		}
 	#if UNITY_EDITOR	
 		static int m_SimulateAssetBundleInEditor = -1;
 		const string kSimulateAssetBundles = "SimulateAssetBundles";
@@ -202,8 +208,11 @@ namespace AssetBundles
 			Log (LogType.Info, "Simulation Mode: " + (SimulateAssetBundleInEditor ? "Enabled" : "Disabled"));
 	#endif
 	
-			var go = new GameObject("AssetBundleManager", typeof(AssetBundleManager));
-			DontDestroyOnLoad(go);
+			GameObject go = GameObject.Find ("AssetBundleManager");
+			if (go == null) {
+				go = new GameObject ("AssetBundleManager", typeof(AssetBundleManager));
+				DontDestroyOnLoad (go);
+			}
 		
 	#if UNITY_EDITOR	
 			// If we're in Editor simulation mode, we don't need the manifest assetBundle.

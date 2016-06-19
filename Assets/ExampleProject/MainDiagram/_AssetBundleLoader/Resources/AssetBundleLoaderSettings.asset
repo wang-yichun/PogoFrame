@@ -15,4 +15,4 @@ MonoBehaviour:
   - targetPath: 
     enable: 0
   actionCount: 0
-  useStreamingAssets: 1
+  useStreamingAssets: 0

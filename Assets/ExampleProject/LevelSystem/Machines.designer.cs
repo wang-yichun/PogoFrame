@@ -20,15 +20,19 @@ namespace uFrame.ExampleProject {
         
         private Invert.StateMachine.StateMachineTrigger _Level_LoadingFinished;
         
+        private Invert.StateMachine.StateMachineTrigger _Level_Reset;
+        
         private Invert.StateMachine.StateMachineTrigger _Level_Close;
         
-        private Invert.StateMachine.StateMachineTrigger _Level_Reset;
+        private Invert.StateMachine.StateMachineTrigger _Level_HotReload;
         
         private Level_Loading _Level_Loading;
         
         private Level_AssetsStandby _Level_AssetsStandby;
         
         private Level_Closing _Level_Closing;
+        
+        private Level_Reloading _Level_Reloading;
         
         public LevelSM(uFrame.MVVM.ViewModel vm, string propertyName) : 
                 base(vm, propertyName) {
@@ -56,6 +60,18 @@ namespace uFrame.ExampleProject {
             }
         }
         
+        public virtual Invert.StateMachine.StateMachineTrigger Level_Reset {
+            get {
+                if (this._Level_Reset == null) {
+                    this._Level_Reset = new StateMachineTrigger(this , "Level_Reset");
+                }
+                return _Level_Reset;
+            }
+            set {
+                _Level_Reset = value;
+            }
+        }
+        
         public virtual Invert.StateMachine.StateMachineTrigger Level_Close {
             get {
                 if (this._Level_Close == null) {
@@ -68,15 +84,15 @@ namespace uFrame.ExampleProject {
             }
         }
         
-        public virtual Invert.StateMachine.StateMachineTrigger Level_Reset {
+        public virtual Invert.StateMachine.StateMachineTrigger Level_HotReload {
             get {
-                if (this._Level_Reset == null) {
-                    this._Level_Reset = new StateMachineTrigger(this , "Level_Reset");
+                if (this._Level_HotReload == null) {
+                    this._Level_HotReload = new StateMachineTrigger(this , "Level_HotReload");
                 }
-                return _Level_Reset;
+                return _Level_HotReload;
             }
             set {
-                _Level_Reset = value;
+                _Level_HotReload = value;
             }
         }
         
@@ -116,6 +132,18 @@ namespace uFrame.ExampleProject {
             }
         }
         
+        public virtual Level_Reloading Level_Reloading {
+            get {
+                if (this._Level_Reloading == null) {
+                    this._Level_Reloading = new Level_Reloading();
+                }
+                return _Level_Reloading;
+            }
+            set {
+                _Level_Reloading = value;
+            }
+        }
+        
         public override void Compose(System.Collections.Generic.List<Invert.StateMachine.State> states) {
             base.Compose(states);
             Level_Loading.Level_LoadingFinished = new StateTransition("Level_LoadingFinished", Level_Loading, Level_AssetsStandby);
@@ -125,7 +153,10 @@ namespace uFrame.ExampleProject {
             states.Add(Level_Loading);
             Level_AssetsStandby.Level_Close = new StateTransition("Level_Close", Level_AssetsStandby, Level_Closing);
             Transitions.Add(Level_AssetsStandby.Level_Close);
+            Level_AssetsStandby.Level_HotReload = new StateTransition("Level_HotReload", Level_AssetsStandby, Level_Reloading);
+            Transitions.Add(Level_AssetsStandby.Level_HotReload);
             Level_AssetsStandby.AddTrigger(Level_Close, Level_AssetsStandby.Level_Close);
+            Level_AssetsStandby.AddTrigger(Level_HotReload, Level_AssetsStandby.Level_HotReload);
             Level_AssetsStandby.StateMachine = this;
             states.Add(Level_AssetsStandby);
             Level_Closing.Level_Reset = new StateTransition("Level_Reset", Level_Closing, Level_Loading);
@@ -133,6 +164,11 @@ namespace uFrame.ExampleProject {
             Level_Closing.AddTrigger(Level_Reset, Level_Closing.Level_Reset);
             Level_Closing.StateMachine = this;
             states.Add(Level_Closing);
+            Level_Reloading.Level_LoadingFinished = new StateTransition("Level_LoadingFinished", Level_Reloading, Level_AssetsStandby);
+            Transitions.Add(Level_Reloading.Level_LoadingFinished);
+            Level_Reloading.AddTrigger(Level_LoadingFinished, Level_Reloading.Level_LoadingFinished);
+            Level_Reloading.StateMachine = this;
+            states.Add(Level_Reloading);
         }
     }
     
@@ -164,12 +200,23 @@ namespace uFrame.ExampleProject {
         
         private Invert.StateMachine.StateTransition _Level_Close;
         
+        private Invert.StateMachine.StateTransition _Level_HotReload;
+        
         public Invert.StateMachine.StateTransition Level_Close {
             get {
                 return _Level_Close;
             }
             set {
                 _Level_Close = value;
+            }
+        }
+        
+        public Invert.StateMachine.StateTransition Level_HotReload {
+            get {
+                return _Level_HotReload;
+            }
+            set {
+                _Level_HotReload = value;
             }
         }
         
@@ -181,6 +228,10 @@ namespace uFrame.ExampleProject {
         
         public virtual void Level_CloseTransition() {
             this.Transition(this.Level_Close);
+        }
+        
+        public virtual void Level_HotReloadTransition() {
+            this.Transition(this.Level_HotReload);
         }
     }
     
@@ -205,6 +256,30 @@ namespace uFrame.ExampleProject {
         
         public virtual void Level_ResetTransition() {
             this.Transition(this.Level_Reset);
+        }
+    }
+    
+    public class Level_Reloading : Invert.StateMachine.State {
+        
+        private Invert.StateMachine.StateTransition _Level_LoadingFinished;
+        
+        public Invert.StateMachine.StateTransition Level_LoadingFinished {
+            get {
+                return _Level_LoadingFinished;
+            }
+            set {
+                _Level_LoadingFinished = value;
+            }
+        }
+        
+        public override string Name {
+            get {
+                return "Level_Reloading";
+            }
+        }
+        
+        public virtual void Level_LoadingFinishedTransition() {
+            this.Transition(this.Level_LoadingFinished);
         }
     }
 }

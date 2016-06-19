@@ -14,8 +14,8 @@ namespace uFrame.ExampleProject {
     using System.Collections.Generic;
     using System.Linq;
     using uFrame.MVVM;
-    using UniRx;
     using UnityEngine;
+    using UniRx;
     using uFrame.IOC;
     using uFrame.Kernel;
     

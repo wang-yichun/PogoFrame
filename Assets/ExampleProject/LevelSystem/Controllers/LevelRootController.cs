@@ -18,11 +18,14 @@ namespace uFrame.ExampleProject
 			base.InitializeLevelRoot (viewModel);
 		}
 
-		public override void FinishCurrentLevel (LevelRootViewModel viewModel)
+		public override void LevelClose (LevelRootViewModel viewModel)
 		{
-			base.FinishCurrentLevel (viewModel);
+			base.LevelClose (viewModel);
+		}
 
-			viewModel.StateProperty.Level_Close.OnNext (true);
+		public override void LevelHotReload (LevelRootViewModel viewModel)
+		{
+			base.LevelHotReload (viewModel);
 		}
 	}
 }

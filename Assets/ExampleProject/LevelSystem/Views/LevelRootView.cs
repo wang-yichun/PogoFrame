@@ -10,12 +10,12 @@ using uFrame.Serialization;
 using UniRx;
 using UnityEngine;
 using AssetBundles;
+using Unity.Linq;
 
 namespace uFrame.ExampleProject
 {
 	public class LevelRootView : LevelRootViewBase
 	{
-
 		public Transform LevelContainer;
 
 		protected override void InitializeViewModel (uFrame.MVVM.ViewModel model)
@@ -52,8 +52,11 @@ namespace uFrame.ExampleProject
 		{
 			base.OnLevel_AssetsStandby ();
 
-			GameObject go = Instantiate<GameObject> (assetsDic ["L001"]);
-			go.transform.SetParent (LevelContainer);
+			if (LevelContainer.childCount == 0) {
+				GameObject go = Instantiate<GameObject> (assetsDic ["L001"]);
+				go.name = "L000";
+				go.transform.SetParent (LevelContainer);
+			}
 		}
 
 		public override void OnLevel_Closing ()
@@ -61,7 +64,7 @@ namespace uFrame.ExampleProject
 			base.OnLevel_Closing ();
 
 			assetsDic = null;
-			AssetBundleManager.UnloadAssetBundle ("_prefabs");
+			AssetBundleManager.UnloadAssetBundle ("ingame");
 
 			Publish (new UnloadSceneCommand () {
 				SceneName = "LevelScene"
@@ -76,6 +79,13 @@ namespace uFrame.ExampleProject
 			});
 		}
 
+		public override void OnLevel_Reloading ()
+		{
+			base.OnLevel_Reloading ();
+
+			StartCoroutine (LoadAllAssets_HotReload ());
+		}
+
 		#endregion
 
 
@@ -83,6 +93,26 @@ namespace uFrame.ExampleProject
 
 		IEnumerator LoadAllAssets ()
 		{
+			if (AssetBundleManager.InitReady == false) {
+				yield return StartCoroutine (AssetLoadingService.Instance.Initialize ());
+			}
+
+			yield return StartCoroutine (InstantiateGameObjectAsync ("ingame", "L001"));
+			LevelRoot.StateProperty.Level_LoadingFinished.OnNext (true);
+		}
+
+		IEnumerator LoadAllAssets_HotReload ()
+		{
+			LevelContainer.gameObject.Children ().Destroy ();
+
+			if (AssetBundleManager.InitReady == false) {
+				yield return StartCoroutine (AssetLoadingService.Instance.Initialize ());
+			}
+
+			assetsDic = null;
+			AssetBundleManager.UnloadAssetBundle ("ingame");
+			Caching.CleanCache ();
+
 			yield return StartCoroutine (InstantiateGameObjectAsync ("ingame", "L001"));
 			LevelRoot.StateProperty.Level_LoadingFinished.OnNext (true);
 		}

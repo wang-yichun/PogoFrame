@@ -18,6 +18,9 @@ namespace uFrame.ExampleProject {
     using uFrame.Serialization;
     
     
-    public partial class FinishCurrentLevelCommand : uFrame.MVVM.ViewModelCommand {
+    public partial class LevelCloseCommand : uFrame.MVVM.ViewModelCommand {
+    }
+    
+    public partial class LevelHotReloadCommand : uFrame.MVVM.ViewModelCommand {
     }
 }

@@ -70,12 +70,8 @@ namespace uFrame.ExampleProject
 		}
 
 		// Initialize the downloading url and AssetBundleManifest object.
-		protected IEnumerator Initialize ()
+		public IEnumerator Initialize ()
 		{
-			// Don't destroy this gameObject as we depend on it to run the loading script.
-			DontDestroyOnLoad (gameObject);
-
-
 			Caching.CleanCache ();
 
 			// With this code, when in-editor or using a development builds: Always use the AssetBundle Server

@@ -13,12 +13,12 @@ namespace uFrame.ExampleProject {
     using System.Collections;
     using System.Collections.Generic;
     using System.Linq;
-    using uFrame.Kernel;
-    using uFrame.MVVM;
-    using uFrame.Serialization;
-    using UniRx;
-    using uFrame.ExampleProject;
     using uFrame.IOC;
+    using uFrame.Kernel;
+    using uFrame.ExampleProject;
+    using UniRx;
+    using uFrame.Serialization;
+    using uFrame.MVVM;
     
     
     public class LevelRootControllerBase : uFrame.MVVM.Controller {
@@ -62,7 +62,8 @@ namespace uFrame.ExampleProject {
         
         public virtual void InitializeLevelRoot(LevelRootViewModel viewModel) {
             // This is called when a LevelRootViewModel is created
-            viewModel.FinishCurrentLevel.Action = this.FinishCurrentLevelHandler;
+            viewModel.LevelClose.Action = this.LevelCloseHandler;
+            viewModel.LevelHotReload.Action = this.LevelHotReloadHandler;
             LevelRootViewModelManager.Add(viewModel);
         }
         
@@ -71,11 +72,18 @@ namespace uFrame.ExampleProject {
             LevelRootViewModelManager.Remove(viewModel);
         }
         
-        public virtual void FinishCurrentLevel(LevelRootViewModel viewModel) {
+        public virtual void LevelClose(LevelRootViewModel viewModel) {
         }
         
-        public virtual void FinishCurrentLevelHandler(FinishCurrentLevelCommand command) {
-            this.FinishCurrentLevel(command.Sender as LevelRootViewModel);
+        public virtual void LevelHotReload(LevelRootViewModel viewModel) {
+        }
+        
+        public virtual void LevelCloseHandler(LevelCloseCommand command) {
+            this.LevelClose(command.Sender as LevelRootViewModel);
+        }
+        
+        public virtual void LevelHotReloadHandler(LevelHotReloadCommand command) {
+            this.LevelHotReload(command.Sender as LevelRootViewModel);
         }
     }
 }

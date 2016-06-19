@@ -30,16 +30,6 @@ namespace uFrame.ExampleProject {
         [UnityEngine.HideInInspector()]
         public LevelDescriptor _CurrentLevel;
         
-        [UFToggleGroup("FinishCurrentLevel")]
-        [UnityEngine.HideInInspector()]
-        public bool _BindFinishCurrentLevel = true;
-        
-        [UFGroup("FinishCurrentLevel")]
-        [UnityEngine.SerializeField()]
-        [UnityEngine.HideInInspector()]
-        [UnityEngine.Serialization.FormerlySerializedAsAttribute("_FinishCurrentLevelbutton")]
-        protected UnityEngine.UI.Button _FinishCurrentLevelButton;
-        
         [UFToggleGroup("State")]
         [UnityEngine.HideInInspector()]
         public bool _BindState = true;
@@ -49,6 +39,26 @@ namespace uFrame.ExampleProject {
         [UnityEngine.HideInInspector()]
         [UnityEngine.Serialization.FormerlySerializedAsAttribute("_StateonlyWhenChanged")]
         protected bool _StateOnlyWhenChanged;
+        
+        [UFToggleGroup("LevelClose")]
+        [UnityEngine.HideInInspector()]
+        public bool _BindLevelClose = true;
+        
+        [UFGroup("LevelClose")]
+        [UnityEngine.SerializeField()]
+        [UnityEngine.HideInInspector()]
+        [UnityEngine.Serialization.FormerlySerializedAsAttribute("_LevelClosebutton")]
+        protected UnityEngine.UI.Button _LevelCloseButton;
+        
+        [UFToggleGroup("LevelHotReload")]
+        [UnityEngine.HideInInspector()]
+        public bool _BindLevelHotReload = true;
+        
+        [UFGroup("LevelHotReload")]
+        [UnityEngine.SerializeField()]
+        [UnityEngine.HideInInspector()]
+        [UnityEngine.Serialization.FormerlySerializedAsAttribute("_LevelHotReloadbutton")]
+        protected UnityEngine.UI.Button _LevelHotReloadButton;
         
         public override string DefaultIdentifier {
             get {
@@ -82,11 +92,14 @@ namespace uFrame.ExampleProject {
             // Use this.LevelRoot to access the viewmodel.
             // Use this method to subscribe to the view-model.
             // Any designer bindings are created in the base implementation.
-            if (_BindFinishCurrentLevel) {
-                this.BindButtonToCommand(_FinishCurrentLevelButton, this.LevelRoot.FinishCurrentLevel);
-            }
             if (_BindState) {
                 this.BindStateProperty(this.LevelRoot.StateProperty, this.StateChanged, _StateOnlyWhenChanged);
+            }
+            if (_BindLevelClose) {
+                this.BindButtonToCommand(_LevelCloseButton, this.LevelRoot.LevelClose);
+            }
+            if (_BindLevelHotReload) {
+                this.BindButtonToCommand(_LevelHotReloadButton, this.LevelRoot.LevelHotReload);
             }
         }
         
@@ -100,6 +113,9 @@ namespace uFrame.ExampleProject {
             if (arg1 is Level_Closing) {
                 this.OnLevel_Closing();
             }
+            if (arg1 is Level_Reloading) {
+                this.OnLevel_Reloading();
+            }
         }
         
         public virtual void OnLevel_Loading() {
@@ -111,13 +127,25 @@ namespace uFrame.ExampleProject {
         public virtual void OnLevel_Closing() {
         }
         
-        public virtual void ExecuteFinishCurrentLevel() {
-            LevelRoot.FinishCurrentLevel.OnNext(new FinishCurrentLevelCommand() { Sender = LevelRoot });
+        public virtual void OnLevel_Reloading() {
         }
         
-        public virtual void ExecuteFinishCurrentLevel(FinishCurrentLevelCommand command) {
+        public virtual void ExecuteLevelClose() {
+            LevelRoot.LevelClose.OnNext(new LevelCloseCommand() { Sender = LevelRoot });
+        }
+        
+        public virtual void ExecuteLevelHotReload() {
+            LevelRoot.LevelHotReload.OnNext(new LevelHotReloadCommand() { Sender = LevelRoot });
+        }
+        
+        public virtual void ExecuteLevelClose(LevelCloseCommand command) {
             command.Sender = LevelRoot;
-            LevelRoot.FinishCurrentLevel.OnNext(command);
+            LevelRoot.LevelClose.OnNext(command);
+        }
+        
+        public virtual void ExecuteLevelHotReload(LevelHotReloadCommand command) {
+            command.Sender = LevelRoot;
+            LevelRoot.LevelHotReload.OnNext(command);
         }
     }
 }
