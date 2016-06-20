@@ -133,8 +133,8 @@ namespace uFrame.ExampleProject
 				yield return StartCoroutine (AssetLoadingService.Instance.Initialize ());
 			}
 
-			yield return StartCoroutine (InstantiateGameObjectAsync ("ingame", "L001"));
-			yield return StartCoroutine (InstantiateGameObjectAsync ("oa2prefabs", "blue_bird"));
+			yield return StartCoroutine (InstantiateGameObjectAsync ("ingame", "L001", 0));
+			yield return StartCoroutine (InstantiateGameObjectAsync ("oa2prefabs", "blue_bird", 1));
 
 			LevelRoot.StateProperty.Level_LoadingFinished.OnNext (true);
 		}
@@ -155,13 +155,13 @@ namespace uFrame.ExampleProject
 			LevelRoot.StateProperty.Level_LoadingFinished.OnNext (true);
 		}
 
-		protected IEnumerator InstantiateGameObjectAsync (string assetBundleName, string assetName)
+		protected IEnumerator InstantiateGameObjectAsync (string assetBundleName, string assetName, int url_id = 0)
 		{
 			// This is simply to get the elapsed time for this phase of AssetLoading.
 			float startTime = Time.realtimeSinceStartup;
 
 			// Load asset from assetBundle.
-			AssetBundleLoadAssetOperation request = AssetBundleManager.LoadAssetAsync (assetBundleName, assetName, typeof(GameObject));
+			AssetBundleLoadAssetOperation request = AssetBundleManager.LoadAssetAsync (assetBundleName, assetName, typeof(GameObject), url_id);
 			if (request == null)
 				yield break;
 			yield return StartCoroutine (request);

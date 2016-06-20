@@ -135,17 +135,17 @@ namespace uFrame.ExampleProject
 //			if (request != null)
 //			yield return StartCoroutine (request);
 
-			AssetBundleManager.BaseDownloadingURL = url2 + Utility.GetPlatformName () + "2/";
+			AssetBundleManager.BaseDownloadingURL2 = url2 + "OSX2/";
 //			AssetBundleManager.SetSourceAssetBundleURL (url2);
 			Debug.Log ("AssetBundleManager BaseDownlingURL: " + AssetBundleManager.BaseDownloadingURL);
-			var request2 = AssetBundleManager.Initialize (Utility.GetPlatformName () + "2");
+			var request2 = AssetBundleManager.Initialize (Utility.GetPlatformName () + "2", 1);
 			if (request2 != null)
 				yield return StartCoroutine (request2);
 
-
-			AssetBundleManager.SetSourceAssetBundleURL ("file://" + Application.dataPath + "/StreamingAssets/");
+			AssetBundleManager.BaseDownloadingURL = "file://" + Application.dataPath + "/StreamingAssets/OSX/";
+//			AssetBundleManager.SetSourceAssetBundleURL ("file://" + Application.dataPath + "/StreamingAssets/");
 			Debug.Log ("AssetBundleManager BaseDownlingURL: " + AssetBundleManager.BaseDownloadingURL);
-			var request1 = AssetBundleManager.Initialize ();
+			var request1 = AssetBundleManager.Initialize (Utility.GetPlatformName (), 0);
 			if (request1 != null)
 				yield return StartCoroutine (request1);
 		}
