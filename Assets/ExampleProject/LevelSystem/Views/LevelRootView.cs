@@ -80,6 +80,7 @@ namespace uFrame.ExampleProject
 			cancelRunningUpdate = Observable.EveryFixedUpdate ().Subscribe (RunningUpdate);
 
 			GameObject go = Instantiate<GameObject> (assetsDic ["blue_bird"]);
+			GameObject go2 = Instantiate<GameObject> (assetsDic ["red_bird"]);
 		}
 
 		public override void OnLevel_Closing ()
@@ -135,6 +136,7 @@ namespace uFrame.ExampleProject
 
 			yield return StartCoroutine (InstantiateGameObjectAsync ("ingame", "L001", 0));
 			yield return StartCoroutine (InstantiateGameObjectAsync ("oa2prefabs", "blue_bird", 1));
+			yield return StartCoroutine (InstantiateGameObjectAsync ("oa2prefabs", "red_bird", 1));
 
 			LevelRoot.StateProperty.Level_LoadingFinished.OnNext (true);
 		}

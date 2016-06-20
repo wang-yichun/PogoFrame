@@ -270,7 +270,7 @@ namespace AssetBundles
 	
 			// Load dependencies.
 			if (!isAlreadyProcessed && !isLoadingAssetBundleManifest)
-				LoadDependencies (assetBundleName);
+				LoadDependencies (assetBundleName, url_id);
 		}
 		
 		// Remaps the asset bundle name to the best fitting asset bundle variant.
