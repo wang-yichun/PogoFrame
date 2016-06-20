@@ -10,24 +10,25 @@ namespace uFrame.ExampleProject
 		public enum MagnetType
 		{
 			BLUE,
-			RED
+			RED,
+			FINISHING
 		}
 
 		[SerializeField]
 		MagnetType type;
 
-		CircleCollider2D collider;
 		SpriteRenderer scopeSprite;
 
 		public void GetLocalVars ()
 		{
-			collider = GetComponentInChildren<CircleCollider2D> ();
 			scopeSprite = transform.FindChild ("Magnet_Scope").GetComponent<SpriteRenderer> ();
 
-			if (CompareTag ("BlueMagnetScope")) {
+			if (scopeSprite.gameObject.CompareTag ("BlueMagnetScope")) {
 				type = MagnetType.BLUE;
-			} else if (CompareTag ("RedMagnetScope")) {
+			} else if (scopeSprite.gameObject.CompareTag ("RedMagnetScope")) {
 				type = MagnetType.RED;
+			} else if (scopeSprite.gameObject.CompareTag ("FinishingMagnetScope")) {
+				type = MagnetType.FINISHING;
 			}
 		}
 
@@ -58,19 +59,26 @@ namespace uFrame.ExampleProject
 			}
 		}
 
+		public bool FinallyEffectOn;
+
 		public void SetEffectorEnable ()
 		{
-			if (isStandby) {
-				collider.usedByEffector = false;
+			if (type == MagnetType.FINISHING) {
+				FinallyEffectOn = true;
 			} else {
-				if (isEffectOn) {
-					collider.usedByEffector = true;
+
+				if (isStandby) {
+					FinallyEffectOn = true;
 				} else {
-					collider.usedByEffector = false;
+					if (isEffectOn) {
+						FinallyEffectOn = true;
+					} else {
+						FinallyEffectOn = false;
+					}
 				}
 			}
 
-			scopeSprite.enabled = collider.usedByEffector;
+			scopeSprite.enabled = FinallyEffectOn;
 		}
 	}
 }

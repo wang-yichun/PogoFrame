@@ -18,6 +18,7 @@ namespace uFrame.ExampleProject
 			if (levelNode == null) {
 				gameObject.Children ().Destroy ();
 				BallControls.Clear ();
+				MagnetControls.Clear ();
 				this.LevelNode = null;
 			} else {
 				if (this.LevelNode != null) {
@@ -57,6 +58,15 @@ namespace uFrame.ExampleProject
 			}
 		}
 
+		public void SetMagnets_Standby (bool value)
+		{
+			for (int i = 0; i < MagnetControls.Count; i++) {
+				MagnetControl bc = MagnetControls [i];
+				bc.IsStandby = value;
+				bc.IsEffectOn = false;
+			}
+		}
+
 		public void SetBallMagnetEffect ()
 		{
 			for (int i = 0; i < BallControls.Count; i++) {
@@ -65,12 +75,31 @@ namespace uFrame.ExampleProject
 			}
 		}
 
-		public void SetMagnets_Standby (bool value)
+		Collider2D[] magnetScopes = new Collider2D[10];
+
+		public void SetMagnetsEffect (Vector2 point)
+		{
+			int mCount = Physics2D.OverlapPointNonAlloc (
+				             point, 
+				             magnetScopes, 
+				             1 << LayerMask.NameToLayer ("MagnetScopeBlue")
+				             | 1 << LayerMask.NameToLayer ("MagnetScopeRed")
+				             | 1 << LayerMask.NameToLayer ("MagnetScopeFinishing")
+			             );
+
+			for (int i = 0; i < mCount; i++) {
+				Collider2D c2d = magnetScopes [i];
+
+				MagnetControl mc = c2d.transform.parent.GetComponent<MagnetControl> ();
+				mc.IsEffectOn = true;
+			}
+		}
+
+		public void SetMagnetsEffectOff ()
 		{
 			for (int i = 0; i < MagnetControls.Count; i++) {
-				MagnetControl bc = MagnetControls [i];
-				bc.IsStandby = value;
-				bc.IsEffectOn = false;
+				MagnetControl mc = MagnetControls [i];
+				mc.IsEffectOn = false;
 			}
 		}
 	}

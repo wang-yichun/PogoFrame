@@ -76,11 +76,18 @@ namespace uFrame.ExampleProject
 
 			LevelContainer.SetBalls_Standby (false);
 			LevelContainer.SetMagnets_Standby (false);
+
+			cancelRunningUpdate = Observable.EveryFixedUpdate ().Subscribe (RunningUpdate);
 		}
 
 		public override void OnLevel_Closing ()
 		{
 			base.OnLevel_Closing ();
+
+			if (cancelRunningUpdate != null) {
+				cancelRunningUpdate.Dispose ();
+				cancelRunningUpdate = null;
+			}
 
 			EasyTouchUnsubscribe ();
 
@@ -106,11 +113,15 @@ namespace uFrame.ExampleProject
 		{
 			base.OnLevel_Reloading ();
 
+			if (cancelRunningUpdate != null) {
+				cancelRunningUpdate.Dispose ();
+				cancelRunningUpdate = null;
+			}
+
 			StartCoroutine (LoadAllAssets_HotReload ());
 		}
 
 		#endregion
-
 
 		public Dictionary<string, GameObject> assetsDic;
 
@@ -181,10 +192,18 @@ namespace uFrame.ExampleProject
 				LevelRoot.StateProperty.Level_Run.OnNext (true);
 			} else if (LevelRoot.State is Level_Running) {
 				// TODO: BALL EFFECT
-//				LevelContainer.SetBallMagnetEffect();
 
-
+				Vector2 point = Camera.main.ScreenToWorldPoint ((Vector3)gesture.position);
+				LevelContainer.SetMagnetsEffect (point);
 			}
+		}
+
+		IDisposable cancelRunningUpdate;
+
+		void RunningUpdate (long l)
+		{
+			LevelContainer.SetBallMagnetEffect ();
+			LevelContainer.SetMagnetsEffectOff ();
 		}
 	}
 }

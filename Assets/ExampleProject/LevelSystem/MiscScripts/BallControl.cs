@@ -53,26 +53,39 @@ namespace uFrame.ExampleProject
 
 		public void ApplyMagnetEffect ()
 		{
-			int layerMask = LayerMask.NameToLayer ("MagnetScopeBlue");
+			int blue_scope_b = 1 << LayerMask.NameToLayer ("MagnetScopeBlue");
+			int red_scope_b = 1 << LayerMask.NameToLayer ("MagnetScopeRed");
+			int finishing_scope_b = 1 << LayerMask.NameToLayer ("MagnetScopeFinishing");
+
+			int b = 0;
+			if (type == BallType.BLUE) {
+				b = blue_scope_b | finishing_scope_b;
+			} else if (type == BallType.RED) {
+				b = red_scope_b | finishing_scope_b;
+			}
 
 			int mCount = Physics2D.OverlapCircleNonAlloc (
 				             this.transform.position,
 				             .5f,
 				             magnetScopes,
-				             1 << layerMask
+				             b
 			             );
 
 			for (int i = 0; i < mCount; i++) {
 				Collider2D c2d = magnetScopes [i];
 
-				if (c2d.CompareTag ("BlueMagnetScope")) {
+				MagnetControl mc = c2d.transform.parent.GetComponent<MagnetControl> ();
+
+				if (mc.FinallyEffectOn) {
+
+//					if (c2d.CompareTag ("BlueMagnetScope")) {
 					Vector3 targetPosition = c2d.transform.position;
 					Vector3 sourcePosition = transform.position;
 
 					rigidbody2d.AddForce ((Vector2)((targetPosition - sourcePosition).normalized * 2f), ForceMode2D.Force);
+//					}
 				}
 			}
-
 		}
 	}
 }
