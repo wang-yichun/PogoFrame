@@ -11,6 +11,7 @@ namespace uFrame.ExampleProject
 		public Transform LevelNode;
 
 		public List<BallControl> BallControls;
+		public List<MagnetControl> MagnetControls;
 
 		public void SetLevelNode (Transform levelNode)
 		{
@@ -40,6 +41,10 @@ namespace uFrame.ExampleProject
 					BallControl bc = go.AddComponent<BallControl> ();
 					bc.GetLocalVars ();
 					BallControls.Add (bc);
+				} else if (go.CompareTag ("Magnet")) {
+					MagnetControl mc = go.AddComponent<MagnetControl> ();
+					mc.GetLocalVars ();
+					MagnetControls.Add (mc);
 				}
 			}
 		}
@@ -57,6 +62,15 @@ namespace uFrame.ExampleProject
 			for (int i = 0; i < BallControls.Count; i++) {
 				BallControl bc = BallControls [i];
 				bc.ApplyMagnetEffect ();
+			}
+		}
+
+		public void SetMagnets_Standby (bool value)
+		{
+			for (int i = 0; i < MagnetControls.Count; i++) {
+				MagnetControl bc = MagnetControls [i];
+				bc.IsStandby = value;
+				bc.IsEffectOn = false;
 			}
 		}
 	}

@@ -75,6 +75,7 @@ namespace uFrame.ExampleProject
 			base.OnLevel_Running ();
 
 			LevelContainer.SetBalls_Standby (false);
+			LevelContainer.SetMagnets_Standby (false);
 		}
 
 		public override void OnLevel_Closing ()
@@ -180,7 +181,9 @@ namespace uFrame.ExampleProject
 				LevelRoot.StateProperty.Level_Run.OnNext (true);
 			} else if (LevelRoot.State is Level_Running) {
 				// TODO: BALL EFFECT
-				LevelContainer.SetBallMagnetEffect();
+//				LevelContainer.SetBallMagnetEffect();
+
+
 			}
 		}
 	}
