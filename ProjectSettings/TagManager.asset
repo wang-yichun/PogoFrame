@@ -5,6 +5,14 @@ TagManager:
   serializedVersion: 2
   tags:
   - boundary
+  - Magnet
+  - RedMagnetScope
+  - FinishingMagnetScope
+  - BlueMagnetScope
+  - soldier
+  - BlueBall
+  - Blob
+  - RedBall
   layers:
   - Default
   - TransparentFX
@@ -14,8 +22,8 @@ TagManager:
   - UI
   - 
   - 
-  - 
-  - 
+  - MagnetScopeBlue
+  - MagnetScopeRed
   - 
   - 
   - 

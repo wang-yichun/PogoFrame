@@ -113,7 +113,7 @@ Transform:
   - {fileID: 1682470088}
   - {fileID: 432198976}
   m_Father: {fileID: 409590328}
-  m_RootOrder: 3
+  m_RootOrder: 4
 --- !u!1001 &395901899
 Prefab:
   m_ObjectHideFlags: 0
@@ -151,7 +151,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 496718, guid: 46dcf772493c3474ba200cb10df5b751, type: 2}
       propertyPath: m_RootOrder
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 116152, guid: 46dcf772493c3474ba200cb10df5b751, type: 2}
       propertyPath: m_Name
@@ -204,6 +204,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 940279155}
+  - {fileID: 1846761636}
   - {fileID: 1981682173}
   - {fileID: 395901900}
   - {fileID: 82840176}
@@ -217,6 +218,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 432198976}
+  - 114: {fileID: 432198977}
   m_Layer: 0
   m_Name: LevelContainer
   m_TagString: Untagged
@@ -236,6 +238,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 82840176}
   m_RootOrder: 1
+--- !u!114 &432198977
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 432198975}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 625a8bec58df84c53b582d73f400d2b8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  LevelNode: {fileID: 0}
+  BallControls: []
 --- !u!20 &620906673 stripped
 Camera:
   m_PrefabParentObject: {fileID: 2056036, guid: 46dcf772493c3474ba200cb10df5b751,
@@ -292,7 +307,7 @@ MonoBehaviour:
   _LevelCloseButton: {fileID: 1812433997}
   _BindLevelHotReload: 1
   _LevelHotReloadButton: {fileID: 1877880397}
-  LevelContainer: {fileID: 432198976}
+  LevelContainer: {fileID: 432198977}
 --- !u!1 &1099662503
 GameObject:
   m_ObjectHideFlags: 0
@@ -366,6 +381,48 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1099662503}
+--- !u!1001 &1183401132
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 409590328}
+    m_Modifications:
+    - target: {fileID: 435832, guid: 7cc8bd7ca6e4445faa6eec163f412159, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 435832, guid: 7cc8bd7ca6e4445faa6eec163f412159, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 435832, guid: 7cc8bd7ca6e4445faa6eec163f412159, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 435832, guid: 7cc8bd7ca6e4445faa6eec163f412159, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 435832, guid: 7cc8bd7ca6e4445faa6eec163f412159, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 435832, guid: 7cc8bd7ca6e4445faa6eec163f412159, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 435832, guid: 7cc8bd7ca6e4445faa6eec163f412159, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 435832, guid: 7cc8bd7ca6e4445faa6eec163f412159, type: 2}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: 7cc8bd7ca6e4445faa6eec163f412159, type: 2}
+  m_IsPrefabParent: 0
 --- !u!1 &1364057128
 GameObject:
   m_ObjectHideFlags: 0
@@ -678,6 +735,10 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1812433995}
+--- !u!4 &1846761636 stripped
+Transform:
+  m_PrefabParentObject: {fileID: 435832, guid: 7cc8bd7ca6e4445faa6eec163f412159, type: 2}
+  m_PrefabInternal: {fileID: 1183401132}
 --- !u!1 &1877880395
 GameObject:
   m_ObjectHideFlags: 0
@@ -805,7 +866,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1981682173
 RectTransform:
   m_ObjectHideFlags: 0
@@ -820,7 +881,7 @@ RectTransform:
   - {fileID: 1812433996}
   - {fileID: 1877880396}
   m_Father: {fileID: 409590328}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}

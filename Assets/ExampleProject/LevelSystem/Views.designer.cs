@@ -116,6 +116,9 @@ namespace uFrame.ExampleProject {
             if (arg1 is Level_Reloading) {
                 this.OnLevel_Reloading();
             }
+            if (arg1 is Level_Running) {
+                this.OnLevel_Running();
+            }
         }
         
         public virtual void OnLevel_Loading() {
@@ -128,6 +131,9 @@ namespace uFrame.ExampleProject {
         }
         
         public virtual void OnLevel_Reloading() {
+        }
+        
+        public virtual void OnLevel_Running() {
         }
         
         public virtual void ExecuteLevelClose() {

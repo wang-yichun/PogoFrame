@@ -13,11 +13,11 @@ namespace uFrame.ExampleProject {
     using System.Collections;
     using System.Collections.Generic;
     using System.Linq;
-    using uFrame.MVVM;
     using UnityEngine;
     using UniRx;
-    using uFrame.IOC;
     using uFrame.Kernel;
+    using uFrame.IOC;
+    using uFrame.MVVM;
     
     
     public class LevelManagementServiceBase : uFrame.Kernel.SystemServiceMonoBehavior {

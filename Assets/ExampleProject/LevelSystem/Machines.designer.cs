@@ -26,6 +26,8 @@ namespace uFrame.ExampleProject {
         
         private Invert.StateMachine.StateMachineTrigger _Level_HotReload;
         
+        private Invert.StateMachine.StateMachineTrigger _Level_Run;
+        
         private Level_Loading _Level_Loading;
         
         private Level_AssetsStandby _Level_AssetsStandby;
@@ -33,6 +35,8 @@ namespace uFrame.ExampleProject {
         private Level_Closing _Level_Closing;
         
         private Level_Reloading _Level_Reloading;
+        
+        private Level_Running _Level_Running;
         
         public LevelSM(uFrame.MVVM.ViewModel vm, string propertyName) : 
                 base(vm, propertyName) {
@@ -96,6 +100,18 @@ namespace uFrame.ExampleProject {
             }
         }
         
+        public virtual Invert.StateMachine.StateMachineTrigger Level_Run {
+            get {
+                if (this._Level_Run == null) {
+                    this._Level_Run = new StateMachineTrigger(this , "Level_Run");
+                }
+                return _Level_Run;
+            }
+            set {
+                _Level_Run = value;
+            }
+        }
+        
         public virtual Level_Loading Level_Loading {
             get {
                 if (this._Level_Loading == null) {
@@ -144,6 +160,18 @@ namespace uFrame.ExampleProject {
             }
         }
         
+        public virtual Level_Running Level_Running {
+            get {
+                if (this._Level_Running == null) {
+                    this._Level_Running = new Level_Running();
+                }
+                return _Level_Running;
+            }
+            set {
+                _Level_Running = value;
+            }
+        }
+        
         public override void Compose(System.Collections.Generic.List<Invert.StateMachine.State> states) {
             base.Compose(states);
             Level_Loading.Level_LoadingFinished = new StateTransition("Level_LoadingFinished", Level_Loading, Level_AssetsStandby);
@@ -155,8 +183,11 @@ namespace uFrame.ExampleProject {
             Transitions.Add(Level_AssetsStandby.Level_Close);
             Level_AssetsStandby.Level_HotReload = new StateTransition("Level_HotReload", Level_AssetsStandby, Level_Reloading);
             Transitions.Add(Level_AssetsStandby.Level_HotReload);
+            Level_AssetsStandby.Level_Run = new StateTransition("Level_Run", Level_AssetsStandby, Level_Running);
+            Transitions.Add(Level_AssetsStandby.Level_Run);
             Level_AssetsStandby.AddTrigger(Level_Close, Level_AssetsStandby.Level_Close);
             Level_AssetsStandby.AddTrigger(Level_HotReload, Level_AssetsStandby.Level_HotReload);
+            Level_AssetsStandby.AddTrigger(Level_Run, Level_AssetsStandby.Level_Run);
             Level_AssetsStandby.StateMachine = this;
             states.Add(Level_AssetsStandby);
             Level_Closing.Level_Reset = new StateTransition("Level_Reset", Level_Closing, Level_Loading);
@@ -169,6 +200,14 @@ namespace uFrame.ExampleProject {
             Level_Reloading.AddTrigger(Level_LoadingFinished, Level_Reloading.Level_LoadingFinished);
             Level_Reloading.StateMachine = this;
             states.Add(Level_Reloading);
+            Level_Running.Level_HotReload = new StateTransition("Level_HotReload", Level_Running, Level_Reloading);
+            Transitions.Add(Level_Running.Level_HotReload);
+            Level_Running.Level_Close = new StateTransition("Level_Close", Level_Running, Level_Closing);
+            Transitions.Add(Level_Running.Level_Close);
+            Level_Running.AddTrigger(Level_HotReload, Level_Running.Level_HotReload);
+            Level_Running.AddTrigger(Level_Close, Level_Running.Level_Close);
+            Level_Running.StateMachine = this;
+            states.Add(Level_Running);
         }
     }
     
@@ -202,6 +241,8 @@ namespace uFrame.ExampleProject {
         
         private Invert.StateMachine.StateTransition _Level_HotReload;
         
+        private Invert.StateMachine.StateTransition _Level_Run;
+        
         public Invert.StateMachine.StateTransition Level_Close {
             get {
                 return _Level_Close;
@@ -220,6 +261,15 @@ namespace uFrame.ExampleProject {
             }
         }
         
+        public Invert.StateMachine.StateTransition Level_Run {
+            get {
+                return _Level_Run;
+            }
+            set {
+                _Level_Run = value;
+            }
+        }
+        
         public override string Name {
             get {
                 return "Level_AssetsStandby";
@@ -232,6 +282,10 @@ namespace uFrame.ExampleProject {
         
         public virtual void Level_HotReloadTransition() {
             this.Transition(this.Level_HotReload);
+        }
+        
+        public virtual void Level_RunTransition() {
+            this.Transition(this.Level_Run);
         }
     }
     
@@ -280,6 +334,45 @@ namespace uFrame.ExampleProject {
         
         public virtual void Level_LoadingFinishedTransition() {
             this.Transition(this.Level_LoadingFinished);
+        }
+    }
+    
+    public class Level_Running : Invert.StateMachine.State {
+        
+        private Invert.StateMachine.StateTransition _Level_HotReload;
+        
+        private Invert.StateMachine.StateTransition _Level_Close;
+        
+        public Invert.StateMachine.StateTransition Level_HotReload {
+            get {
+                return _Level_HotReload;
+            }
+            set {
+                _Level_HotReload = value;
+            }
+        }
+        
+        public Invert.StateMachine.StateTransition Level_Close {
+            get {
+                return _Level_Close;
+            }
+            set {
+                _Level_Close = value;
+            }
+        }
+        
+        public override string Name {
+            get {
+                return "Level_Running";
+            }
+        }
+        
+        public virtual void Level_HotReloadTransition() {
+            this.Transition(this.Level_HotReload);
+        }
+        
+        public virtual void Level_CloseTransition() {
+            this.Transition(this.Level_Close);
         }
     }
 }

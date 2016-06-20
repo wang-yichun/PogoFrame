@@ -11,12 +11,13 @@ using UniRx;
 using UnityEngine;
 using AssetBundles;
 using Unity.Linq;
+using HedgehogTeam.EasyTouch;
 
 namespace uFrame.ExampleProject
 {
 	public class LevelRootView : LevelRootViewBase
 	{
-		public Transform LevelContainer;
+		public LevelContainer LevelContainer;
 
 		protected override void InitializeViewModel (uFrame.MVVM.ViewModel model)
 		{
@@ -46,25 +47,46 @@ namespace uFrame.ExampleProject
 			base.OnLevel_Loading ();
 
 			StartCoroutine (LoadAllAssets ());
+
+			EasyTouchSubscribe ();
 		}
 
 		public override void OnLevel_AssetsStandby ()
 		{
 			base.OnLevel_AssetsStandby ();
 
-			if (LevelContainer.childCount == 0) {
-				GameObject go = Instantiate<GameObject> (assetsDic ["L001"]);
-				go.name = "L000";
-				go.transform.SetParent (LevelContainer);
+			GameObject go = null;
+
+			// 此处为了兼容调试时直接有 LevelNode
+			if (LevelContainer.transform.childCount == 0) {
+				go = Instantiate<GameObject> (assetsDic ["L001"]);
+			} else {
+				go = LevelContainer.transform.GetChild (0).gameObject;
 			}
+
+			go.name = "L000";
+
+			LevelContainer.SetLevelNode (go.transform);
+			LevelContainer.SetBalls_Standby (true);
+		}
+
+		public override void OnLevel_Running ()
+		{
+			base.OnLevel_Running ();
+
+			LevelContainer.SetBalls_Standby (false);
 		}
 
 		public override void OnLevel_Closing ()
 		{
 			base.OnLevel_Closing ();
 
+			EasyTouchUnsubscribe ();
+
 			assetsDic = null;
 			AssetBundleManager.UnloadAssetBundle ("ingame");
+
+			LevelContainer.SetLevelNode (null);
 
 			Publish (new UnloadSceneCommand () {
 				SceneName = "LevelScene"
@@ -103,7 +125,7 @@ namespace uFrame.ExampleProject
 
 		IEnumerator LoadAllAssets_HotReload ()
 		{
-			LevelContainer.gameObject.Children ().Destroy ();
+			LevelContainer.SetLevelNode (null);
 
 			if (AssetBundleManager.InitReady == false) {
 				yield return StartCoroutine (AssetLoadingService.Instance.Initialize ());
@@ -140,6 +162,26 @@ namespace uFrame.ExampleProject
 			// Calculate and display the elapsed time.
 			float elapsedTime = Time.realtimeSinceStartup - startTime;
 			Debug.Log (assetName + (prefab == null ? " was not" : " was") + " loaded successfully in " + elapsedTime + " seconds");
+		}
+
+		void EasyTouchSubscribe ()
+		{
+			EasyTouch.On_TouchDown += EasyTouch_On_TouchDown;
+		}
+
+		void EasyTouchUnsubscribe ()
+		{
+			EasyTouch.On_TouchDown -= EasyTouch_On_TouchDown;
+		}
+
+		void EasyTouch_On_TouchDown (Gesture gesture)
+		{
+			if (LevelRoot.State is Level_AssetsStandby) {
+				LevelRoot.StateProperty.Level_Run.OnNext (true);
+			} else if (LevelRoot.State is Level_Running) {
+				// TODO: BALL EFFECT
+				LevelContainer.SetBallMagnetEffect();
+			}
 		}
 	}
 }
