@@ -251,6 +251,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   LevelNode: {fileID: 0}
   BallControls: []
+  MagnetControls: []
 --- !u!20 &620906673 stripped
 Camera:
   m_PrefabParentObject: {fileID: 2056036, guid: 46dcf772493c3474ba200cb10df5b751,
@@ -585,7 +586,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1682470088
 Transform:
   m_ObjectHideFlags: 0

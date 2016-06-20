@@ -78,6 +78,8 @@ namespace uFrame.ExampleProject
 			LevelContainer.SetMagnets_Standby (false);
 
 			cancelRunningUpdate = Observable.EveryFixedUpdate ().Subscribe (RunningUpdate);
+
+			GameObject go = Instantiate<GameObject> (assetsDic ["blue_bird"]);
 		}
 
 		public override void OnLevel_Closing ()
@@ -132,6 +134,8 @@ namespace uFrame.ExampleProject
 			}
 
 			yield return StartCoroutine (InstantiateGameObjectAsync ("ingame", "L001"));
+			yield return StartCoroutine (InstantiateGameObjectAsync ("oa2prefabs", "blue_bird"));
+
 			LevelRoot.StateProperty.Level_LoadingFinished.OnNext (true);
 		}
 
