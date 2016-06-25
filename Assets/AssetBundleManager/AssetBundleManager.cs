@@ -54,16 +54,18 @@ namespace AssetBundles
 		;
 
 		static LogMode m_LogMode = LogMode.All;
-		static string m_BaseDownloadingURL = "";
-		static string m_BaseDownloadingURL2 = "";
+		//		static string m_BaseDownloadingURL = "";
+		//		static string m_BaseDownloadingURL2 = "";
+		static Dictionary<string, string> m_BaseDownloadingURLs = new Dictionary<string, string> ();
 
 		static string[] m_ActiveVariants = { };
-		static AssetBundleManifest m_AssetBundleManifest = null;
-		static AssetBundleManifest m_AssetBundleManifest2 = null;
+		//		static AssetBundleManifest m_AssetBundleManifest = null;
+		//		static AssetBundleManifest m_AssetBundleManifest2 = null;
+		static Dictionary<string, AssetBundleManifest> m_AssetBundleManifests = new Dictionary<string, AssetBundleManifest> ();
 
 		static public bool InitReady {
 			get {
-				return m_AssetBundleManifest != null;
+				return m_AssetBundleManifests.Count > 0;
 			}
 		}
 		#if UNITY_EDITOR
@@ -82,16 +84,26 @@ namespace AssetBundles
 			set { m_LogMode = value; }
 		}
 	
-		// The base downloading url which is used to generate the full downloading url with the assetBundle names.
-		public static string BaseDownloadingURL {
-			get { return m_BaseDownloadingURL; }
-			set { m_BaseDownloadingURL = value; }
+		//		// The base downloading url which is used to generate the full downloading url with the assetBundle names.
+		//		public static string BaseDownloadingURL {
+		//			get { return m_BaseDownloadingURL; }
+		//			set { m_BaseDownloadingURL = value; }
+		//		}
+		//
+		//		// The base downloading url which is used to generate the full downloading url with the assetBundle names.
+		//		public static string BaseDownloadingURL2 {
+		//			get { return m_BaseDownloadingURL2; }
+		//			set { m_BaseDownloadingURL2 = value; }
+		//		}
+
+		public static string GetBaseDownloadingURL (string url_id)
+		{
+			return m_BaseDownloadingURLs [url_id];
 		}
 
-		// The base downloading url which is used to generate the full downloading url with the assetBundle names.
-		public static string BaseDownloadingURL2 {
-			get { return m_BaseDownloadingURL2; }
-			set { m_BaseDownloadingURL2 = value; }
+		public static void SetBaseDownloadingURL (string url_id, string url)
+		{
+			m_BaseDownloadingURLs [url_id] = url;
 		}
 	
 		// Variants which is used to define the active variants.
@@ -101,12 +113,17 @@ namespace AssetBundles
 		}
 	
 		// AssetBundleManifest object which can be used to load the dependecies and check suitable assetBundle variants.
-		public static AssetBundleManifest AssetBundleManifestObject {
-			set { m_AssetBundleManifest = value; }
-		}
+		//		public static AssetBundleManifest AssetBundleManifestObject {
+		//			set { m_AssetBundleManifest = value; }
+		//		}
+		//
+		//		public static AssetBundleManifest AssetBundleManifestObject2 {
+		//			set { m_AssetBundleManifest2 = value; }
+		//		}
 
-		public static AssetBundleManifest AssetBundleManifestObject2 {
-			set { m_AssetBundleManifest2 = value; }
+		public static void SetAssetBundleManifestObject (string url_id, AssetBundleManifest assetBundleManifest)
+		{
+			m_AssetBundleManifests [url_id] = assetBundleManifest;
 		}
 
 		private static void Log (LogType logType, string text)
@@ -150,33 +167,33 @@ namespace AssetBundles
 				return "file://" + Application.streamingAssetsPath;
 		}
 
-		public static void SetSourceAssetBundleDirectory (string relativePath)
-		{
-			BaseDownloadingURL = GetStreamingAssetsPath () + relativePath;
-		}
+		//		public static void SetSourceAssetBundleDirectory (string relativePath)
+		//		{
+		//			BaseDownloadingURL = GetStreamingAssetsPath () + relativePath;
+		//		}
+		//
+		//		public static void SetSourceAssetBundleURL (string absolutePath)
+		//		{
+		//			BaseDownloadingURL = absolutePath + Utility.GetPlatformName () + "/";
+		//		}
 
-		public static void SetSourceAssetBundleURL (string absolutePath)
-		{
-			BaseDownloadingURL = absolutePath + Utility.GetPlatformName () + "/";
-		}
-
-		public static void SetDevelopmentAssetBundleServer ()
-		{
-			#if UNITY_EDITOR
-			// If we're in Editor simulation mode, we don't have to setup a download URL
-			if (SimulateAssetBundleInEditor)
-				return;
-			#endif
-			
-			TextAsset urlFile = Resources.Load ("AssetBundleServerURL") as TextAsset;
-			string url = (urlFile != null) ? urlFile.text.Trim () : null;
-			if (url == null || url.Length == 0) {
-				Debug.LogError ("Development Server URL could not be found.");
-				//AssetBundleManager.SetSourceAssetBundleURL("http://localhost:7888/" + UnityHelper.GetPlatformName() + "/");
-			} else {
-				AssetBundleManager.SetSourceAssetBundleURL (url);
-			}
-		}
+		//		public static void SetDevelopmentAssetBundleServer ()
+		//		{
+		//			#if UNITY_EDITOR
+		//			// If we're in Editor simulation mode, we don't have to setup a download URL
+		//			if (SimulateAssetBundleInEditor)
+		//				return;
+		//			#endif
+		//
+		//			TextAsset urlFile = Resources.Load ("AssetBundleServerURL") as TextAsset;
+		//			string url = (urlFile != null) ? urlFile.text.Trim () : null;
+		//			if (url == null || url.Length == 0) {
+		//				Debug.LogError ("Development Server URL could not be found.");
+		//				//AssetBundleManager.SetSourceAssetBundleURL("http://localhost:7888/" + UnityHelper.GetPlatformName() + "/");
+		//			} else {
+		//				AssetBundleManager.SetSourceAssetBundleURL (url);
+		//			}
+		//		}
 		
 		// Get loaded AssetBundle, only return vaild object when all the dependencies are downloaded successfully.
 		static public LoadedAssetBundle GetLoadedAssetBundle (string assetBundleName, out string error)
@@ -216,7 +233,7 @@ namespace AssetBundles
 			
 	
 		// Load AssetBundleManifest.
-		static public AssetBundleLoadManifestOperation Initialize (string manifestAssetBundleName, int url_id = 0)
+		static public AssetBundleLoadManifestOperation Initialize (string manifestAssetBundleName, string url_id = "default")
 		{
 			#if UNITY_EDITOR
 			Log (LogType.Info, "Simulation Mode: " + (SimulateAssetBundleInEditor ? "Enabled" : "Disabled"));
@@ -241,7 +258,7 @@ namespace AssetBundles
 		}
 		
 		// Load AssetBundle and its dependencies.
-		static protected void LoadAssetBundle (string assetBundleName, bool isLoadingAssetBundleManifest = false, int url_id = 0)
+		static protected void LoadAssetBundle (string assetBundleName, bool isLoadingAssetBundleManifest = false, string url_id = "default")
 		{
 			Log (LogType.Info, "Loading Asset Bundle " + (isLoadingAssetBundleManifest ? "Manifest: " : ": ") + assetBundleName);
 	
@@ -252,16 +269,9 @@ namespace AssetBundles
 			#endif
 	
 			if (!isLoadingAssetBundleManifest) {
-				if (url_id == 0) {
-					if (m_AssetBundleManifest == null) {
-						Debug.LogError ("Please initialize AssetBundleManifest by calling AssetBundleManager.Initialize()");
-						return;
-					}
-				} else {
-					if (m_AssetBundleManifest2 == null) {
-						Debug.LogError ("Please initialize AssetBundleManifest by calling AssetBundleManager.Initialize() 2#");
-						return;
-					}
+				if (m_LoadedAssetBundles [url_id] == null) {
+					Debug.LogError ("Please initialize AssetBundleManifest by calling AssetBundleManager.Initialize()");
+					return;
 				}
 			}
 	
@@ -274,14 +284,17 @@ namespace AssetBundles
 		}
 		
 		// Remaps the asset bundle name to the best fitting asset bundle variant.
-		static protected string RemapVariantName (string assetBundleName, int url_id)
+		static protected string RemapVariantName (string assetBundleName, string url_id)
 		{
 			string[] bundlesWithVariant;
-			if (url_id == 0) {
-				bundlesWithVariant = m_AssetBundleManifest.GetAllAssetBundlesWithVariant ();
-			} else {
-				bundlesWithVariant = m_AssetBundleManifest2.GetAllAssetBundlesWithVariant ();
-			}
+
+			bundlesWithVariant = m_AssetBundleManifests [url_id].GetAllAssetBundlesWithVariant ();
+
+//			if (url_id == 0) {
+//				bundlesWithVariant = m_AssetBundleManifest.GetAllAssetBundlesWithVariant ();
+//			} else {
+//				bundlesWithVariant = m_AssetBundleManifest2.GetAllAssetBundlesWithVariant ();
+//			}
 
 			string[] split = assetBundleName.Split ('.');
 
@@ -317,7 +330,7 @@ namespace AssetBundles
 		}
 	
 		// Where we actuall call WWW to download the assetBundle.
-		static protected bool LoadAssetBundleInternal (string assetBundleName, bool isLoadingAssetBundleManifest, int url_id = 0)
+		static protected bool LoadAssetBundleInternal (string assetBundleName, bool isLoadingAssetBundleManifest, string url_id = "default")
 		{
 			Debug.Log ("assetBundleName: " + assetBundleName);
 
@@ -336,7 +349,8 @@ namespace AssetBundles
 				return true;
 	
 			WWW download = null;
-			string url = (url_id == 0 ? m_BaseDownloadingURL : m_BaseDownloadingURL2) + assetBundleName;
+//			string url = (url_id == 0 ? m_BaseDownloadingURL : m_BaseDownloadingURL2) + assetBundleName;
+			string url = m_BaseDownloadingURLs [url_id] + assetBundleName;
 
 			Debug.Log ("assetBundleName: " + assetBundleName + " url: " + url);
 
@@ -345,11 +359,13 @@ namespace AssetBundles
 				download = new WWW (url);
 			} else {
 				Hash128 hash;
-				if (url_id == 0) {
-					hash = m_AssetBundleManifest.GetAssetBundleHash (assetBundleName);
-				} else {
-					hash = m_AssetBundleManifest2.GetAssetBundleHash (assetBundleName);
-				}
+
+				hash = m_AssetBundleManifests [url_id].GetAssetBundleHash (assetBundleName);
+//				if (url_id == 0) {
+//					hash = m_AssetBundleManifest.GetAssetBundleHash (assetBundleName);
+//				} else {
+//					hash = m_AssetBundleManifest2.GetAssetBundleHash (assetBundleName);
+//				}
 				download = WWW.LoadFromCacheOrDownload (url, hash, 0); 
 			}
 	
@@ -359,23 +375,29 @@ namespace AssetBundles
 		}
 	
 		// Where we get all the dependencies and load them all.
-		static protected void LoadDependencies (string assetBundleName, int url_id = 0)
+		static protected void LoadDependencies (string assetBundleName, string url_id = "default")
 		{
 			string[] dependencies;
 
-			if (url_id == 0) {
-				if (m_AssetBundleManifest == null) {
-					Debug.LogError ("Please initialize AssetBundleManifest by calling AssetBundleManager.Initialize()");
-					return;
-				}
-				dependencies = m_AssetBundleManifest.GetAllDependencies (assetBundleName);
-			} else {
-				if (m_AssetBundleManifest2 == null) {
-					Debug.LogError ("Please initialize AssetBundleManifest by calling AssetBundleManager.Initialize() 2#");
-					return;
-				}
-				dependencies = m_AssetBundleManifest2.GetAllDependencies (assetBundleName);
+			if (m_AssetBundleManifests.ContainsKey (url_id)) {
+				Debug.LogError ("Please initialize AssetBundleManifest by calling AssetBundleManager.Initialize() - " + url_id);
+				return;
 			}
+			dependencies = m_AssetBundleManifests [url_id].GetAllDependencies (assetBundleName);
+
+//			if (url_id == 0) {
+//				if (m_AssetBundleManifest == null) {
+//					Debug.LogError ("Please initialize AssetBundleManifest by calling AssetBundleManager.Initialize()");
+//					return;
+//				}
+//				dependencies = m_AssetBundleManifest.GetAllDependencies (assetBundleName);
+//			} else {
+//				if (m_AssetBundleManifest2 == null) {
+//					Debug.LogError ("Please initialize AssetBundleManifest by calling AssetBundleManager.Initialize() 2#");
+//					return;
+//				}
+//				dependencies = m_AssetBundleManifest2.GetAllDependencies (assetBundleName);
+//			}
 	
 			// Get dependecies from the AssetBundleManifest object..
 //			dependencies = m_AssetBundleManifest.GetAllDependencies(assetBundleName);
@@ -485,7 +507,7 @@ namespace AssetBundles
 		}
 	
 		// Load asset from the given assetBundle.
-		static public AssetBundleLoadAssetOperation LoadAssetAsync (string assetBundleName, string assetName, System.Type type, int url_id = 0)
+		static public AssetBundleLoadAssetOperation LoadAssetAsync (string assetBundleName, string assetName, System.Type type, string url_id = "default")
 		{
 			Log (LogType.Info, "Loading " + assetName + " from " + assetBundleName + " bundle");
 	
@@ -515,7 +537,7 @@ namespace AssetBundles
 		}
 	
 		// Load level from the given assetBundle.
-		static public AssetBundleLoadOperation LoadLevelAsync (string assetBundleName, string levelName, bool isAdditive, int url_id)
+		static public AssetBundleLoadOperation LoadLevelAsync (string assetBundleName, string levelName, bool isAdditive, string url_id)
 		{
 			Log (LogType.Info, "Loading " + levelName + " from " + assetBundleName + " bundle");
 	
@@ -524,7 +546,7 @@ namespace AssetBundles
 			if (SimulateAssetBundleInEditor) {
 				operation = new AssetBundleLoadLevelSimulationOperation (assetBundleName, levelName, isAdditive);
 			} else
-	#endif
+			#endif
 			{
 				assetBundleName = RemapVariantName (assetBundleName, url_id);
 				LoadAssetBundle (assetBundleName, false, url_id);

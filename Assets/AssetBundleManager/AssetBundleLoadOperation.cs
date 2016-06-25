@@ -146,9 +146,9 @@ namespace AssetBundles
 		protected System.Type m_Type;
 		protected AssetBundleRequest	m_Request = null;
 
-		protected int m_url_id;
+		protected string m_url_id;
 
-		public AssetBundleLoadAssetOperationFull (string bundleName, string assetName, System.Type type, int url_id)
+		public AssetBundleLoadAssetOperationFull (string bundleName, string assetName, System.Type type, string url_id)
 		{
 			m_AssetBundleName = bundleName;
 			m_AssetName = assetName;
@@ -195,7 +195,7 @@ namespace AssetBundles
 
 	public class AssetBundleLoadManifestOperation : AssetBundleLoadAssetOperationFull
 	{
-		public AssetBundleLoadManifestOperation (string bundleName, string assetName, System.Type type, int url_id)
+		public AssetBundleLoadManifestOperation (string bundleName, string assetName, System.Type type, string url_id)
 			: base (bundleName, assetName, type, url_id)
 		{
 		}
@@ -205,11 +205,12 @@ namespace AssetBundles
 			base.Update ();
 			
 			if (m_Request != null && m_Request.isDone) {
-				if (m_url_id == 0) {
-					AssetBundleManager.AssetBundleManifestObject = GetAsset<AssetBundleManifest> ();
-				} else {
-					AssetBundleManager.AssetBundleManifestObject2 = GetAsset<AssetBundleManifest> ();
-				}
+				AssetBundleManager.SetAssetBundleManifestObject (m_url_id, GetAsset<AssetBundleManifest> ());
+//				if (m_url_id == 0) {
+//					AssetBundleManager.AssetBundleManifestObject = GetAsset<AssetBundleManifest> ();
+//				} else {
+//					AssetBundleManager.AssetBundleManifestObject2 = GetAsset<AssetBundleManifest> ();
+//				}
 				return false;
 			} else
 				return true;
