@@ -61,6 +61,8 @@ namespace uFrame.ExampleProject
 //			yield return StartCoroutine (Initialize ());
 //			yield return StartCoroutine (InitializeMulti ());
 
+			yield return StartCoroutine (InitializeUseSettings ());
+
 			yield return new WaitForSeconds (.1f);
 
 			Publish (new AssetLoadingProgressEvent () {
@@ -70,84 +72,118 @@ namespace uFrame.ExampleProject
 
 		}
 
-		// Initialize the downloading url and AssetBundleManifest object.
-//		public IEnumerator Initialize ()
-//		{
-//			Caching.CleanCache ();
-//
-//			// With this code, when in-editor or using a development builds: Always use the AssetBundle Server
-//			// (This is very dependent on the production workflow of the project. 
-//			// 	Another approach would be to make this configurable in the standalone player.)
-//			#if UNITY_EDITOR
-//
-//			if (AssetBundleLoaderSettings.Instance.useStreamingAssets) {
-//				// 在编辑器下使用
-//				AssetBundleManager.SetSourceAssetBundleURL ("file://" + Application.dataPath + "/StreamingAssets/");
-//			} else {
-//				AssetBundleManager.SetDevelopmentAssetBundleServer ();
-//			}
-//
-//			#elif DEVELOPMENT_BUILD
-//				AssetBundleManager.SetDevelopmentAssetBundleServer ();
-//			#else
-//			// Use the following code if AssetBundles are embedded in the project for example via StreamingAssets folder etc:
-//			// AssetBundleManager.SetSourceAssetBundleURL(Application.dataPath + "/");
-//			// Or customize the URL based on your deployment or configuration
-//			// AssetBundleManager.SetSourceAssetBundleURL("http://www.MyWebsite/MyAssetBundles");
-//
-//			AssetBundleManager.SetSourceAssetBundleDirectory ("/" + Utility.GetPlatformName () + "/");
-//
-//			#endif
-//
-////			string url = 
-////				
-////			#if UNITY_ANDROID
-////				"jar:file://" + Application.dataPath + "!/assets";
-////			#elif UNITY_IOS
-////				"file://" + Application.dataPath + "/Raw";
-////			#elif UNITY_STANDALONE_WIN || UNITY_EDITOR
-////				"file://" + Application.dataPath + "/StreamingAssets";
-////			#else
-////				string.Empty;
-////			#endif
-////
-////			AssetBundleManager.SetSourceAssetBundleURL (url + "/");
-//
-//			Debug.Log ("AssetBundleManager BaseDownlingURL: " + AssetBundleManager.BaseDownloadingURL);
-//				
-//			// Initialize AssetBundleManifest which loads the AssetBundleManifest object.
-//			var request = AssetBundleManager.Initialize ();
-//			if (request != null)
-//				yield return StartCoroutine (request);
-//		}
+		public IEnumerator InitializeUseSettings ()
+		{
+			for (int i = 0; i < AssetBundleSettings.Instance.loadingUrls.Count; i++) {
+				AssetBundleUrl_Loading url = AssetBundleSettings.Instance.loadingUrls [i];
+				if (url.Enable) {
 
-//		public IEnumerator InitializeMulti ()
-//		{
-//			Caching.CleanCache ();
-//
-////			string url1 = "http://192.168.199.215:7888/";
-//			string url2 = "ftp://192.168.199.215/";
-//
-//			// first
-////			AssetBundleManager.SetSourceAssetBundleURL(url1);
-////			Debug.Log ("AssetBundleManager BaseDownlingURL: " + AssetBundleManager.BaseDownloadingURL);
-////			var request = AssetBundleManager.Initialize ();
-////			if (request != null)
-////			yield return StartCoroutine (request);
-//
-//			AssetBundleManager.BaseDownloadingURL2 = url2 + "OSX2/";
-////			AssetBundleManager.SetSourceAssetBundleURL (url2);
-//			Debug.Log ("AssetBundleManager BaseDownlingURL: " + AssetBundleManager.BaseDownloadingURL);
-//			var request2 = AssetBundleManager.Initialize (Utility.GetPlatformName () + "2", 1);
-//			if (request2 != null)
-//				yield return StartCoroutine (request2);
-//
-//			AssetBundleManager.BaseDownloadingURL = "file://" + Application.dataPath + "/StreamingAssets/OSX/";
-////			AssetBundleManager.SetSourceAssetBundleURL ("file://" + Application.dataPath + "/StreamingAssets/");
-//			Debug.Log ("AssetBundleManager BaseDownlingURL: " + AssetBundleManager.BaseDownloadingURL);
-//			var request1 = AssetBundleManager.Initialize (Utility.GetPlatformName (), 0);
-//			if (request1 != null)
-//				yield return StartCoroutine (request1);
-//		}
+
+					if (url.IsLocal) {
+						string full_url = string.Format (
+							                  "{0}/{1}/{2}",
+							                  AssetBundleManager.GetStreamingAssetsPath (),
+							                  Utility.GetPlatformName (),
+							                  url.UrlId
+						                  );
+						AssetBundleManager.SetBaseDownloadingURL (url.UrlId, full_url);
+					} else {
+						string full_url = string.Format (
+							                  "{0}/{1}/{2}",
+							                  url.Url,
+							                  Utility.GetPlatformName (),
+							                  url.UrlId
+						                  );
+						AssetBundleManager.SetBaseDownloadingURL (url.UrlId, url.Url);
+					}
+
+					var request = AssetBundleManager.Initialize (url.UrlId, url.UrlId);
+					if (request != null) {
+						yield return StartCoroutine (request);
+
+						Debug.Log ("[Loading Completed] UrlId: " + url.UrlId + "\n" + AssetBundleManager.GetBaseDownloadingURL [url.UrlId]);
+					}
+				}
+			}
+		}
+		// Initialize the downloading url and AssetBundleManifest object.
+		//		public IEnumerator Initialize ()
+		//		{
+		//			Caching.CleanCache ();
+		//
+		//			// With this code, when in-editor or using a development builds: Always use the AssetBundle Server
+		//			// (This is very dependent on the production workflow of the project.
+		//			// 	Another approach would be to make this configurable in the standalone player.)
+		//			#if UNITY_EDITOR
+		//
+		//			if (AssetBundleLoaderSettings.Instance.useStreamingAssets) {
+		//				// 在编辑器下使用
+		//				AssetBundleManager.SetSourceAssetBundleURL ("file://" + Application.dataPath + "/StreamingAssets/");
+		//			} else {
+		//				AssetBundleManager.SetDevelopmentAssetBundleServer ();
+		//			}
+		//
+		//			#elif DEVELOPMENT_BUILD
+		//				AssetBundleManager.SetDevelopmentAssetBundleServer ();
+		//			#else
+		//			// Use the following code if AssetBundles are embedded in the project for example via StreamingAssets folder etc:
+		//			// AssetBundleManager.SetSourceAssetBundleURL(Application.dataPath + "/");
+		//			// Or customize the URL based on your deployment or configuration
+		//			// AssetBundleManager.SetSourceAssetBundleURL("http://www.MyWebsite/MyAssetBundles");
+		//
+		//			AssetBundleManager.SetSourceAssetBundleDirectory ("/" + Utility.GetPlatformName () + "/");
+		//
+		//			#endif
+		//
+		////			string url =
+		////
+		////			#if UNITY_ANDROID
+		////				"jar:file://" + Application.dataPath + "!/assets";
+		////			#elif UNITY_IOS
+		////				"file://" + Application.dataPath + "/Raw";
+		////			#elif UNITY_STANDALONE_WIN || UNITY_EDITOR
+		////				"file://" + Application.dataPath + "/StreamingAssets";
+		////			#else
+		////				string.Empty;
+		////			#endif
+		////
+		////			AssetBundleManager.SetSourceAssetBundleURL (url + "/");
+		//
+		//			Debug.Log ("AssetBundleManager BaseDownlingURL: " + AssetBundleManager.BaseDownloadingURL);
+		//
+		//			// Initialize AssetBundleManifest which loads the AssetBundleManifest object.
+		//			var request = AssetBundleManager.Initialize ();
+		//			if (request != null)
+		//				yield return StartCoroutine (request);
+		//		}
+
+		//		public IEnumerator InitializeMulti ()
+		//		{
+		//			Caching.CleanCache ();
+		//
+		////			string url1 = "http://192.168.199.215:7888/";
+		//			string url2 = "ftp://192.168.199.215/";
+		//
+		//			// first
+		////			AssetBundleManager.SetSourceAssetBundleURL(url1);
+		////			Debug.Log ("AssetBundleManager BaseDownlingURL: " + AssetBundleManager.BaseDownloadingURL);
+		////			var request = AssetBundleManager.Initialize ();
+		////			if (request != null)
+		////			yield return StartCoroutine (request);
+		//
+		//			AssetBundleManager.BaseDownloadingURL2 = url2 + "OSX2/";
+		////			AssetBundleManager.SetSourceAssetBundleURL (url2);
+		//			Debug.Log ("AssetBundleManager BaseDownlingURL: " + AssetBundleManager.BaseDownloadingURL);
+		//			var request2 = AssetBundleManager.Initialize (Utility.GetPlatformName () + "2", 1);
+		//			if (request2 != null)
+		//				yield return StartCoroutine (request2);
+		//
+		//			AssetBundleManager.BaseDownloadingURL = "file://" + Application.dataPath + "/StreamingAssets/OSX/";
+		////			AssetBundleManager.SetSourceAssetBundleURL ("file://" + Application.dataPath + "/StreamingAssets/");
+		//			Debug.Log ("AssetBundleManager BaseDownlingURL: " + AssetBundleManager.BaseDownloadingURL);
+		//			var request1 = AssetBundleManager.Initialize (Utility.GetPlatformName (), 0);
+		//			if (request1 != null)
+		//				yield return StartCoroutine (request1);
+		//		}
 	}
 }

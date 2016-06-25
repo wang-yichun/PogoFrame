@@ -5,6 +5,7 @@ using UnityEditor;
 #endif
 using System.Collections;
 using System.Collections.Generic;
+using pogorock;
 
 /*
  	In this demo, we demonstrate:
@@ -155,7 +156,7 @@ namespace AssetBundles
 	
 		#endif
 	
-		private static string GetStreamingAssetsPath ()
+		public static string GetStreamingAssetsPath ()
 		{
 			if (Application.isEditor)
 				return "file://" + System.Environment.CurrentDirectory.Replace ("\\", "/"); // Use the build output folder directly.
@@ -230,7 +231,6 @@ namespace AssetBundles
 		{
 			return Initialize (Utility.GetPlatformName ());
 		}
-			
 	
 		// Load AssetBundleManifest.
 		static public AssetBundleLoadManifestOperation Initialize (string manifestAssetBundleName, string url_id = "default")
@@ -557,6 +557,8 @@ namespace AssetBundles
 	
 			return operation;
 		}
+
+
 	}
 	// End of AssetBundleManager.
 }
