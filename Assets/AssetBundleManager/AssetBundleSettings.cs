@@ -70,43 +70,4 @@
 	{
 		public bool Clear;
 	}
-
-	public class AssetBundleSettingLoader
-	{
-
-		public IEnumerator InitializeUseSettings ()
-		{
-			for (int i = 0; i < AssetBundleSettings.Instance.loadingUrls.Count; i++) {
-				AssetBundleUrl_Loading url = AssetBundleSettings.Instance.loadingUrls [i];
-				if (url.Enable) {
-
-
-					if (url.IsLocal) {
-						string full_url = string.Format (
-							                  "{0}/{1}/{2}",
-							                  AssetBundleManager.GetStreamingAssetsPath (),
-							                  Utility.GetPlatformName (),
-							                  url.UrlId
-						                  );
-						AssetBundleManager.SetBaseDownloadingURL (url.UrlId, full_url);
-					} else {
-						string full_url = string.Format (
-							                  "{0}/{1}/{2}",
-							                  url.Url,
-							                  Utility.GetPlatformName (),
-							                  url.UrlId
-						                  );
-						AssetBundleManager.SetBaseDownloadingURL (url.UrlId, url.Url);
-					}
-
-					var request = AssetBundleManager.Initialize (url.UrlId, url.UrlId);
-					if (request != null) {
-						yield return StartCoroutine (request);
-
-						Debug.Log ("[Loading Completed] UrlId: " + url.UrlId + "\n" + GetBaseDownloadingURL [url.UrlId]);
-					}
-				}
-			}
-		}
-	}
 }
