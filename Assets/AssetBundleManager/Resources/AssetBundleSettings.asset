@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 67c191282583c47ec9e9ae122e993c0c, type: 3}
+  m_Name: AssetBundleSettings
+  m_EditorClassIdentifier: 
+  loadingUrls:
+  - Enable: 1
+    UrlId: asset1
+    Url: ftp://192.168.199.215/
+    Title: Local FTP @ Ethan's MAC
+    IsLocal: 1
+  - Enable: 0
+    UrlId: asset1
+    Url: 
+    Title: Unused
+    IsLocal: 1
+  exportUrls: []

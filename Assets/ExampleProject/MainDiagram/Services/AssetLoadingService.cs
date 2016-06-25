@@ -126,7 +126,7 @@ namespace uFrame.ExampleProject
 			Caching.CleanCache ();
 
 //			string url1 = "http://192.168.199.215:7888/";
-			string url2 = "http://192.168.199.215:7888/";
+			string url2 = "ftp://192.168.199.215/";
 
 			// first
 //			AssetBundleManager.SetSourceAssetBundleURL(url1);

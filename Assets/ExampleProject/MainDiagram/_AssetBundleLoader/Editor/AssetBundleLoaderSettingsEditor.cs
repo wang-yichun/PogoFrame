@@ -7,7 +7,7 @@
 	using System.IO;
 
 	[CustomEditor (typeof(AssetBundleLoaderSettings))]
-	public class AssetBundleSettingsEditor : Editor
+	public class AssetBundleLoaderSettingsEditor : Editor
 	{
 		private ReorderableList reorderableTargetPaths;
 
