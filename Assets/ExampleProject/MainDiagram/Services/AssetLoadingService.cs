@@ -101,7 +101,7 @@ namespace uFrame.ExampleProject
 					if (request != null) {
 						yield return StartCoroutine (request);
 
-						Debug.Log ("[Loading Completed] UrlId: " + url.UrlId + "\n" + AssetBundleManager.GetBaseDownloadingURL [url.UrlId]);
+						Debug.Log ("[Loading Completed] UrlId: " + url.UrlId + "\n" + AssetBundleManager.GetBaseDownloadingURL (url.UrlId));
 					}
 				}
 			}
