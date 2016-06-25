@@ -3,7 +3,6 @@
 	using UnityEngine;
 	using System.Collections;
 	using System.Collections.Generic;
-	using Newtonsoft.Json;
 	using System;
 	using AssetBundles;
 
@@ -69,5 +68,10 @@
 	public class AssetBundleUrl_Export : AssetBundleUrl
 	{
 		public bool Clear;
+
+		[Space(10)]
+		public bool targetStandalone;
+		public bool targetIOS;
+		public bool targetAndroid;
 	}
 }

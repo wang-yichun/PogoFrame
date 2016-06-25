@@ -19,7 +19,7 @@ namespace AssetBundles
 		}
 	
 	#if UNITY_EDITOR
-		private static string GetPlatformForAssetBundles(BuildTarget target)
+		public static string GetPlatformForAssetBundles(BuildTarget target)
 		{
 			switch(target)
 			{

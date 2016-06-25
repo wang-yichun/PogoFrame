@@ -134,9 +134,9 @@ namespace uFrame.ExampleProject
 //				yield return StartCoroutine (AssetLoadingService.Instance.Initialize ());
 //			}
 
-			yield return StartCoroutine (InstantiateGameObjectAsync ("ingame", "L001", "asset0"));
-			yield return StartCoroutine (InstantiateGameObjectAsync ("oa2prefabs", "blue_bird", "asset1"));
-			yield return StartCoroutine (InstantiateGameObjectAsync ("oa2prefabs", "red_bird", "asset1"));
+			yield return StartCoroutine (InstantiateGameObjectAsync ("ingame", "L001", "asset1"));
+			yield return StartCoroutine (InstantiateGameObjectAsync ("oa2prefabs", "blue_bird", "asset2"));
+			yield return StartCoroutine (InstantiateGameObjectAsync ("oa2prefabs", "red_bird", "asset2"));
 
 			LevelRoot.StateProperty.Level_LoadingFinished.OnNext (true);
 		}
@@ -153,7 +153,7 @@ namespace uFrame.ExampleProject
 			AssetBundleManager.UnloadAssetBundle ("ingame");
 			Caching.CleanCache ();
 
-			yield return StartCoroutine (InstantiateGameObjectAsync ("ingame", "L001"));
+			yield return StartCoroutine (InstantiateGameObjectAsync ("ingame", "L001", "asset1"));
 			LevelRoot.StateProperty.Level_LoadingFinished.OnNext (true);
 		}
 

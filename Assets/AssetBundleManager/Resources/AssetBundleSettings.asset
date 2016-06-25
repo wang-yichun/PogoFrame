@@ -14,12 +14,28 @@ MonoBehaviour:
   loadingUrls:
   - Enable: 1
     UrlId: asset1
-    Url: ftp://192.168.199.215/
+    Url: ftp://192.168.199.215/PogoFrameAssets
     Title: Local FTP @ Ethan's MAC
-    IsLocal: 1
+    IsLocal: 0
+  - Enable: 1
+    UrlId: asset2
+    Url: ftp://192.168.199.215/PogoFrameAssets
+    Title: Local FTP @ Ethan's MAC
+    IsLocal: 0
+  exportUrls:
   - Enable: 0
     UrlId: asset1
-    Url: 
-    Title: Unused
-    IsLocal: 1
-  exportUrls: []
+    Url: Assets/StreamingAssets
+    Title: Assets/StreamingAssets
+    Clear: 0
+    targetStandalone: 1
+    targetIOS: 0
+    targetAndroid: 0
+  - Enable: 1
+    UrlId: asset1
+    Url: AssetBundles
+    Title: AssetBundles
+    Clear: 0
+    targetStandalone: 1
+    targetIOS: 0
+    targetAndroid: 0
