@@ -71,7 +71,7 @@ namespace AssetBundles
 		
 		static void Run ()
 		{
-			string pathToAssetServer = Path.Combine(Application.dataPath, "AssetBundleManager/Editor/AssetBundleServer.exe");
+			string pathToAssetServer = Path.Combine(Application.dataPath, "VariousAssets/AssetBundleManager/Editor/AssetBundleServer.exe");
 			string pathToApp = Application.dataPath.Substring(0, Application.dataPath.LastIndexOf('/'));
 	
 			KillRunningAssetBundleServer();

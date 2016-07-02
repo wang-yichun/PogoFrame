@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Net;
 using System.Net.Sockets;
+using pogorock;
 
 namespace AssetBundles
 {
@@ -58,7 +59,7 @@ namespace AssetBundles
 				downloadURL = "http://"+localIP+":7888/";
 			}
 			
-			string assetBundleManagerResourcesDirectory = "Assets/AssetBundleManager/Resources";
+			string assetBundleManagerResourcesDirectory = "Assets/VariousAssets/AssetBundleManager/Resources";
 			string assetBundleUrlPath = Path.Combine (assetBundleManagerResourcesDirectory, "AssetBundleServerURL.bytes");
 			Directory.CreateDirectory(assetBundleManagerResourcesDirectory);
 			File.WriteAllText(assetBundleUrlPath, downloadURL);

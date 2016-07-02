@@ -15,7 +15,7 @@
 	public class AssetBundleSettings : ScriptableObject
 	{
 		public static readonly string assetName = "AssetBundleSettings";
-		public static readonly string fullPath = "Assets/AssetBundleManager/Resources/AssetBundleSettings.asset";
+		public static readonly string fullPath = "Assets/VariousAssets/AssetBundleManager/Resources/AssetBundleSettings.asset";
 
 		private static AssetBundleSettings instance = null;
 

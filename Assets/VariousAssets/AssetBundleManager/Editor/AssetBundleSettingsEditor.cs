@@ -26,12 +26,20 @@
 				// 2.使用 AssetDatabase.LoadAssetAtPath() 加载一些 Texture2D
 				// TODO:
 
+				string root_path = GetSysRootPath ();
+
 				toolbar_index = EditorPrefs.GetInt ("asset_bundle_settings_toolbar_index", 0);
 
-				gizmo_enable = AssetDatabase.LoadAssetAtPath<Texture2D> ("Assets/AssetBundleManager/Gizmos/gizmo_enable.psd");
-				gizmo_disable = AssetDatabase.LoadAssetAtPath<Texture2D> ("Assets/AssetBundleManager/Gizmos/gizmo_disable.psd");
-				gizmo_local = AssetDatabase.LoadAssetAtPath<Texture2D> ("Assets/AssetBundleManager/Gizmos/gizmo_local.psd");
+				gizmo_enable = AssetDatabase.LoadAssetAtPath<Texture2D> (root_path + "Gizmos/gizmo_enable.psd");
+				gizmo_disable = AssetDatabase.LoadAssetAtPath<Texture2D> (root_path + "Gizmos/gizmo_disable.psd");
+				gizmo_local = AssetDatabase.LoadAssetAtPath<Texture2D> (root_path + "Gizmos/gizmo_local.psd");
 			}
+		}
+
+		public static string GetSysRootPath ()
+		{
+			string abm_root_path = AssetDatabase.GetAssetPath (AssetBundleSettings.Instance);
+			return abm_root_path.Substring (0, abm_root_path.IndexOf ("Resources/AssetBundleSettings.asset"));
 		}
 
 		private static string[] ToolbarHeaders = new string[] { "Loading", "Export" };
