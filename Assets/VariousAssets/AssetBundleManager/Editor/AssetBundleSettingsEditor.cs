@@ -38,8 +38,9 @@
 
 		public static string GetSysRootPath ()
 		{
-			string abm_root_path = AssetDatabase.GetAssetPath (AssetBundleSettings.Instance);
-			return abm_root_path.Substring (0, abm_root_path.IndexOf ("Resources/AssetBundleSettings.asset"));
+//			string abm_root_path = AssetDatabase.GetAssetPath (AssetBundleSettings.Instance);
+//			return abm_root_path.Substring (0, abm_root_path.IndexOf ("Resources/AssetBundleSettings.asset"));
+			return "Assets/VariousAssets/AssetBundleManager/";
 		}
 
 		private static string[] ToolbarHeaders = new string[] { "Loading", "Export" };

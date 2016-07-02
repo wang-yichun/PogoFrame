@@ -59,7 +59,7 @@ namespace AssetBundles
 				downloadURL = "http://"+localIP+":7888/";
 			}
 			
-			string assetBundleManagerResourcesDirectory = "Assets/VariousAssets/AssetBundleManager/Resources";
+			string assetBundleManagerResourcesDirectory = "Assets/Resources";
 			string assetBundleUrlPath = Path.Combine (assetBundleManagerResourcesDirectory, "AssetBundleServerURL.bytes");
 			Directory.CreateDirectory(assetBundleManagerResourcesDirectory);
 			File.WriteAllText(assetBundleUrlPath, downloadURL);
