@@ -44,7 +44,7 @@ MonoBehaviour:
     targetStandalone: 1
     targetIOS: 0
     targetAndroid: 0
-  - Enable: 1
+  - Enable: 0
     UrlId: asset1
     Url: AssetBundles
     Title: Android - AssetBundles
@@ -52,11 +52,11 @@ MonoBehaviour:
     targetStandalone: 0
     targetIOS: 0
     targetAndroid: 1
-  - Enable: 0
+  - Enable: 1
     UrlId: asset1
     Url: Assets/StreamingAssets
     Title: Android - Assets/StreamingAssets
     Clear: 0
-    targetStandalone: 0
+    targetStandalone: 1
     targetIOS: 0
     targetAndroid: 0
