@@ -6,6 +6,7 @@
 	using System;
 	using AssetBundles;
 	using Newtonsoft.Json;
+	using System.IO;
 
 	#if UNITY_EDITOR
 	using UnityEditor;
@@ -17,7 +18,7 @@
 	public class AssetBundleSettings : ScriptableObject
 	{
 		public static readonly string assetName = "AssetBundleSettings";
-		public static readonly string fullPath = "Resources/AssetBundleSettings.asset";
+		public static readonly string fullPath = "Assets/Resources/AssetBundleSettings.asset";
 
 		private static AssetBundleSettings instance = null;
 
@@ -29,6 +30,9 @@
 						instance = CreateInstance<AssetBundleSettings> ();
 
 						#if UNITY_EDITOR
+						if (!Directory.Exists ("Assets/Resources")) {
+							Directory.CreateDirectory ("Assets/Resources");
+						}
 						AssetDatabase.CreateAsset (instance, fullPath);
 						#endif
 					}
