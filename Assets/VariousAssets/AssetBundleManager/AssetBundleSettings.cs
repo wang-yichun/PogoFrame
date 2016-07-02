@@ -5,6 +5,7 @@
 	using System.Collections.Generic;
 	using System;
 	using AssetBundles;
+	using Newtonsoft.Json;
 
 	#if UNITY_EDITOR
 	using UnityEditor;
@@ -12,6 +13,7 @@
 	[InitializeOnLoad]
 	#endif
 
+	[JsonObject (MemberSerialization.OptIn)]
 	public class AssetBundleSettings : ScriptableObject
 	{
 		public static readonly string assetName = "AssetBundleSettings";
@@ -43,7 +45,9 @@
 		#endif
 
 		// 定义数据载体
+		[JsonProperty]
 		public List<AssetBundleUrl_Loading> loadingUrls;
+		[JsonProperty]
 		public List<AssetBundleUrl_Export> exportUrls;
 
 	}
@@ -69,7 +73,7 @@
 	{
 		public bool Clear;
 
-		[Space(10)]
+		[Space (10)]
 		public bool targetStandalone;
 		public bool targetIOS;
 		public bool targetAndroid;

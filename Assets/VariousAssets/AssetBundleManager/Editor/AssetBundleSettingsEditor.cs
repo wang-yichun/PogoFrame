@@ -10,7 +10,7 @@
 	using Malee.Editor;
 
 	[CustomEditor (typeof(AssetBundleSettings))]
-	public class AssetBundleSettingsEditor : Editor
+	public partial class AssetBundleSettingsEditor : Editor
 	{
 
 		public static Texture2D gizmo_enable;
@@ -43,7 +43,7 @@
 			return "Assets/VariousAssets/AssetBundleManager/";
 		}
 
-		private static string[] ToolbarHeaders = new string[] { "Loading", "Export" };
+		private static string[] ToolbarHeaders = new string[] { "Loading", "Export", "Settings" };
 		private static int toolbar_index;
 
 		public ReorderableList loadingList;
@@ -118,6 +118,9 @@
 				break;
 			case 1:
 				ExportHandle ();
+				break;
+			case 2:
+				SettingHandle ();
 				break;
 			default:
 				break;
