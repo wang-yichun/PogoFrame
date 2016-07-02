@@ -138,6 +138,14 @@ namespace uFrame.ExampleProject
 			yield return StartCoroutine (InstantiateGameObjectAsync ("oa2prefabs", "blue_bird", "asset2"));
 			yield return StartCoroutine (InstantiateGameObjectAsync ("oa2prefabs", "red_bird", "asset2"));
 
+			AssetBundleLoadAssetOperation request = AssetBundleManager.LoadAssetAsync ("soa", "TestScriptObj", typeof(TestScriptObj), "asset1");
+			if (request == null)
+				yield break;
+			yield return StartCoroutine (request);
+
+			TestScriptObj tso = request.GetAsset<TestScriptObj> ();
+			Debug.Log ("TestScriptObj: " + tso.varString);
+
 			LevelRoot.StateProperty.Level_LoadingFinished.OnNext (true);
 		}
 
