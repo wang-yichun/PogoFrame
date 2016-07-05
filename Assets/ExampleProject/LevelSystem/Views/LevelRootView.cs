@@ -32,6 +32,8 @@ namespace uFrame.ExampleProject
 		public override void AfterBind ()
 		{
 			base.AfterBind ();
+
+			LevelRoot.LevelClose.OnNext (new LevelCloseCommand ());
 		}
 
 		#region State Machine

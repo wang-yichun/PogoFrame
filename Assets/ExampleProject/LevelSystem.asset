@@ -276,15 +276,15 @@ MonoBehaviour:
     "y":330}, "fc5cea9d-a068-42e2-bb2b-1ce305330d59":{"x":910, "y":180}, "94acd8a8-e055-46b3-a633-426ee596fc70":{"x":180,
     "y":520}, "0ceed33e-a15f-4d61-a98a-5a52ab7d31bd":{"x":800, "y":510}}}, "FilterState":{"_CLRType":"FilterState,
     Invert.Core.GraphDesigner, Version=1.1.0.0, Culture=neutral, PublicKeyToken=null",
-    "FilterStack":[ "11db7b38-17ff-48fb-9275-c948c455c245" ]}, "Settings":{"_CLRType":"ElementDiagramSettings,
-    Invert.Core.GraphDesigner, Version=1.1.0.0, Culture=neutral, PublicKeyToken=null",
-    "CodeGenDisabled":false, "SnapSize":10, "Snap":true, "CodePathStrategyName":"Default",
-    "GridLinesColor":{"r":"0.271", "g":"0.271", "b":"0.271", "a":1}, "GridLinesColorSecondary":{"r":"0.169",
-    "g":"0.169", "b":"0.169", "a":1}, "AssociationLinkColor":{"r":1, "g":1, "b":1,
-    "a":1}, "DefinitionLinkColor":{"r":0, "g":1, "b":1, "a":1}, "InheritanceLinkColor":{"r":0,
-    "g":1, "b":0, "a":1}, "SceneManagerLinkColor":{"r":"0.5", "g":"0.5", "b":"0.5",
-    "a":1}, "SubSystemLinkColor":{"r":"0.5", "g":"0.5", "b":"0.5", "a":1}, "TransitionLinkColor":{"r":1,
-    "g":"0.9215686", "b":"0.01568628", "a":1}, "ViewLinkColor":{"r":0, "g":0, "b":1,
-    "a":1}, "RootNamespace":""}, "Changes":[ {"_CLRType":"Invert.Core.GraphDesigner.GraphItemAdded,
-    Invert.Core.GraphDesigner, Version=1.1.0.0, Culture=neutral, PublicKeyToken=null",
-    "ItemIdentifier":"e76ba03d-c325-44f2-a43b-7ec084c66704"} ]}'
+    "FilterStack":[  ]}, "Settings":{"_CLRType":"ElementDiagramSettings, Invert.Core.GraphDesigner,
+    Version=1.1.0.0, Culture=neutral, PublicKeyToken=null", "CodeGenDisabled":false,
+    "SnapSize":10, "Snap":true, "CodePathStrategyName":"Default", "GridLinesColor":{"r":"0.271",
+    "g":"0.271", "b":"0.271", "a":1}, "GridLinesColorSecondary":{"r":"0.169", "g":"0.169",
+    "b":"0.169", "a":1}, "AssociationLinkColor":{"r":1, "g":1, "b":1, "a":1}, "DefinitionLinkColor":{"r":0,
+    "g":1, "b":1, "a":1}, "InheritanceLinkColor":{"r":0, "g":1, "b":0, "a":1}, "SceneManagerLinkColor":{"r":"0.5",
+    "g":"0.5", "b":"0.5", "a":1}, "SubSystemLinkColor":{"r":"0.5", "g":"0.5", "b":"0.5",
+    "a":1}, "TransitionLinkColor":{"r":1, "g":"0.9215686", "b":"0.01568628", "a":1},
+    "ViewLinkColor":{"r":0, "g":0, "b":1, "a":1}, "RootNamespace":""}, "Changes":[
+    {"_CLRType":"Invert.Core.GraphDesigner.GraphItemAdded, Invert.Core.GraphDesigner,
+    Version=1.1.0.0, Culture=neutral, PublicKeyToken=null", "ItemIdentifier":"e76ba03d-c325-44f2-a43b-7ec084c66704"}
+    ]}'

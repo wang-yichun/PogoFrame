@@ -4,6 +4,7 @@
 	using UnityEditor;
 	using System.IO;
 	using AssetBundles;
+	using System.Text.RegularExpressions;
 
 	//	using UnityEditorInternal;
 
@@ -64,6 +65,8 @@
 			};
 		}
 
+		private string ftp_url_pattern = @"ftp://([\s\S]*?)(:(\d+))?/([\s\S]*)";
+
 		public void PublishAssetBundles ()
 		{
 			AssetBundleSettings settings = target as AssetBundleSettings;
@@ -110,23 +113,30 @@
 							if (url.targetStandalone) {
 								buildTarget = BuildTarget.StandaloneOSXUniversal;
 								outputPath = Path.Combine (url_str, Utility.GetPlatformForAssetBundles (buildTarget));
+								outputPath = Path.Combine (outputPath, url.UrlId);
+								string resourcePath = Path.Combine (first_outputpath_standalone, url.UrlId);
 
-								// first_outputpath_standalone -> outputPath;
-								FilesCopy.copyDirectory (first_outputpath_standalone, outputPath);
+								Match m = Regex.Match (outputPath, ftp_url_pattern);
+								if (m.Success) {
+									FilesCopyWithFTP.uploadDictionary (null, resourcePath, m.Groups [4].Value, m.Groups [1].Value, m.Groups [3].Value, "ethan", "ethan");
+								} else {
+									// first_outputpath_standalone -> outputPath;
+									FilesCopy.copyDirectory (resourcePath, outputPath);
+								}
 							}
 							if (url.targetIOS) {
 								buildTarget = BuildTarget.iOS;
 								outputPath = Path.Combine (url_str, Utility.GetPlatformForAssetBundles (buildTarget));
-								BuildAssetBundle (url.UrlId, outputPath, buildTarget);
-
-								FilesCopy.copyDirectory (first_outputpath_ios, outputPath);
+								outputPath = Path.Combine (outputPath, url.UrlId);
+								string resourcePath = Path.Combine (first_outputpath_standalone, url.UrlId);
+								FilesCopy.copyDirectory (resourcePath, outputPath);
 							}
 							if (url.targetAndroid) {
 								buildTarget = BuildTarget.Android;
 								outputPath = Path.Combine (url_str, Utility.GetPlatformForAssetBundles (buildTarget));
-								BuildAssetBundle (url.UrlId, outputPath, buildTarget);
-
-								FilesCopy.copyDirectory (first_outputpath_android, outputPath);
+								outputPath = Path.Combine (outputPath, url.UrlId);
+								string resourcePath = Path.Combine (first_outputpath_standalone, url.UrlId);
+								FilesCopy.copyDirectory (resourcePath, outputPath);
 							}
 						}
 					}
@@ -183,6 +193,17 @@
 			EditorGUILayout.BeginVertical ();
 			if (GUILayout.Button ("发布 AssetBundles !!")) {
 				PublishAssetBundles ();
+			}
+			if (GUILayout.Button ("测试上传 FTP")) {
+				FilesCopyWithFTP.uploadDictionary (
+					null, 
+					"AssetBundles/OSX/asset1",
+					"PogoFrameAssets/OSX/asset1",
+					"192.168.199.215",
+					"21",
+					"ethan",
+					"ethan"
+				);
 			}
 			EditorGUILayout.EndVertical ();
 			exportList.DoLayoutList ();
