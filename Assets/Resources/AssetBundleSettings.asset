@@ -14,54 +14,32 @@ MonoBehaviour:
   loadingUrls:
   - Enable: 0
     UrlId: asset1
-    Url: http://192.168.199.215:7888/
     Title: ABM HTTP@Ethan's MAC
     IsLocal: 0
+    Url: 
   - Enable: 1
     UrlId: asset1
-    Url: 
     Title: StreamingAssets
     IsLocal: 1
+    Url: 
   - Enable: 1
     UrlId: asset2
-    Url: ftp://192.168.199.215/PogoFrameAssets
     Title: Local FTP @ Ethan's MAC
     IsLocal: 0
+    Url: ftp://192.168.199.215/PogoFrameAssets
   - Enable: 0
     UrlId: asset1
-    Url: ftp://192.168.199.215/PogoFrameAssets
     Title: Local FTP @ Ethan's MAC
     IsLocal: 0
+    Url: 
   exportUrls:
   - Enable: 1
     UrlId: asset1
-    Url: Assets/StreamingAssets
-    Title: StreamingAssets@Ethan's MAC
-    Clear: 0
-    targetStandalone: 1
-    targetIOS: 0
-    targetAndroid: 0
-  - Enable: 1
-    UrlId: asset1
-    Url: AssetBundles
-    Title: Root AssetBundles@Ethan's MAC
-    Clear: 0
-    targetStandalone: 1
-    targetIOS: 0
-    targetAndroid: 0
-  - Enable: 0
-    UrlId: asset1
-    Url: AssetBundles
-    Title: Android - AssetBundles
-    Clear: 0
-    targetStandalone: 0
-    targetIOS: 0
-    targetAndroid: 1
-  - Enable: 0
-    UrlId: asset1
-    Url: Assets/StreamingAssets
-    Title: Android - Assets/StreamingAssets
-    Clear: 0
+    Title: Default asset1
+    Clear: 1
+    Urls:
+    - AssetBundles
+    - Assets/StreamingAssets
     targetStandalone: 1
     targetIOS: 0
     targetAndroid: 0

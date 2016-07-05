@@ -75,20 +75,60 @@
 					BuildTarget buildTarget;
 					string outputPath;
 
-					if (url.targetStandalone) {
-						buildTarget = BuildTarget.StandaloneOSXUniversal;
-						outputPath = Path.Combine (url.Url, Utility.GetPlatformForAssetBundles (buildTarget));
-						BuildAssetBundle (url.UrlId, outputPath, buildTarget);
-					}
-					if (url.targetIOS) {
-						buildTarget = BuildTarget.iOS;
-						outputPath = Path.Combine (url.Url, Utility.GetPlatformForAssetBundles (buildTarget));
-						BuildAssetBundle (url.UrlId, outputPath, buildTarget);
-					}
-					if (url.targetAndroid) {
-						buildTarget = BuildTarget.Android;
-						outputPath = Path.Combine (url.Url, Utility.GetPlatformForAssetBundles (buildTarget));
-						BuildAssetBundle (url.UrlId, outputPath, buildTarget);
+					string first_outputpath_standalone = string.Empty;
+					string first_outputpath_ios = string.Empty;
+					string first_outputpath_android = string.Empty;
+
+					for (int j = 0; j < url.Urls.Count; j++) {
+
+						string url_str = url.Urls [j];
+
+						if (j == 0) {
+							if (url.targetStandalone) {
+								buildTarget = BuildTarget.StandaloneOSXUniversal;
+								outputPath = Path.Combine (url_str, Utility.GetPlatformForAssetBundles (buildTarget));
+								BuildAssetBundle (url.UrlId, outputPath, buildTarget);
+
+								first_outputpath_standalone = outputPath;
+							}
+							if (url.targetIOS) {
+								buildTarget = BuildTarget.iOS;
+								outputPath = Path.Combine (url_str, Utility.GetPlatformForAssetBundles (buildTarget));
+								BuildAssetBundle (url.UrlId, outputPath, buildTarget);
+
+								first_outputpath_ios = outputPath;
+							}
+							if (url.targetAndroid) {
+								buildTarget = BuildTarget.Android;
+								outputPath = Path.Combine (url_str, Utility.GetPlatformForAssetBundles (buildTarget));
+								BuildAssetBundle (url.UrlId, outputPath, buildTarget);
+
+								first_outputpath_android = outputPath;
+							}
+						} else {
+							// 进行拷贝
+							if (url.targetStandalone) {
+								buildTarget = BuildTarget.StandaloneOSXUniversal;
+								outputPath = Path.Combine (url_str, Utility.GetPlatformForAssetBundles (buildTarget));
+
+								// first_outputpath_standalone -> outputPath;
+								FilesCopy.copyDirectory (first_outputpath_standalone, outputPath);
+							}
+							if (url.targetIOS) {
+								buildTarget = BuildTarget.iOS;
+								outputPath = Path.Combine (url_str, Utility.GetPlatformForAssetBundles (buildTarget));
+								BuildAssetBundle (url.UrlId, outputPath, buildTarget);
+
+								first_outputpath_ios = outputPath;
+							}
+							if (url.targetAndroid) {
+								buildTarget = BuildTarget.Android;
+								outputPath = Path.Combine (url_str, Utility.GetPlatformForAssetBundles (buildTarget));
+								BuildAssetBundle (url.UrlId, outputPath, buildTarget);
+
+								first_outputpath_android = outputPath;
+							}
+						}
 					}
 				}
 			}

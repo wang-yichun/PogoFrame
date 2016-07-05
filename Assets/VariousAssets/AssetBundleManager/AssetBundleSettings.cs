@@ -61,7 +61,6 @@
 	{
 		public bool Enable;
 		public string UrlId;
-		public string Url;
 		public string Title;
 	}
 
@@ -69,13 +68,14 @@
 	public class AssetBundleUrl_Loading : AssetBundleUrl
 	{
 		public bool IsLocal;
+		public string Url;
 	}
-
 
 	[Serializable]
 	public class AssetBundleUrl_Export : AssetBundleUrl
 	{
 		public bool Clear;
+		public List<string> Urls;
 
 		[Space (10)]
 		public bool targetStandalone;
