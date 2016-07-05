@@ -12,15 +12,20 @@ MonoBehaviour:
   m_Name: AssetBundleSettings
   m_EditorClassIdentifier: 
   loadingUrls:
-  - Enable: 1
+  - Enable: 0
     UrlId: asset1
     Title: StreamingAssets
     IsLocal: 1
     Url: 
   - Enable: 1
+    UrlId: asset1
+    Title: Local FTP @ Ethan's MAC
+    IsLocal: 0
+    Url: ftp://192.168.199.215/PogoFrameAssets
+  - Enable: 1
     UrlId: asset2
     Title: Local FTP @ Ethan's MAC
-    IsLocal: 1
+    IsLocal: 0
     Url: ftp://192.168.199.215/PogoFrameAssets
   exportUrls:
   - Enable: 1
@@ -30,7 +35,7 @@ MonoBehaviour:
     Urls:
     - AssetBundles
     - Assets/StreamingAssets
-    - ftp://192.168.199.215:21/PogoFrameAssets
+    - ftp://192.168.199.215:21/PogoFrameAssets|ethan|ethan
     targetStandalone: 1
     targetIOS: 0
     targetAndroid: 0
