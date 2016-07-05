@@ -119,14 +119,14 @@
 								outputPath = Path.Combine (url_str, Utility.GetPlatformForAssetBundles (buildTarget));
 								BuildAssetBundle (url.UrlId, outputPath, buildTarget);
 
-								first_outputpath_ios = outputPath;
+								FilesCopy.copyDirectory (first_outputpath_ios, outputPath);
 							}
 							if (url.targetAndroid) {
 								buildTarget = BuildTarget.Android;
 								outputPath = Path.Combine (url_str, Utility.GetPlatformForAssetBundles (buildTarget));
 								BuildAssetBundle (url.UrlId, outputPath, buildTarget);
 
-								first_outputpath_android = outputPath;
+								FilesCopy.copyDirectory (first_outputpath_android, outputPath);
 							}
 						}
 					}
