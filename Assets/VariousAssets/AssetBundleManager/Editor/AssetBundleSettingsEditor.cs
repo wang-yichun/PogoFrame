@@ -112,53 +112,49 @@
 							// 进行拷贝
 							if (url.targetStandalone) {
 								buildTarget = BuildTarget.StandaloneOSXUniversal;
-
-								int u = url_str.IndexOf ("|");
-								string[] upl = null;
-								if (u != -1) {
-									string u_p = url_str.Substring (u);
-									upl = u_p.Split ('|');
-									url_str = url_str.Substring (0, u);
-								}
-
-								outputPath = Path.Combine (url_str, Utility.GetPlatformForAssetBundles (buildTarget));
-								outputPath = Path.Combine (outputPath, url.UrlId);
-								string resourcePath = Path.Combine (first_outputpath_standalone, url.UrlId);
-
-								Match m = Regex.Match (outputPath, ftp_url_pattern);
-								if (m.Success) {
-//									FilesCopyWithFTP.uploadDictionary (null, resourcePath, m.Groups [4].Value, m.Groups [1].Value, m.Groups [3].Value, "ethan", "ethan");
-									FilesCopyWithFTP.uploadDictionary (
-										client: null,
-										localDictionary: resourcePath,
-										remotePath: m.Groups [4].Value,
-										remoteHost: m.Groups [1].Value,
-										remotePort: m.Groups [3].Value,
-										userName: upl [1],
-										password: upl [2]
-									);
-								} else {
-									// first_outputpath_standalone -> outputPath;
-									FilesCopy.copyDirectory (resourcePath, outputPath);
-								}
+								smartCopy (buildTarget, url_str, url.UrlId, first_outputpath_standalone);
 							}
 							if (url.targetIOS) {
 								buildTarget = BuildTarget.iOS;
-								outputPath = Path.Combine (url_str, Utility.GetPlatformForAssetBundles (buildTarget));
-								outputPath = Path.Combine (outputPath, url.UrlId);
-								string resourcePath = Path.Combine (first_outputpath_standalone, url.UrlId);
-								FilesCopy.copyDirectory (resourcePath, outputPath);
+								smartCopy (buildTarget, url_str, url.UrlId, first_outputpath_ios);
 							}
 							if (url.targetAndroid) {
 								buildTarget = BuildTarget.Android;
-								outputPath = Path.Combine (url_str, Utility.GetPlatformForAssetBundles (buildTarget));
-								outputPath = Path.Combine (outputPath, url.UrlId);
-								string resourcePath = Path.Combine (first_outputpath_standalone, url.UrlId);
-								FilesCopy.copyDirectory (resourcePath, outputPath);
+								smartCopy (buildTarget, url_str, url.UrlId, first_outputpath_android);
 							}
 						}
 					}
 				}
+			}
+		}
+
+		public void smartCopy (BuildTarget buildTarget, string url_str, string url_id, string first_outputpath)
+		{
+			int u = url_str.IndexOf ("|");
+			string[] upl = null;
+			if (u != -1) {
+				string u_p = url_str.Substring (u);
+				upl = u_p.Split ('|');
+				url_str = url_str.Substring (0, u);
+			}
+
+			string outputPath = Path.Combine (url_str, Utility.GetPlatformForAssetBundles (buildTarget));
+			outputPath = Path.Combine (outputPath, url_id);
+			string resourcePath = Path.Combine (first_outputpath, url_id);
+
+			Match m = Regex.Match (outputPath, ftp_url_pattern);
+			if (m.Success) {
+				FilesCopyWithFTP.uploadDictionary (
+					client: null,
+					localDictionary: resourcePath,
+					remotePath: m.Groups [4].Value,
+					remoteHost: m.Groups [1].Value,
+					remotePort: m.Groups [3].Value,
+					userName: upl [1],
+					password: upl [2]
+				);
+			} else {
+				FilesCopy.copyDirectory (resourcePath, outputPath);
 			}
 		}
 
