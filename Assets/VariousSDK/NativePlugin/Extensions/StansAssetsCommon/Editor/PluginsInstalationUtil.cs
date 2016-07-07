@@ -5,12 +5,12 @@ using System.Collections;
 public class PluginsInstalationUtil : MonoBehaviour {
 	
 	
-	public const string ANDROID_SOURCE_PATH       = "VariousSDK/AndroidNativePlugin/Plugins/StansAssets/Android/";
-	public const string ANDROID_DESTANATION_PATH  = "VariousSDK/AndroidNativePlugin/Plugins/Android/";
+	public const string ANDROID_SOURCE_PATH       = "VariousSDK/NativePlugin/Plugins/StansAssets/Android/";
+	public const string ANDROID_DESTANATION_PATH  = "VariousSDK/NativePlugin/Plugins/Android/";
 	
 	
-	public const string IOS_SOURCE_PATH       = "VariousSDK/AndroidNativePlugin/Plugins/StansAssets/IOS/";
-	public const string IOS_DESTANATION_PATH  = "VariousSDK/AndroidNativePlugin/Plugins/IOS/";
+	public const string IOS_SOURCE_PATH       = "VariousSDK/NativePlugin/Plugins/StansAssets/IOS/";
+	public const string IOS_DESTANATION_PATH  = "VariousSDK/NativePlugin/Plugins/IOS/";
 	
 	
 	
@@ -86,9 +86,9 @@ public class PluginsInstalationUtil : MonoBehaviour {
 		SA_FileStaticAPI.DeleteFolder("FacebookSDK", false);
 		
 		//MSP
-		SA_FileStaticAPI.DeleteFile("VariousSDK/AndroidNativePlugin/Extensions/MobileSocialPlugin/Example/Scripts/MSPFacebookUseExample.cs", false);
-		SA_FileStaticAPI.DeleteFile("VariousSDK/AndroidNativePlugin/Extensions/MobileSocialPlugin/Example/Scripts/MSP_FacebookAnalyticsExample.cs", false);
-		SA_FileStaticAPI.DeleteFile("VariousSDK/AndroidNativePlugin/Extensions/MobileSocialPlugin/Example/Scripts/MSP_FacebookAndroidTurnBasedAndGiftsExample.cs", false);
+		SA_FileStaticAPI.DeleteFile("VariousSDK/NativePlugin/Extensions/MobileSocialPlugin/Example/Scripts/MSPFacebookUseExample.cs", false);
+		SA_FileStaticAPI.DeleteFile("VariousSDK/NativePlugin/Extensions/MobileSocialPlugin/Example/Scripts/MSP_FacebookAnalyticsExample.cs", false);
+		SA_FileStaticAPI.DeleteFile("VariousSDK/NativePlugin/Extensions/MobileSocialPlugin/Example/Scripts/MSP_FacebookAndroidTurnBasedAndGiftsExample.cs", false);
 		
 		//FB v7
 		SA_FileStaticAPI.DeleteFolder("Examples", false);
@@ -103,7 +103,7 @@ public class PluginsInstalationUtil : MonoBehaviour {
 	}
 	
 	
-	private static string AN_SoomlaGrowContent = "VariousSDK/AndroidNativePlugin/Extensions/AndroidNative/Other/Soomla/AN_SoomlaGrow.cs";
+	private static string AN_SoomlaGrowContent = "VariousSDK/NativePlugin/Extensions/AndroidNative/Other/Soomla/AN_SoomlaGrow.cs";
 	public static void DisableSoomlaFB() {
 		ChnageDefineState(AN_SoomlaGrowContent, "FACEBOOK_ENABLED", false);
 	}

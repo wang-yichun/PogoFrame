@@ -43,30 +43,30 @@ public class SA_RemoveTool  {
 	
 	
 	private static void ProcessRemove() {
-		SA_FileStaticAPI.DeleteFolder ("VariousSDK/AndroidNativePlugin/Extensions/AllDocumentation");
-		SA_FileStaticAPI.DeleteFolder ("VariousSDK/AndroidNativePlugin/Extensions/FlashLikeEvents");
-		SA_FileStaticAPI.DeleteFolder ("VariousSDK/AndroidNativePlugin/Extensions/AndroidManifestManager");
-		SA_FileStaticAPI.DeleteFolder ("VariousSDK/AndroidNativePlugin/Extensions/GooglePlayCommon");
-		SA_FileStaticAPI.DeleteFolder ("VariousSDK/AndroidNativePlugin/Extensions/StansAssetsCommon");
-		SA_FileStaticAPI.DeleteFolder ("VariousSDK/AndroidNativePlugin/Extensions/StansAssetsPreviewUI");
-		SA_FileStaticAPI.DeleteFolder ("VariousSDK/AndroidNativePlugin/Extensions/IOSDeploy");
+		SA_FileStaticAPI.DeleteFolder ("VariousSDK/NativePlugin/Extensions/AllDocumentation");
+		SA_FileStaticAPI.DeleteFolder ("VariousSDK/NativePlugin/Extensions/FlashLikeEvents");
+		SA_FileStaticAPI.DeleteFolder ("VariousSDK/NativePlugin/Extensions/AndroidManifestManager");
+		SA_FileStaticAPI.DeleteFolder ("VariousSDK/NativePlugin/Extensions/GooglePlayCommon");
+		SA_FileStaticAPI.DeleteFolder ("VariousSDK/NativePlugin/Extensions/StansAssetsCommon");
+		SA_FileStaticAPI.DeleteFolder ("VariousSDK/NativePlugin/Extensions/StansAssetsPreviewUI");
+		SA_FileStaticAPI.DeleteFolder ("VariousSDK/NativePlugin/Extensions/IOSDeploy");
 
 		
 		if (SA_VersionsManager.Is_AN_Installed) {
-			SA_FileStaticAPI.DeleteFolder ("VariousSDK/AndroidNativePlugin/Extensions/AndroidNative");
+			SA_FileStaticAPI.DeleteFolder ("VariousSDK/NativePlugin/Extensions/AndroidNative");
 			RemoveAndroidPart();	
 		}
 		
 		
 		if (SA_VersionsManager.Is_MSP_Installed){
-			SA_FileStaticAPI.DeleteFolder ("VariousSDK/AndroidNativePlugin/Extensions/MobileSocialPlugin");
+			SA_FileStaticAPI.DeleteFolder ("VariousSDK/NativePlugin/Extensions/MobileSocialPlugin");
 			RemoveIOSPart();
 			RemoveAndroidPart();
 		}
 		
 		
 		if (SA_VersionsManager.Is_GMA_Installed){
-			SA_FileStaticAPI.DeleteFolder ("VariousSDK/AndroidNativePlugin/Extensions/GoogleMobileAd");
+			SA_FileStaticAPI.DeleteFolder ("VariousSDK/NativePlugin/Extensions/GoogleMobileAd");
 			RemoveIOSPart();
 			RemoveAndroidPart();
 			RemoveWP8Part();
@@ -75,17 +75,17 @@ public class SA_RemoveTool  {
 		
 		
 		if (SA_VersionsManager.Is_ISN_Installed){
-			SA_FileStaticAPI.DeleteFolder("VariousSDK/AndroidNativePlugin/Extensions/IOSNative");
+			SA_FileStaticAPI.DeleteFolder("VariousSDK/NativePlugin/Extensions/IOSNative");
 			RemoveIOSPart();
 		}
 		
 		
 		if (SA_VersionsManager.Is_UM_Installed){
-			SA_FileStaticAPI.DeleteFolder("VariousSDK/AndroidNativePlugin/Extensions/UltimateMobile");
-			SA_FileStaticAPI.DeleteFolder("VariousSDK/AndroidNativePlugin/Extensions/WP8Native");
+			SA_FileStaticAPI.DeleteFolder("VariousSDK/NativePlugin/Extensions/UltimateMobile");
+			SA_FileStaticAPI.DeleteFolder("VariousSDK/NativePlugin/Extensions/WP8Native");
 			SA_FileStaticAPI.DeleteFolder("WebPlayerTemplates");
-			SA_FileStaticAPI.DeleteFolder("VariousSDK/AndroidNativePlugin/Extensions/GoogleAnalytics");
-			SA_FileStaticAPI.DeleteFolder("VariousSDK/AndroidNativePlugin/Extensions/MobileNativePopUps");
+			SA_FileStaticAPI.DeleteFolder("VariousSDK/NativePlugin/Extensions/GoogleAnalytics");
+			SA_FileStaticAPI.DeleteFolder("VariousSDK/NativePlugin/Extensions/MobileNativePopUps");
 			
 			RemoveWP8Part();
 			RemoveIOSPart();
@@ -93,7 +93,7 @@ public class SA_RemoveTool  {
 		}
 		
 		
-		SA_FileStaticAPI.DeleteFolder ("VariousSDK/AndroidNativePlugin/Plugins/StansAssets");
+		SA_FileStaticAPI.DeleteFolder ("VariousSDK/NativePlugin/Plugins/StansAssets");
 		AssetDatabase.Refresh();
 		
 		
@@ -113,15 +113,15 @@ public class SA_RemoveTool  {
 	
 	
 	private static void RemoveWP8Part() {
-		SA_FileStaticAPI.DeleteFile ("VariousSDK/AndroidNativePlugin/Plugins/WP8/GoogleAds.dll");
-		SA_FileStaticAPI.DeleteFile ("VariousSDK/AndroidNativePlugin/Plugins/WP8/GoogleAds.xml");
-		SA_FileStaticAPI.DeleteFile ("VariousSDK/AndroidNativePlugin/Plugins/WP8/MockIAPLib.dll");
-		SA_FileStaticAPI.DeleteFile ("VariousSDK/AndroidNativePlugin/Plugins/WP8/WP8Native.dll");
-		SA_FileStaticAPI.DeleteFile ("VariousSDK/AndroidNativePlugin/Plugins/WP8/WP8PopUps.dll");
-		SA_FileStaticAPI.DeleteFile ("VariousSDK/AndroidNativePlugin/Plugins/WP8/GoogleAdsWP8.dll");
-		SA_FileStaticAPI.DeleteFile ("VariousSDK/AndroidNativePlugin/Plugins/GoogleAdsWP8.dll");
-		SA_FileStaticAPI.DeleteFile ("VariousSDK/AndroidNativePlugin/Plugins/Metro/WP8Native.dll");
-		SA_FileStaticAPI.DeleteFile ("VariousSDK/AndroidNativePlugin/Plugins/Metro/WP8PopUps.dll");
+		SA_FileStaticAPI.DeleteFile ("VariousSDK/NativePlugin/Plugins/WP8/GoogleAds.dll");
+		SA_FileStaticAPI.DeleteFile ("VariousSDK/NativePlugin/Plugins/WP8/GoogleAds.xml");
+		SA_FileStaticAPI.DeleteFile ("VariousSDK/NativePlugin/Plugins/WP8/MockIAPLib.dll");
+		SA_FileStaticAPI.DeleteFile ("VariousSDK/NativePlugin/Plugins/WP8/WP8Native.dll");
+		SA_FileStaticAPI.DeleteFile ("VariousSDK/NativePlugin/Plugins/WP8/WP8PopUps.dll");
+		SA_FileStaticAPI.DeleteFile ("VariousSDK/NativePlugin/Plugins/WP8/GoogleAdsWP8.dll");
+		SA_FileStaticAPI.DeleteFile ("VariousSDK/NativePlugin/Plugins/GoogleAdsWP8.dll");
+		SA_FileStaticAPI.DeleteFile ("VariousSDK/NativePlugin/Plugins/Metro/WP8Native.dll");
+		SA_FileStaticAPI.DeleteFile ("VariousSDK/NativePlugin/Plugins/Metro/WP8PopUps.dll");
 	}
 	
 	

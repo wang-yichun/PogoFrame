@@ -204,8 +204,8 @@ public class AndroidNativeSettings : ScriptableObject {
 
 					/*
 					if (!Directory.Exists(properPath)) {
-						AssetDatabase.CreateFolder("VariousSDK/AndroidNativePlugin/Extensions/", "AndroidNative");
-						AssetDatabase.CreateFolder("VariousSDK/AndroidNativePlugin/Extensions/AndroidNative", "Resources");
+						AssetDatabase.CreateFolder("VariousSDK/NativePlugin/Extensions/", "AndroidNative");
+						AssetDatabase.CreateFolder("VariousSDK/NativePlugin/Extensions/AndroidNative", "Resources");
 					}
 					*/
 

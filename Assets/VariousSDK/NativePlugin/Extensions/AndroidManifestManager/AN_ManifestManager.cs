@@ -15,10 +15,10 @@ using System.Text.RegularExpressions;
 #if UNITY_EDITOR
 
 static public class AN_ManifestManager {
-	private const string DEFAULT_MANIFEST_PREFIX_NAME = "VariousSDK/AndroidNativePlugin/Extensions/AndroidManifestManager/default.xml";
+	private const string DEFAULT_MANIFEST_PREFIX_NAME = "VariousSDK/NativePlugin/Extensions/AndroidManifestManager/default.xml";
 
-	public const string MANIFEST_FOLDER_PATH = "/VariousSDK/AndroidNativePlugin/Plugins/Android/";
-	public const string MANIFEST_FILE_PATH = "/VariousSDK/AndroidNativePlugin/Plugins/Android/AndroidManifest.xml";
+	public const string MANIFEST_FOLDER_PATH = "/VariousSDK/NativePlugin/Plugins/Android/";
+	public const string MANIFEST_FILE_PATH = "/VariousSDK/NativePlugin/Plugins/Android/AndroidManifest.xml";
 
 	private static AN_ManifestTemplate _manifestTemplate = null;
 

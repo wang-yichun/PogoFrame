@@ -10,7 +10,7 @@ public static class SA_VersionsManager  {
 	public const string SUPPORT_EMAIL = "support@stansassets.com";
 
 
-	public const string VERSION_INFO_PATH = "VariousSDK/AndroidNativePlugin/Plugins/StansAssets/Versions/";
+	public const string VERSION_INFO_PATH = "VariousSDK/NativePlugin/Plugins/StansAssets/Versions/";
 
 	public const string AN_VERSION_INFO_PATH 	= VERSION_INFO_PATH + "AN_VersionInfo.txt";
 	public const string UM_VERSION_INFO_PATH 	= VERSION_INFO_PATH + "UM_VersionInfo.txt";

@@ -65,8 +65,8 @@ public class SocialPlatfromSettings : ScriptableObject {
 
 					/*
 					if (!Directory.Exists(properPath)) {
-						AssetDatabase.CreateFolder("VariousSDK/AndroidNativePlugin/Extensions/", "GooglePlayCommon");
-						AssetDatabase.CreateFolder("VariousSDK/AndroidNativePlugin/Extensions/GooglePlayCommon", "Resources");
+						AssetDatabase.CreateFolder("VariousSDK/NativePlugin/Extensions/", "GooglePlayCommon");
+						AssetDatabase.CreateFolder("VariousSDK/NativePlugin/Extensions/GooglePlayCommon", "Resources");
 					}
 					*/
 

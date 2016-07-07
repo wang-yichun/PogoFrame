@@ -14,11 +14,11 @@ public class SocialPlatfromInit  {
 
 	static SocialPlatfromInit () {
 
-		if(SA_FileStaticAPI.IsFolderExists("VariousSDK/AndroidNativePlugin/Extensions/UltimateMobile/")) {
+		if(SA_FileStaticAPI.IsFolderExists("VariousSDK/NativePlugin/Extensions/UltimateMobile/")) {
 			return;
 		}
 
-		if(SA_FileStaticAPI.IsFolderExists("VariousSDK/AndroidNativePlugin/Extensions/AndroidNative/")) {
+		if(SA_FileStaticAPI.IsFolderExists("VariousSDK/NativePlugin/Extensions/AndroidNative/")) {
 			return;
 		}
 

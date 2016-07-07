@@ -18,10 +18,10 @@ public class SocialPlatfromSettingsEditor : Editor {
 
 
 
-	private const string IOS_SOURCE_PATH 			= "VariousSDK/AndroidNativePlugin/Plugins/StansAssets/IOS/";
-	private const string IOS_DESTANATION_PATH 		= "VariousSDK/AndroidNativePlugin/Plugins/IOS/";
-	private const string ANDROID_SOURCE_PATH 		= "VariousSDK/AndroidNativePlugin/Plugins/StansAssets/Android/";
-	private const string ANDROID_DESTANATION_PATH 	= "VariousSDK/AndroidNativePlugin/Plugins/Android/";
+	private const string IOS_SOURCE_PATH 			= "VariousSDK/NativePlugin/Plugins/StansAssets/IOS/";
+	private const string IOS_DESTANATION_PATH 		= "VariousSDK/NativePlugin/Plugins/IOS/";
+	private const string ANDROID_SOURCE_PATH 		= "VariousSDK/NativePlugin/Plugins/StansAssets/Android/";
+	private const string ANDROID_DESTANATION_PATH 	= "VariousSDK/NativePlugin/Plugins/Android/";
 
 
 
@@ -36,11 +36,11 @@ public class SocialPlatfromSettingsEditor : Editor {
 	}
 
 
-	public static string SP_FB_API_v7_Path = "VariousSDK/AndroidNativePlugin/Extensions/GooglePlayCommon/Social/Facebook/Manage/SP_FB_API_v7.cs";
-	public static string SP_FB_GrapRequest_V7_Path = "VariousSDK/AndroidNativePlugin/Extensions/GooglePlayCommon/Social/Facebook/Tasks/FB_GrapRequest_V7.cs";
+	public static string SP_FB_API_v7_Path = "VariousSDK/NativePlugin/Extensions/GooglePlayCommon/Social/Facebook/Manage/SP_FB_API_v7.cs";
+	public static string SP_FB_GrapRequest_V7_Path = "VariousSDK/NativePlugin/Extensions/GooglePlayCommon/Social/Facebook/Tasks/FB_GrapRequest_V7.cs";
 
-	public static string SP_FB_API_v6_Path = "VariousSDK/AndroidNativePlugin/Extensions/GooglePlayCommon/Social/Facebook/Manage/SP_FB_API_v6.cs";
-	public static string SP_FB_GrapRequest_V6_Path = "VariousSDK/AndroidNativePlugin/Extensions/GooglePlayCommon/Social/Facebook/Tasks/FB_GrapRequest_V6.cs";
+	public static string SP_FB_API_v6_Path = "VariousSDK/NativePlugin/Extensions/GooglePlayCommon/Social/Facebook/Manage/SP_FB_API_v6.cs";
+	public static string SP_FB_GrapRequest_V6_Path = "VariousSDK/NativePlugin/Extensions/GooglePlayCommon/Social/Facebook/Tasks/FB_GrapRequest_V6.cs";
 
 
 	public static void UpdatePluginDefines() {
@@ -521,7 +521,7 @@ public class SocialPlatfromSettingsEditor : Editor {
 	}
 
 	public static void ResetSettings() {
-		SA_FileStaticAPI.DeleteFile("VariousSDK/AndroidNativePlugin/Extensions/GooglePlayCommon/Resources/SocialSettings.asset");
+		SA_FileStaticAPI.DeleteFile("VariousSDK/NativePlugin/Extensions/GooglePlayCommon/Resources/SocialSettings.asset");
 		SocialPlatfromSettings.Instance.ShowActions = true;
 		Selection.activeObject = SocialPlatfromSettings.Instance;
 	}
