@@ -7,6 +7,7 @@ using UnityEngine.EventSystems;
 using uFrame.MVVM;
 using uFrame.Kernel;
 using UnityEngine.UI;
+using uFrame.MVVM.Obsolete;
 
 namespace uFrame.MVVM.Bindings
 {

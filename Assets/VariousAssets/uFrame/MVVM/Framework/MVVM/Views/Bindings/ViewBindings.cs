@@ -8,6 +8,7 @@ using UnityEngine.UI;
 using Object = UnityEngine.Object;
 using UniRx;
 using UniRx.Triggers;
+using uFrame.MVVM.Obsolete;
 
 namespace uFrame.MVVM.Bindings
 {

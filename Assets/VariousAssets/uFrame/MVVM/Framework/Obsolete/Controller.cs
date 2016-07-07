@@ -3,6 +3,7 @@ using System;
 namespace uFrame.MVVM
 {
 
+	using uFrame.MVVM.Obsolete;
 
     public partial class Controller
     {

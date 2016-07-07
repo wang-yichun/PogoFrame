@@ -1,12 +1,16 @@
-using System;
-[Obsolete]
-public interface ISwitchLevelSettings
+namespace uFrame.MVVM.Obsolete
 {
-    string[] Levels { get; set; }
+	using System;
 
-    Action<LevelLoadProgress> ProgressUpdated { get; set; }
+	[Obsolete]
+	public interface ISwitchLevelSettings
+	{
+		string[] Levels { get; set; }
 
-    Type StartManagerType { get; }
+		Action<LevelLoadProgress> ProgressUpdated { get; set; }
 
-    void InvokeControllerSetup(SceneManager sceneManager);
+		Type StartManagerType { get; }
+
+		void InvokeControllerSetup (SceneManager sceneManager);
+	}
 }

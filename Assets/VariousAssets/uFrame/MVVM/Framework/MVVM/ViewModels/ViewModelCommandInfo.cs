@@ -2,6 +2,8 @@ using System;
 
 namespace uFrame.MVVM
 {
+	using uFrame.MVVM.Obsolete;
+
     public class ViewModelCommandInfo
     {
         public ISignal Signal { get; private set; }

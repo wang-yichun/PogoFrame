@@ -8,6 +8,7 @@ using uFrame.MVVM.Bindings;
 using UniRx;
 using UnityEngine;
 using UnityEngine.Serialization;
+using uFrame.MVVM.Obsolete;
 
 namespace uFrame.MVVM
 {

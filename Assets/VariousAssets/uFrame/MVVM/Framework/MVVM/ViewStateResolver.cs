@@ -3,6 +3,8 @@ using System.Diagnostics;
 using System.Linq;
 using uFrame.MVVM;
 using Debug = UnityEngine.Debug;
+using uFrame.MVVM.Obsolete;
+
 #if NETFX_CORE 
 using System.Reflection;
 #endif
