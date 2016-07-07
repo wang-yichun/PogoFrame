@@ -21,6 +21,7 @@ namespace cn.sharesdk.unity3d
 		#elif UNITY_IPHONE
 		public string appKey = "iosv1101";
 		#endif
+
 		public DevInfoSet devInfo;
 		public ShareSDKImpl shareSDKUtils;
 
@@ -57,11 +58,13 @@ namespace cn.sharesdk.unity3d
 
 			#if UNITY_ANDROID
 			shareSDKUtils = new AndroidImpl(gameObject);
-			#elif UNITY_IPHONE
-			shareSDKUtils = new iOSImpl(gameObject);
-			#endif
 			shareSDKUtils.InitSDK(appKey);
 			shareSDKUtils.SetPlatformConfig(platformConfigs);
+			#elif UNITY_IPHONE
+			shareSDKUtils = new iOSImpl(gameObject);
+			shareSDKUtils.InitSDK(appKey);
+			shareSDKUtils.SetPlatformConfig(platformConfigs);
+			#endif
 		}
 		
 		/// <summary>
