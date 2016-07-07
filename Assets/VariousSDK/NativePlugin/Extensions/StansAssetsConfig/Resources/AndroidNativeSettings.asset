@@ -49,7 +49,7 @@ MonoBehaviour:
   PushService: 0
   SaveCameraImageToGallery: 0
   UseProductNameAsFolderName: 1
-  GalleryFolderName: 
+  GalleryFolderName: PogoFrame
   MaxImageLoadSize: 512
   CameraCaptureMode: 0
   ImageFormat: 0
@@ -86,7 +86,7 @@ MonoBehaviour:
   GalleryAPI: 1
   CameraAPI: 1
   KeepManifestClean: 1
-  GooglePlayServiceAppID: 0
+  GooglePlayServiceAppID: 216817929098
   ToolbarSelectedIndex: 0
   base64EncodedPublicKey: REPLACE_WITH_YOUR_PUBLIC_KEY
   ShowStoreProducts: 1
