@@ -41,7 +41,7 @@
 			}
 		}
 		#if UNITY_EDITOR
-		[MenuItem ("PogoTools/AssetBundle Settings(NEW) #%a")]
+		[MenuItem ("PogoTools/AssetBundle Settings #%a")]
 		public static void Execute ()
 		{
 			Selection.activeObject = AssetBundleSettings.Instance;
