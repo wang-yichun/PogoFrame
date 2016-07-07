@@ -24,7 +24,7 @@ public class ShareImageManager : MonoBehaviour
 
 	void OnGUI ()
 	{
-		GUILayout.Space (40f);
+		GUILayout.Space (100f);
 		if (GUILayout.Button ("分享", GUILayout.Width (300), GUILayout.Height (100))) {
 			TestShareWebPage ();
 		}
