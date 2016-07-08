@@ -34,6 +34,8 @@
 				gizmo_enable = AssetDatabase.LoadAssetAtPath<Texture2D> (root_path + "Gizmos/gizmo_enable.psd");
 				gizmo_disable = AssetDatabase.LoadAssetAtPath<Texture2D> (root_path + "Gizmos/gizmo_disable.psd");
 				gizmo_local = AssetDatabase.LoadAssetAtPath<Texture2D> (root_path + "Gizmos/gizmo_local.psd");
+
+				readme = AssetDatabase.LoadAssetAtPath<TextAsset> (root_path + "Editor/ReadMe.bytes");
 			}
 		}
 

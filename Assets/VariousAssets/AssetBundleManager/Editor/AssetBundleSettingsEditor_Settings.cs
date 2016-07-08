@@ -12,9 +12,15 @@
 	{
 		public string default_absc_filename = "asset_bundle_settings";
 
+		public static TextAsset readme;
+
 		public void SettingHandle ()
 		{
 			AssetBundleSettings settings = target as AssetBundleSettings;
+
+			EditorGUILayout.Space ();
+
+			EditorGUILayout.HelpBox (readme.text, MessageType.None, true);
 
 			EditorGUILayout.Space ();
 			EditorGUILayout.BeginVertical ("box");

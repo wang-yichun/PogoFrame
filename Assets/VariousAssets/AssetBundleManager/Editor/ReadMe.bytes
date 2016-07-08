@@ -1,0 +1,35 @@
+AssetBundleManager Extend
+Version 1.0
+
+启动: PogoTools/AssetBundle Settings
+快捷键: Shift + Command + A
+位置: Assets/VariousAssets/AssetBundleManager(必须置于此位置)
+
+- Loading
+  - Title 项的注释
+    - Enable 启用开关
+    - Url Id 每组资源的 id 标记(项目可以同时或非同时的加载多组资源)
+    - Title 本项的标题,自己随便写.
+    - Is Local 本项资源从 StreamingAssets 中读取,将忽略 Url
+    - Url 本项资源包的原地址,经常是一个 FTP 或 HTTP 地址
+
+- Export
+  - Title 项的注释
+    - Enable 启用开关
+    - Url Id 每组资源的 id 标记(项目可以同时或非同时的加载多组资源)
+    - Title 本项的标题,自己随便写.
+    - Clear 勾选将会在发布/拷贝到本地的(非 FTP)位置时,首先进行清理.
+    - Urls 资源将要发布的位置
+      - 直接写目录名称指项目根目录
+      - 支持 FTP 形式,如:
+        - ftp://192.168.199.215:21/PogoFrameAssets|ethan|ethan
+          - 后两部分为FTP的用户名和密码
+    - Target Standalone 资源包的区分平台版本
+    - Target IOS 资源包的区分平台版本
+    - Target Android 资源包的区分平台版本
+  - "发布 AssetBundles !!" 按钮
+    - 将按照列表的设置项打包/复制资源包
+
+- Settings
+  - "Save to .config files ..." 将配置信息存入文件
+  - "Load from configs files ..." 从文件读取配置信息
