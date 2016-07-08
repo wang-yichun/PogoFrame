@@ -50,6 +50,8 @@
 		public ReorderableList loadingList;
 		public ReorderableList exportList;
 
+		public static AssetBundleSettingsEditor Instance;
+
 		private void OnEnable ()
 		{
 			AssetBundleSettings settings = target as AssetBundleSettings;
@@ -63,6 +65,8 @@
 			exportList.drawHeaderCallback = (Rect rect) => {
 				GUI.Label (rect, "向以下 url 发布资源");
 			};
+
+			Instance = this;
 		}
 
 		private string ftp_url_pattern = @"ftp://([\s\S]*?)(:(\d+))?/([^\|]*)(\|([^\|]+))?(\|([^\|/]+))?";

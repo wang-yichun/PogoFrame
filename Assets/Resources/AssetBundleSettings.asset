@@ -15,14 +15,14 @@ MonoBehaviour:
   - Enable: 0
     UrlId: asset1
     Title: StreamingAssets
-    IsLocal: 1
-    Simulation: 0
+    IsLocal: 0
+    Simulation: 1
     Url: 
   - Enable: 1
     UrlId: asset1
     Title: Local FTP @ Ethan's MAC
     IsLocal: 0
-    Simulation: 1
+    Simulation: 0
     Url: ftp://192.168.199.215/PogoFrameAssets
   - Enable: 0
     UrlId: asset2
@@ -31,7 +31,7 @@ MonoBehaviour:
     Simulation: 0
     Url: ftp://192.168.199.215/PogoFrameAssets
   exportUrls:
-  - Enable: 1
+  - Enable: 0
     UrlId: asset1
     Title: Default asset1
     Clear: 1
@@ -53,7 +53,7 @@ MonoBehaviour:
     targetStandalone: 0
     targetIOS: 0
     targetAndroid: 1
-  - Enable: 1
+  - Enable: 0
     UrlId: asset1
     Title: Default asset1
     Clear: 1

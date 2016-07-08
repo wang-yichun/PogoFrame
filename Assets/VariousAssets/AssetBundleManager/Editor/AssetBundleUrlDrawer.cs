@@ -49,6 +49,8 @@
 			Type t = GetPropertyType (property);
 			if (t == typeof(AssetBundleUrl_Loading) && property.isExpanded) {
 				UrlItemGUIMenu_Loading (position, property, label);
+			} else if (t == typeof(AssetBundleUrl_Export) && property.isExpanded) {
+				UrlItemGUIMenu_Export (position, property, label);
 			}
 		}
 
@@ -59,6 +61,8 @@
 			Type t = GetPropertyType (property);
 			if (t == typeof(AssetBundleUrl_Loading) && property.isExpanded) {
 				height += GetUrlItemGUIMenuHeight_Loading ();
+			} else if (t == typeof(AssetBundleUrl_Export) && property.isExpanded) {
+				height += GetUrlItemGUIMenuHeight_Export ();
 			}
 
 			return height;
@@ -78,7 +82,7 @@
 		{
 			Rect menuRect = new Rect (position.x, position.y + position.height - GetUrlItemGUIMenuHeight_Loading () - 8f, position.width, GetUrlItemGUIMenuHeight_Loading ());
 			if (GUI.Button (menuRect, "加载")) {
-				OnMenuButtonClicked (property);
+				OnMenuButtonClicked_Loading (property);
 			}
 		}
 
@@ -87,9 +91,31 @@
 			return 20f;
 		}
 
-		public void OnMenuButtonClicked (SerializedProperty property)
+		public void UrlItemGUIMenu_Export (Rect position, SerializedProperty property, GUIContent label)
+		{
+			Rect menuRect = new Rect (position.x, position.y + position.height - GetUrlItemGUIMenuHeight_Loading () - 8f, position.width, GetUrlItemGUIMenuHeight_Loading ());
+			if (GUI.Button (menuRect, "发布")) {
+				OnMenuButtonClicked_Export (property);
+			}
+		}
+
+		public float GetUrlItemGUIMenuHeight_Export ()
+		{
+			return 20f;
+		}
+
+		public void OnMenuButtonClicked_Loading (SerializedProperty property)
 		{
 			Debug.Log ("加载: " + property.FindPropertyRelative ("UrlId").stringValue);
+
+		}
+
+
+		public void OnMenuButtonClicked_Export (SerializedProperty property)
+		{
+			Debug.Log ("发布: " + property.FindPropertyRelative ("UrlId").stringValue);
+
+			AssetBundleSettingsEditor.Instance.PublishAssetBundles ();
 
 		}
 	}
