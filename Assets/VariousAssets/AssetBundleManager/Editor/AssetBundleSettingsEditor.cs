@@ -8,6 +8,7 @@
 	using System.Linq;
 	using Malee.Editor;
 	using System.Text;
+	using System;
 
 	[CustomEditor (typeof(AssetBundleSettings))]
 	public partial class AssetBundleSettingsEditor : Editor
@@ -295,11 +296,52 @@
 			}
 
 			EditorGUI.PropertyField (position, property, gc, true);
+
+			Type t = GetPropertyType (property);
+			if (t == typeof(AssetBundleUrl_Loading) && property.isExpanded) {
+				UrlItemGUIMenu_Loading (position, property, label);
+			}
 		}
 
 		public override float GetPropertyHeight (SerializedProperty property, GUIContent label)
 		{
-			return EditorGUI.GetPropertyHeight (property, GUIContent.none, true) + 4;
+			float height = EditorGUI.GetPropertyHeight (property, GUIContent.none, true) + 10f;
+
+			Type t = GetPropertyType (property);
+			if (t == typeof(AssetBundleUrl_Loading) && property.isExpanded) {
+				height += GetUrlItemGUIMenuHeight_Loading ();
+			}
+
+			return height;
+		}
+
+		public Type GetPropertyType (SerializedProperty property)
+		{
+			if (property.propertyPath.StartsWith ("loadingUrls")) {
+				return typeof(AssetBundleUrl_Loading);
+			} else if (property.propertyPath.StartsWith ("exportUrls")) {
+				return typeof(AssetBundleUrl_Export);
+			}
+			return typeof(object);
+		}
+
+		public void UrlItemGUIMenu_Loading (Rect position, SerializedProperty property, GUIContent label)
+		{
+			Rect menuRect = new Rect (position.x, position.y + position.height - GetUrlItemGUIMenuHeight_Loading () - 8f, position.width, GetUrlItemGUIMenuHeight_Loading ());
+			if (GUI.Button (menuRect, "加载")) {
+				OnMenuButtonClicked (property);
+			}
+		}
+
+		public float GetUrlItemGUIMenuHeight_Loading ()
+		{
+			return 20f;
+		}
+
+		public void OnMenuButtonClicked (SerializedProperty property)
+		{
+			Debug.Log ("加载: " + property.FindPropertyRelative ("UrlId").stringValue);
+
 		}
 	}
 
