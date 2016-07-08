@@ -85,6 +85,50 @@ NavMeshSettings:
     cellSize: 0.16666667
     manualCellSize: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &405184714
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 405184715}
+  - 114: {fileID: 405184716}
+  m_Layer: 0
+  m_Name: TestPlayFab
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &405184715
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 405184714}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1067415191}
+  m_RootOrder: 2
+--- !u!114 &405184716
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 405184714}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2fb61cc9f60ad4f9ea4b2d7cef9f5e36, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  titleId: D84D
+--- !u!4 &1067415191 stripped
+Transform:
+  m_PrefabParentObject: {fileID: 434434, guid: 6eccd180f6a5b91459ec063207b31e45, type: 2}
+  m_PrefabInternal: {fileID: 1793215906}
 --- !u!1 &1202740985
 GameObject:
   m_ObjectHideFlags: 0
