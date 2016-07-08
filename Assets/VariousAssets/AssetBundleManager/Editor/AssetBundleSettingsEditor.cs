@@ -9,6 +9,7 @@
 	using Malee.Editor;
 	using System.Text;
 	using System;
+	using UniRx;
 
 	[CustomEditor (typeof(AssetBundleSettings))]
 	public partial class AssetBundleSettingsEditor : Editor
@@ -78,52 +79,56 @@
 			for (int i = 0; i < settings.exportUrls.Count; i++) {
 				var url = settings.exportUrls [i];
 				if (url.Enable) {
+					PublishAssetBundles (url, i);
+				}
+			}
+		}
 
-					BuildTarget buildTarget;
-					string outputPath;
+		public void PublishAssetBundles (AssetBundleUrl_Export url, int i)
+		{
+			BuildTarget buildTarget;
+			string outputPath;
 
-					string first_outputpath_standalone = string.Empty;
-					string first_outputpath_ios = string.Empty;
-					string first_outputpath_android = string.Empty;
+			string first_outputpath_standalone = string.Empty;
+			string first_outputpath_ios = string.Empty;
+			string first_outputpath_android = string.Empty;
 
-					for (int j = 0; j < url.Urls.Count; j++) {
+			for (int j = 0; j < url.Urls.Count; j++) {
 
-						string url_str = url.Urls [j];
+				string url_str = url.Urls [j];
 
-						if (j == 0) {
-							if (url.targetStandalone) {
-								buildTarget = BuildTarget.StandaloneOSXUniversal;
-								if (smartBuildAssetBundle (buildTarget, url_str, url.UrlId, out first_outputpath_standalone, i, url) == false) {
-									break;
-								}
-							}
-							if (url.targetIOS) {
-								buildTarget = BuildTarget.iOS;
-								if (smartBuildAssetBundle (buildTarget, url_str, url.UrlId, out first_outputpath_ios, i, url) == false) {
-									break;
-								}
-							}
-							if (url.targetAndroid) {
-								buildTarget = BuildTarget.Android;
-								if (smartBuildAssetBundle (buildTarget, url_str, url.UrlId, out first_outputpath_android, i, url) == false) {
-									break;
-								}
-							}
-						} else {
-							// 进行拷贝
-							if (url.targetStandalone) {
-								buildTarget = BuildTarget.StandaloneOSXUniversal;
-								smartCopy (buildTarget, url_str, url.UrlId, first_outputpath_standalone, i, url);
-							}
-							if (url.targetIOS) {
-								buildTarget = BuildTarget.iOS;
-								smartCopy (buildTarget, url_str, url.UrlId, first_outputpath_ios, i, url);
-							}
-							if (url.targetAndroid) {
-								buildTarget = BuildTarget.Android;
-								smartCopy (buildTarget, url_str, url.UrlId, first_outputpath_android, i, url);
-							}
+				if (j == 0) {
+					if (url.targetStandalone) {
+						buildTarget = BuildTarget.StandaloneOSXUniversal;
+						if (smartBuildAssetBundle (buildTarget, url_str, url.UrlId, out first_outputpath_standalone, i, url) == false) {
+							break;
 						}
+					}
+					if (url.targetIOS) {
+						buildTarget = BuildTarget.iOS;
+						if (smartBuildAssetBundle (buildTarget, url_str, url.UrlId, out first_outputpath_ios, i, url) == false) {
+							break;
+						}
+					}
+					if (url.targetAndroid) {
+						buildTarget = BuildTarget.Android;
+						if (smartBuildAssetBundle (buildTarget, url_str, url.UrlId, out first_outputpath_android, i, url) == false) {
+							break;
+						}
+					}
+				} else {
+					// 进行拷贝
+					if (url.targetStandalone) {
+						buildTarget = BuildTarget.StandaloneOSXUniversal;
+						smartCopy (buildTarget, url_str, url.UrlId, first_outputpath_standalone, i, url);
+					}
+					if (url.targetIOS) {
+						buildTarget = BuildTarget.iOS;
+						smartCopy (buildTarget, url_str, url.UrlId, first_outputpath_ios, i, url);
+					}
+					if (url.targetAndroid) {
+						buildTarget = BuildTarget.Android;
+						smartCopy (buildTarget, url_str, url.UrlId, first_outputpath_android, i, url);
 					}
 				}
 			}
@@ -234,7 +239,10 @@
 		public void ExportHandle ()
 		{
 			if (GUILayout.Button ("发布 AssetBundles !!")) {
-				PublishAssetBundles ();
+
+				Observable.NextFrame ().Subscribe (_ => {
+					PublishAssetBundles ();
+				});
 			}
 			exportList.DoLayoutList ();
 		}

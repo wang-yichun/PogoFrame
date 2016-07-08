@@ -7,7 +7,8 @@
 	using System.Linq;
 	using System.Text;
 	using System;
-
+	using Newtonsoft.Json;
+	using UniRx;
 
 	[CustomPropertyDrawer (typeof(AssetBundleUrl_Loading))]
 	[CustomPropertyDrawer (typeof(AssetBundleUrl_Export))]
@@ -106,16 +107,25 @@
 
 		public void OnMenuButtonClicked_Loading (SerializedProperty property)
 		{
-			Debug.Log ("加载: " + property.FindPropertyRelative ("UrlId").stringValue);
+			string idx_str = property.displayName.Replace ("Element ", string.Empty);
+			int idx = Convert.ToInt32 (idx_str);
+			AssetBundleUrl_Loading url = AssetBundleSettings.Instance.loadingUrls [idx];
 
+			Debug.Log ("加载: " + JsonConvert.SerializeObject (url, Formatting.Indented));
 		}
 
 
 		public void OnMenuButtonClicked_Export (SerializedProperty property)
 		{
-			Debug.Log ("发布: " + property.FindPropertyRelative ("UrlId").stringValue);
+			string idx_str = property.displayName.Replace ("Element ", string.Empty);
+			int idx = Convert.ToInt32 (idx_str);
+			AssetBundleUrl_Export url = AssetBundleSettings.Instance.exportUrls [idx];
 
-			AssetBundleSettingsEditor.Instance.PublishAssetBundles ();
+			Debug.Log ("发布: " + JsonConvert.SerializeObject (url, Formatting.Indented));
+
+			Observable.NextFrame ().Subscribe (_ => {
+				AssetBundleSettingsEditor.Instance.PublishAssetBundles (url, idx);
+			});
 
 		}
 	}
