@@ -18,10 +18,6 @@ namespace PlayFab
 
     public static class PlayFabSettings
     {
-        public const string SdkVersion = "0.31.160705";
-        public const string BuildIdentifier = "jbuild_unitysdk_1";
-        public const string VersionString = "UnitySDK-0.31.160705";
-
         internal static bool HideCallbackErrors = false; // This should only be used by unit-tests that test deliberately throwing errors
         private const string GLOBAL_KEY = "GLOBAL";
         public static ErrorCallback GlobalErrorHandler;
@@ -34,7 +30,6 @@ namespace PlayFab
             where TRequest : class
             where TResult : PlayFabResultCommon;
 
-        public static bool CompressApiData = true;
         public static string ProductionEnvironmentUrl = ".playfabapi.com";
         public static string TitleId = null; // You must set this value for PlayFabSdk to work properly (Found in the Game Manager for your title, at the PlayFab Website)
         public static PlayFabLogLevel LogLevel = PlayFabLogLevel.Warning | PlayFabLogLevel.Error;
@@ -42,7 +37,7 @@ namespace PlayFab
         public static WebRequestType RequestType = WebRequestType.UnityWww;
         public static int RequestTimeout = 2000;
         public static bool RequestKeepAlive = true;
-        internal static string LogicServerUrl = null; // Deprecated
+        internal static string LogicServerUrl = null; // Assigned by GetCloudScriptUrl, used by RunCloudScript
         public static string AdvertisingIdType = null; // Set this to the appropriate AD_TYPE_X constant below
         public static string AdvertisingIdValue = null; // Set this to corresponding device value
 

@@ -5,51 +5,46 @@ namespace PlayFab.Internal
     //public to be accessible by Unity engine
     public class SingletonMonoBehaviour<T> : MonoBehaviour where T : SingletonMonoBehaviour<T>
     {
-        private static T _instance;
+        private static T m_instance;
 
         public static T instance
         {
             get
             {
-                CreateInstance();
-                return _instance;
+                if (m_instance == null)
+                {
+                    //find existing instance
+                    m_instance = GameObject.FindObjectOfType<T> ();
+                    if (m_instance == null)
+                    {
+                        //create new instance
+                        GameObject go = new GameObject (typeof (T).Name);
+                        m_instance = go.AddComponent<T> ();
+                    }
+                    //initialize instance if necessary
+                    if (!m_instance.initialized)
+                    {
+                        m_instance.Initialize ();
+                        m_instance.initialized = true;
+                    }
+                }
+                return m_instance;
             }
         }
 
-        public static void CreateInstance()
-        {
-            if (_instance == null)
-            {
-                //find existing instance
-                _instance = GameObject.FindObjectOfType<T>();
-                if (_instance == null)
-                {
-                    //create new instance
-                    GameObject go = new GameObject(typeof(T).Name);
-                    _instance = go.AddComponent<T>();
-                }
-                //initialize instance if necessary
-                if (!_instance.initialized)
-                {
-                    _instance.Initialize();
-                    _instance.initialized = true;
-                }
-            }
-        }
-
-        public virtual void Awake()
+        public virtual void Awake ()
         {
             DontDestroyOnLoad(this);
             //check if instance already exists when reloading original scene
-            if (_instance != null)
+            if (m_instance != null)
             {
-                DestroyImmediate(gameObject);
+                DestroyImmediate (gameObject);
             }
         }
 
         protected bool initialized { get; set; }
 
-        protected virtual void Initialize()
-        { }
+        protected virtual void Initialize ()
+        {}
     }
 }

@@ -1,6 +1,6 @@
 using System;
 using System.Collections.Generic;
-using System.Text;
+using System.Net;
 
 namespace PlayFab
 {
@@ -226,13 +226,7 @@ namespace PlayFab
         InvalidStatisticName = 1222,
         TitleNotQualifiedForLimit = 1223,
         InvalidServiceLimitLevel = 1224,
-        ServiceLimitLevelInTransition = 1225,
-        CouponAlreadyRedeemed = 1226,
-        GameServerBuildSizeLimitExceeded = 1227,
-        GameServerBuildCountLimitExceeded = 1228,
-        VirtualCurrencyCountLimitExceeded = 1229,
-        VirtualCurrencyCodeExists = 1230,
-        TitleNewsItemCountLimitExceeded = 1231
+        ServiceLimitLevelInTransition = 1225
     }
 
     public delegate void ErrorCallback(PlayFabError error);
@@ -244,21 +238,40 @@ namespace PlayFab
         public PlayFabErrorCode Error;
         public string ErrorMessage;
         public Dictionary<string, List<string> > ErrorDetails;
-        public object CustomData;
+    }
 
-        [ThreadStatic]
-        private static StringBuilder _tempSb;
-        public string GenerateErrorReport()
+    public enum WebRequestType
+    {
+        UnityWww, // High compatability Unity api calls
+        HttpWebRequest // High performance multi-threaded api calls
+    }
+
+    /// <summary>
+    /// This is a callback class for use with HttpWebRequest.
+    /// </summary>
+    public class CallRequestContainer
+    {
+        public enum RequestState { Unstarted, RequestSent, RequestReceived, Error };
+
+        public WebRequestType RequestType;
+        public RequestState State = RequestState.Unstarted;
+        public string Url;
+        public int CallId;
+        public string Data;
+        public string AuthType;
+        public string AuthKey;
+        public object Request;
+        public string ResultStr;
+        public object CustomData;
+        public HttpWebRequest HttpRequest;
+        public PlayFabError Error;
+        public Action<CallRequestContainer> Callback;
+
+        public void InvokeCallback()
         {
-            if (_tempSb == null)
-                _tempSb = new StringBuilder();
-            _tempSb.Length = 0;
-            _tempSb.Append(ErrorMessage);
-            if (ErrorDetails != null)
-                foreach (var pair in ErrorDetails)
-                    foreach (var msg in pair.Value)
-                        _tempSb.Append("\n").Append(pair.Key).Append(": ").Append(msg);
-            return _tempSb.ToString();
+            // It is expected that the specific callback needs to process the change before the less specific global callback
+            if (Callback != null)
+                Callback(this); // Do the specific callback
         }
     }
 }

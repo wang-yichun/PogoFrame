@@ -1,16 +1,15 @@
-namespace PlayFab.Json
+﻿namespace  PlayFab
 {
     public interface ISerializer
     {
         T DeserializeObject<T>(string json);
         T DeserializeObject<T>(string json, object jsonSerializerStrategy);
-        object DeserializeObject(string json);
 
         string SerializeObject(object json);
         string SerializeObject(object json, object jsonSerializerStrategy);
     }
 
-    public class JsonWrapper
+    public class SimpleJson
     {
         private static ISerializer _instance = new SimpleJsonInstance();
 
@@ -33,11 +32,6 @@ namespace PlayFab.Json
             return _instance.DeserializeObject<T>(json, jsonSerializerStrategy);
         }
 
-        public static object DeserializeObject(string json)
-        {
-            return _instance.DeserializeObject(json);
-        }
-
         public static string SerializeObject(object json)
         {
             return _instance.SerializeObject(json);
@@ -53,27 +47,24 @@ namespace PlayFab.Json
     {
         public T DeserializeObject<T>(string json)
         {
-            return PlayFabSimpleJson.DeserializeObject<T>(json);
+            return PlayFab.Json.SimpleJson.DeserializeObject<T>(json);
         }
 
         public T DeserializeObject<T>(string json, object jsonSerializerStrategy)
         {
-            return PlayFabSimpleJson.DeserializeObject<T>(json, (PlayFab.Json.IJsonSerializerStrategy)jsonSerializerStrategy);
-        }
-
-        public object DeserializeObject(string json)
-        {
-            return PlayFabSimpleJson.DeserializeObject(json);
+            return PlayFab.Json.SimpleJson.DeserializeObject<T>(json, (PlayFab.Json.IJsonSerializerStrategy)jsonSerializerStrategy);
         }
 
         public string SerializeObject(object json)
         {
-            return PlayFabSimpleJson.SerializeObject(json);
+            return PlayFab.Json.SimpleJson.SerializeObject(json);
         }
 
         public string SerializeObject(object json, object jsonSerializerStrategy)
         {
-            return PlayFabSimpleJson.SerializeObject(json, (PlayFab.Json.IJsonSerializerStrategy)jsonSerializerStrategy);
+            return PlayFab.Json.SimpleJson.SerializeObject(json, (PlayFab.Json.IJsonSerializerStrategy)jsonSerializerStrategy);
         }
     }
+
+
 }

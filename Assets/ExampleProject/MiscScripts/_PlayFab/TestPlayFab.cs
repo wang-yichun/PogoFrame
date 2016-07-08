@@ -16,28 +16,24 @@ public class TestPlayFab : MonoBehaviour
 		LoginWithPlayFabRequest request = new LoginWithPlayFabRequest ();
 		request.Username = "ethan012";
 		request.Password = "ethan012";
-		request.InfoRequestParameters = new GetPlayerCombinedInfoRequestParams () {
-			GetUserAccountInfo = true
-		};
 			
-		PlayFabClientAPI.LoginWithPlayFab (request, OnLoginCallback, OnErrorCallback_Login);
+		PlayFabClientAPI.LoginWithPlayFab (request, OnLoginCallback, OnErrorCallback);
 	}
+
+	public string playFabId;
 
 	void OnLoginCallback (LoginResult result)
 	{
 		Debug.Log (JsonConvert.SerializeObject (result));
-	}
 
-	void OnErrorCallback_Login (PlayFabError error)
-	{
-		Debug.Log (JsonConvert.SerializeObject (error));
+		playFabId = result.PlayFabId;
 
 		GetUserCombinedInfoRequest request = new GetUserCombinedInfoRequest ();
-		request.PlayFabId = "67529B907D4E74A";
+		request.PlayFabId = playFabId;
 		request.GetAccountInfo = true;
 		request.GetVirtualCurrency = true;
 
-		PlayFabClientAPI.GetUserCombinedInfo (request, OnGetUserCombinedInfoCallback, OnErrorCallback_Login);
+		PlayFabClientAPI.GetUserCombinedInfo (request, OnGetUserCombinedInfoCallback, OnErrorCallback);
 	}
 
 	void OnGetUserCombinedInfoCallback (GetUserCombinedInfoResult result)

@@ -1,4 +1,3 @@
-#if !UNITY_WSA && !UNITY_WP8
 //#define Trace
 
 // ParallelDeflateOutputStream.cs
@@ -1382,4 +1381,5 @@ namespace Ionic.Zlib
     }
 
 }
-#endif
+
+
