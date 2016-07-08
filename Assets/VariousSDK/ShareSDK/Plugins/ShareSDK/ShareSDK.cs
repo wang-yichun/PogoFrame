@@ -32,7 +32,8 @@ namespace cn.sharesdk.unity3d
 		public EventHandler followFriendHandler;
 
 		void Awake()
-		{				
+		{
+			#if UNITY_ANDROID || UNITY_IOS
 			print("ShareSDK Awake");
 			Type type = devInfo.GetType();
 			Hashtable platformConfigs = new Hashtable();
@@ -55,12 +56,13 @@ namespace cn.sharesdk.unity3d
 				}
 				platformConfigs.Add(platformId, table);
 			}
+			#endif
 
 			#if UNITY_ANDROID
 			shareSDKUtils = new AndroidImpl(gameObject);
 			shareSDKUtils.InitSDK(appKey);
 			shareSDKUtils.SetPlatformConfig(platformConfigs);
-			#elif UNITY_IPHONE
+			#elif UNITY_IOS
 			shareSDKUtils = new iOSImpl(gameObject);
 			shareSDKUtils.InitSDK(appKey);
 			shareSDKUtils.SetPlatformConfig(platformConfigs);
