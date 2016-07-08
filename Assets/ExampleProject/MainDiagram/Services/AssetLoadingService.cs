@@ -79,23 +79,7 @@ namespace uFrame.ExampleProject
 				if (url.Enable) {
 
 
-					if (url.IsLocal) {
-						string full_url = string.Format (
-							                  "{0}/{1}/{2}/",
-							                  AssetBundleManager.GetStreamingAssetsPath (),
-							                  Utility.GetPlatformName (),
-							                  url.UrlId
-						                  );
-						AssetBundleManager.SetBaseDownloadingURL (url.UrlId, full_url);
-					} else {
-						string full_url = string.Format (
-							                  "{0}/{1}/{2}/",
-							                  url.Url,
-							                  Utility.GetPlatformName (),
-							                  url.UrlId
-						                  );
-						AssetBundleManager.SetBaseDownloadingURL (url.UrlId, full_url);
-					}
+					AssetBundleSettings.SetBaseDownloadingURL (url);
 
 					var request = AssetBundleManager.Initialize (url.UrlId, url.UrlId);
 					if (request != null) {

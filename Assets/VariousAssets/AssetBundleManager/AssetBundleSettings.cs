@@ -54,6 +54,30 @@
 		[JsonProperty]
 		public List<AssetBundleUrl_Export> exportUrls;
 
+		#region static function
+
+		public static void SetBaseDownloadingURL (AssetBundleUrl_Loading url)
+		{
+			if (url.IsLocal) {
+				string full_url = string.Format (
+					"{0}/{1}/{2}/",
+					AssetBundleManager.GetStreamingAssetsPath (),
+					Utility.GetPlatformName (),
+					url.UrlId
+				);
+				AssetBundleManager.SetBaseDownloadingURL (url.UrlId, full_url);
+			} else {
+				string full_url = string.Format (
+					"{0}/{1}/{2}/",
+					url.Url,
+					Utility.GetPlatformName (),
+					url.UrlId
+				);
+				AssetBundleManager.SetBaseDownloadingURL (url.UrlId, full_url);
+			}
+		}
+
+		#endregion
 	}
 
 	[Serializable]
