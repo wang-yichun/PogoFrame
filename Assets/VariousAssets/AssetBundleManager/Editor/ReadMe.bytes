@@ -11,6 +11,7 @@ Version 1.0
     - Url Id 每组资源的 id 标记(项目可以同时或非同时的加载多组资源)
     - Title 本项的标题,自己随便写.
     - Is Local 本项资源从 StreamingAssets 中读取,将忽略 Url
+    - Simulation 本项资源以模拟方式直接从本地读出,仅限编辑器状态下
     - Url 本项资源包的原地址,经常是一个 FTP 或 HTTP 地址
 
 - Export
