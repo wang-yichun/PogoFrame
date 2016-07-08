@@ -5,10 +5,9 @@
 	using System.IO;
 	using AssetBundles;
 	using System.Text.RegularExpressions;
-
-	//	using UnityEditorInternal;
-
+	using System.Linq;
 	using Malee.Editor;
+	using System.Text;
 
 	[CustomEditor (typeof(AssetBundleSettings))]
 	public partial class AssetBundleSettingsEditor : Editor
@@ -41,8 +40,6 @@
 
 		public static string GetSysRootPath ()
 		{
-//			string abm_root_path = AssetDatabase.GetAssetPath (AssetBundleSettings.Instance);
-//			return abm_root_path.Substring (0, abm_root_path.IndexOf ("Resources/AssetBundleSettings.asset"));
 			return "Assets/VariousAssets/AssetBundleManager/";
 		}
 
@@ -226,27 +223,39 @@
 		public void LoadingHandle ()
 		{
 			loadingList.DoLayoutList ();
+			WarningUniqueUrlId ();
 		}
 
 		public void ExportHandle ()
 		{
-//			EditorGUILayout.BeginVertical ();
 			if (GUILayout.Button ("发布 AssetBundles !!")) {
 				PublishAssetBundles ();
 			}
-//			if (GUILayout.Button ("测试上传 FTP")) {
-//				FilesCopyWithFTP.uploadDictionary (
-//					null, 
-//					"AssetBundles/OSX/asset1",
-//					"PogoFrameAssets/OSX/asset1",
-//					"192.168.199.215",
-//					"21",
-//					"ethan",
-//					"ethan"
-//				);
-//			}
-//			EditorGUILayout.EndVertical ();
 			exportList.DoLayoutList ();
+		}
+
+		private StringBuilder sb;
+
+		public void WarningUniqueUrlId ()
+		{
+			AssetBundleSettings settings = target as AssetBundleSettings;
+
+			var res = settings.loadingUrls.Where (_ => _.Enable).GroupBy (_ => _.UrlId).Select (g => new {UrlId = g.Key, count = g.Count ()});
+			if (sb == null) {
+				sb = new StringBuilder ();
+			} else {
+				sb.Length = 0;
+			}
+			res.ToList ().ForEach (_ => {
+				if (_.count > 1) {
+					sb.AppendLine (string.Format ("Url Id:{0} 重复{1}次", _.UrlId, _.count));
+				}
+			});
+			if (sb.Length > 0) {
+				sb.AppendLine ("对于相同 Url Id 所标明的资源组,你只能选择1个!");
+				EditorGUILayout.Space ();
+				EditorGUILayout.HelpBox (sb.ToString (), MessageType.Warning);
+			}
 		}
 	}
 
