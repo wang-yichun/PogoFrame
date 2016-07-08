@@ -6,6 +6,7 @@ using UnityEditor;
 using System.Collections;
 using System.Collections.Generic;
 using pogorock;
+using System.Linq;
 
 /*
  	In this demo, we demonstrate:
@@ -237,7 +238,7 @@ namespace AssetBundles
 		static public AssetBundleLoadManifestOperation Initialize (string manifestAssetBundleName, string url_id = "default")
 		{
 			#if UNITY_EDITOR
-			Log (LogType.Info, "Simulation Mode: " + (SimulateAssetBundleInEditor ? "Enabled" : "Disabled"));
+//			Log (LogType.Info, "Simulation Mode: " + (SimulateAssetBundleInEditor ? "Enabled" : "Disabled"));
 			#endif
 	
 			GameObject go = GameObject.Find ("AssetBundleManager");
@@ -248,9 +249,19 @@ namespace AssetBundles
 		
 			#if UNITY_EDITOR	
 			// If we're in Editor simulation mode, we don't need the manifest assetBundle.
-			if (SimulateAssetBundleInEditor)
+			bool simulate = false;
+
+			if (SimulateAssetBundleInEditor) {
+				simulate = true;
+			} else {
+				simulate = AssetBundleSettings.Instance.loadingUrls.Exists (_ => _.Enable && _.UrlId == url_id && _.Simulation);
+			}
+			Log (LogType.Info, string.Format ("{0} - Simulation Mode", url_id));
+			if (simulate)
 				return null;
 			#endif
+
+			Log (LogType.Info, string.Format ("{0} - AssetBundle Mode", url_id));
 	
 			LoadAssetBundle (manifestAssetBundleName, true, url_id);
 			var operation = new AssetBundleLoadManifestOperation (manifestAssetBundleName, "AssetBundleManifest", typeof(AssetBundleManifest), url_id);
@@ -514,7 +525,16 @@ namespace AssetBundles
 	
 			AssetBundleLoadAssetOperation operation = null;
 			#if UNITY_EDITOR
+
+			bool simulate = false;
+
 			if (SimulateAssetBundleInEditor) {
+				simulate = true;
+			} else {
+				simulate = AssetBundleSettings.Instance.loadingUrls.Exists (_ => _.Enable && _.UrlId == url_id && _.Simulation);
+			}
+
+			if (simulate) {
 				string[] assetPaths = AssetDatabase.GetAssetPathsFromAssetBundleAndAssetName (assetBundleName, assetName);
 				if (assetPaths.Length == 0) {
 					Debug.LogError ("There is no asset with name \"" + assetName + "\" in " + assetBundleName);
@@ -525,7 +545,7 @@ namespace AssetBundles
 				Object target = AssetDatabase.LoadMainAssetAtPath (assetPaths [0]);
 				operation = new AssetBundleLoadAssetOperationSimulation (target);
 			} else
-	#endif
+			#endif
 			{
 				assetBundleName = RemapVariantName (assetBundleName, url_id);
 				LoadAssetBundle (assetBundleName, false, url_id);
@@ -544,7 +564,14 @@ namespace AssetBundles
 	
 			AssetBundleLoadOperation operation = null;
 			#if UNITY_EDITOR
+			bool simulate = false;
+
 			if (SimulateAssetBundleInEditor) {
+				simulate = true;
+			} else {
+				simulate = AssetBundleSettings.Instance.loadingUrls.Exists (_ => _.Enable && _.UrlId == url_id && _.Simulation);
+			}
+			if (simulate) {
 				operation = new AssetBundleLoadLevelSimulationOperation (assetBundleName, levelName, isAdditive);
 			} else
 			#endif

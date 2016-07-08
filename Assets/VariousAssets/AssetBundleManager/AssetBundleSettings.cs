@@ -68,6 +68,7 @@
 	public class AssetBundleUrl_Loading : AssetBundleUrl
 	{
 		public bool IsLocal;
+		public bool Simulation;
 		public string Url;
 	}
 

@@ -16,16 +16,19 @@ MonoBehaviour:
     UrlId: asset1
     Title: StreamingAssets
     IsLocal: 1
+    Simulation: 0
     Url: 
   - Enable: 1
     UrlId: asset1
     Title: Local FTP @ Ethan's MAC
     IsLocal: 0
+    Simulation: 1
     Url: ftp://192.168.199.215/PogoFrameAssets
   - Enable: 0
     UrlId: asset2
     Title: Local FTP @ Ethan's MAC
     IsLocal: 0
+    Simulation: 0
     Url: ftp://192.168.199.215/PogoFrameAssets
   exportUrls:
   - Enable: 1

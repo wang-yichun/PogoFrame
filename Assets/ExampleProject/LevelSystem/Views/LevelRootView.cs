@@ -80,9 +80,6 @@ namespace uFrame.ExampleProject
 			LevelContainer.SetMagnets_Standby (false);
 
 			cancelRunningUpdate = Observable.EveryFixedUpdate ().Subscribe (RunningUpdate);
-
-			GameObject go = Instantiate<GameObject> (assetsDic ["blue_bird"]);
-			GameObject go2 = Instantiate<GameObject> (assetsDic ["red_bird"]);
 		}
 
 		public override void OnLevel_Closing ()
@@ -137,8 +134,6 @@ namespace uFrame.ExampleProject
 //			}
 
 			yield return StartCoroutine (InstantiateGameObjectAsync ("ingame", "L001", "asset1"));
-			yield return StartCoroutine (InstantiateGameObjectAsync ("oa2prefabs", "blue_bird", "asset2"));
-			yield return StartCoroutine (InstantiateGameObjectAsync ("oa2prefabs", "red_bird", "asset2"));
 
 			AssetBundleLoadAssetOperation request = AssetBundleManager.LoadAssetAsync ("soa", "TestScriptObj", typeof(TestScriptObj), "asset1");
 			if (request == null)
