@@ -89,38 +89,35 @@
 						if (j == 0) {
 							if (url.targetStandalone) {
 								buildTarget = BuildTarget.StandaloneOSXUniversal;
-								outputPath = Path.Combine (url_str, Utility.GetPlatformForAssetBundles (buildTarget));
-								BuildAssetBundle (url.UrlId, outputPath, buildTarget);
-
-								first_outputpath_standalone = outputPath;
+								if (smartBuildAssetBundle (buildTarget, url_str, url.UrlId, out first_outputpath_standalone, i, url) == false) {
+									break;
+								}
 							}
 							if (url.targetIOS) {
 								buildTarget = BuildTarget.iOS;
-								outputPath = Path.Combine (url_str, Utility.GetPlatformForAssetBundles (buildTarget));
-								BuildAssetBundle (url.UrlId, outputPath, buildTarget);
-
-								first_outputpath_ios = outputPath;
+								if (smartBuildAssetBundle (buildTarget, url_str, url.UrlId, out first_outputpath_ios, i, url) == false) {
+									break;
+								}
 							}
 							if (url.targetAndroid) {
 								buildTarget = BuildTarget.Android;
-								outputPath = Path.Combine (url_str, Utility.GetPlatformForAssetBundles (buildTarget));
-								BuildAssetBundle (url.UrlId, outputPath, buildTarget);
-
-								first_outputpath_android = outputPath;
+								if (smartBuildAssetBundle (buildTarget, url_str, url.UrlId, out first_outputpath_android, i, url) == false) {
+									break;
+								}
 							}
 						} else {
 							// 进行拷贝
 							if (url.targetStandalone) {
 								buildTarget = BuildTarget.StandaloneOSXUniversal;
-								smartCopy (buildTarget, url_str, url.UrlId, first_outputpath_standalone);
+								smartCopy (buildTarget, url_str, url.UrlId, first_outputpath_standalone, i, url);
 							}
 							if (url.targetIOS) {
 								buildTarget = BuildTarget.iOS;
-								smartCopy (buildTarget, url_str, url.UrlId, first_outputpath_ios);
+								smartCopy (buildTarget, url_str, url.UrlId, first_outputpath_ios, i, url);
 							}
 							if (url.targetAndroid) {
 								buildTarget = BuildTarget.Android;
-								smartCopy (buildTarget, url_str, url.UrlId, first_outputpath_android);
+								smartCopy (buildTarget, url_str, url.UrlId, first_outputpath_android, i, url);
 							}
 						}
 					}
@@ -128,7 +125,31 @@
 			}
 		}
 
-		public void smartCopy (BuildTarget buildTarget, string url_str, string url_id, string first_outputpath)
+		public bool smartBuildAssetBundle (BuildTarget buildTarget, string url_str, string url_id, out string first_outputpath, int idx, AssetBundleUrl_Export url)
+		{
+			first_outputpath = string.Empty;
+			string outputPath = Path.Combine (url_str, Utility.GetPlatformForAssetBundles (buildTarget));
+
+			Match m = Regex.Match (outputPath, ftp_url_pattern);
+			if (m.Success) {
+				Debug.Log (string.Format ("[Idx: {0}, Title: {1}]\n第一个目标 url 不能为FTP位置,请使用 AssetBundles 等本地位置!", idx, url.Title));
+				return false;
+			} else {
+
+				string asset_id_root_folder = Path.Combine (outputPath, url_id);
+				if (url.Clear) {
+					if (Directory.Exists (asset_id_root_folder)) {
+						Directory.Delete (asset_id_root_folder, true);
+					}
+				}
+
+				BuildAssetBundle (url_id, outputPath, buildTarget);
+				first_outputpath = outputPath;
+			}
+			return true;
+		}
+
+		public void smartCopy (BuildTarget buildTarget, string url_str, string url_id, string first_outputpath, int idx, AssetBundleUrl_Export url)
 		{
 			int u = url_str.IndexOf ("|");
 			string[] upl = null;
@@ -154,6 +175,9 @@
 					password: upl [2]
 				);
 			} else {
+				if (url.Clear) {
+					Directory.Delete (outputPath, true);
+				}
 				FilesCopy.copyDirectory (resourcePath, outputPath);
 			}
 		}
@@ -172,7 +196,7 @@
 		{
 			int new_toolbar_index = GUILayout.Toolbar (toolbar_index, ToolbarHeaders, new GUILayoutOption[]{ GUILayout.Height (25f) });
 			if (new_toolbar_index != toolbar_index) {
-				EditorPrefs.SetInt ("asset_bundle_settings_toolbar_index", 0);
+				EditorPrefs.SetInt ("asset_bundle_settings_toolbar_index", new_toolbar_index);
 				toolbar_index = new_toolbar_index;
 			}
 

@@ -28,10 +28,10 @@ MonoBehaviour:
     IsLocal: 0
     Url: ftp://192.168.199.215/PogoFrameAssets
   exportUrls:
-  - Enable: 0
+  - Enable: 1
     UrlId: asset1
     Title: Default asset1
-    Clear: 0
+    Clear: 1
     Urls:
     - AssetBundles
     - Assets/StreamingAssets
@@ -42,7 +42,7 @@ MonoBehaviour:
   - Enable: 1
     UrlId: asset1
     Title: Default asset1
-    Clear: 0
+    Clear: 1
     Urls:
     - AssetBundles
     - Assets/StreamingAssets
@@ -50,10 +50,10 @@ MonoBehaviour:
     targetStandalone: 0
     targetIOS: 0
     targetAndroid: 1
-  - Enable: 0
+  - Enable: 1
     UrlId: asset1
     Title: Default asset1
-    Clear: 0
+    Clear: 1
     Urls:
     - AssetBundles
     - Assets/StreamingAssets
