@@ -351,5 +351,11 @@ public partial class SROptions
     [Category("Read Only")]
     public TestValues ReadOnlyEnum { get; private set; }
 
+    [Category("Read Only")]
+    public string TestLongReadOnlyString
+    {
+        get { return "This is a really long string with no reason other than to test long strings."; }
+    }
+
 #endif
 }

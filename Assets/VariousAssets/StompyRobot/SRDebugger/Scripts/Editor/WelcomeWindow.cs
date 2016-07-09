@@ -16,10 +16,7 @@ namespace SRDebugger.Editor
 
         static WelcomeWindow()
         {
-            if (ShouldOpen())
-            {
-                EditorApplication.update += OpenUpdate;
-            }
+            EditorApplication.update += OpenUpdate;
         }
 
         private static void OpenUpdate()
@@ -110,16 +107,16 @@ namespace SRDebugger.Editor
 
 #else
 
-			GUILayout.Label(
-				"Drag the <b>SRDebugger.Init</b> prefab into the first scene of your game. " +
-				"Once initialised, SRDebugger will be available even after loading new scenes. We recommend adding the SRDebugger.Init prefab to the first scene " +
-				"of your game so that the debug panel is available in all subsequent scenes.",
-				SRDebugEditorUtil.Styles.ParagraphLabel);
+            GUILayout.Label(
+                "Drag the <b>SRDebugger.Init</b> prefab into the first scene of your game. " +
+                "Once initialised, SRDebugger will be available even after loading new scenes. We recommend adding the SRDebugger.Init prefab to the first scene " +
+                "of your game so that the debug panel is available in all subsequent scenes.",
+                SRDebugEditorUtil.Styles.ParagraphLabel);
 
-			GUILayout.Label(
-				"Once the prefab is in your scene, you should find the trigger available in the top-left of your game window when in play mode. " +
-				"Triple-clicking this trigger will bring up the debug panel. The trigger is hidden until clicked.",
-				SRDebugEditorUtil.Styles.ParagraphLabel);
+            GUILayout.Label(
+                "Once the prefab is in your scene, you should find the trigger available in the top-left of your game window when in play mode. " +
+                "Triple-clicking this trigger will bring up the debug panel. The trigger is hidden until clicked.",
+                SRDebugEditorUtil.Styles.ParagraphLabel);
 
 #endif
 

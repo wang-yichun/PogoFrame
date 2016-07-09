@@ -78,7 +78,7 @@ namespace SRDebugger.UI.Controls.Data
             Value.text = newValue.ToString();
         }
 
-        public override bool CanBind(Type type)
+        public override bool CanBind(Type type, bool isReadOnly)
         {
 #if NETFX_CORE
 			return type.GetTypeInfo().IsEnum;

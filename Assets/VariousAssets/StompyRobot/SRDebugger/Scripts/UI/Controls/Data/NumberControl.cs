@@ -126,7 +126,7 @@
             _lastValue = value;
         }
 
-        public override bool CanBind(Type type)
+        public override bool CanBind(Type type, bool isReadOnly)
         {
             return IsDecimalType(type) || IsIntegerType(type);
         }

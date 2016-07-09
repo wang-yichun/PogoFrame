@@ -47,6 +47,13 @@ For documentation on other features, including the options tab, bug reporter, pr
 
 # Change Log
 
+1.4.9
+----------
+
+Changed: 
+- Compatibility with Unity 5.4.
+- SROptions: Read-only string options now expand to display entire string.
+
 1.4.8
 ----------
 

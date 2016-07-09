@@ -77,6 +77,13 @@
                 //Info.Create("Process Name", () => Process.GetCurrentProcess().ProcessName)
             });
 
+
+#if ENABLE_IL2CPP
+            const string IL2CPP = "Yes";
+#else
+            const string IL2CPP = "No";
+#endif
+
             _info.Add("Unity", new[]
             {
                 Info.Create("Version", Application.unityVersion),
@@ -87,7 +94,8 @@
                         Application.genuineCheckAvailable ? "Trusted" : "Untrusted")),
                 Info.Create("System Language", Application.systemLanguage),
                 Info.Create("Platform", Application.platform),
-                Info.Create("SRDebugger Version", SRDebug.Version)
+                Info.Create("IL2CPP", IL2CPP),
+                Info.Create("SRDebugger Version", SRDebug.Version),
             });
 
             _info.Add("Display", new[]
@@ -151,26 +159,16 @@
 
 #if UNITY_IOS
 
-#if ENABLE_IL2CPP
-			const string IL2CPP = "Yes";
-#else
-			const string IL2CPP = "No";
-#endif
-
-
-			_info.Add("iOS", new[] {
+            _info.Add("iOS", new[] {
 
 #if UNITY_5
-				Info.Create("Generation", UnityEngine.iOS.Device.generation),
-				Info.Create("Ad Tracking", UnityEngine.iOS.Device.advertisingTrackingEnabled),
+                Info.Create("Generation", UnityEngine.iOS.Device.generation),
+                Info.Create("Ad Tracking", UnityEngine.iOS.Device.advertisingTrackingEnabled),
 #else
-				Info.Create("Generation", iPhone.generation),
-				Info.Create("Ad Tracking", iPhone.advertisingTrackingEnabled),
+                Info.Create("Generation", iPhone.generation),
+                Info.Create("Ad Tracking", iPhone.advertisingTrackingEnabled),
 #endif
-
-				Info.Create("IL2CPP", IL2CPP),
-
-			});
+            });
 
 #endif
 
@@ -181,8 +179,8 @@
                 Info.Create("Device Version", SystemInfo.graphicsDeviceVersion),
                 Info.Create("Max Tex Size", SystemInfo.maxTextureSize),
 #if !UNITY_5
-				Info.Create("Fill Rate",
-					SystemInfo.graphicsPixelFillrate > 0 ? "{0}mpix/s".Fmt(SystemInfo.graphicsPixelFillrate) : "Unknown"),
+                Info.Create("Fill Rate",
+                    SystemInfo.graphicsPixelFillrate > 0 ? "{0}mpix/s".Fmt(SystemInfo.graphicsPixelFillrate) : "Unknown"),
 #endif
                 Info.Create("NPOT Support", SystemInfo.npotSupport),
                 Info.Create("Render Textures",
@@ -191,7 +189,7 @@
                 Info.Create("3D Textures", SystemInfo.supports3DTextures),
                 Info.Create("Compute Shaders", SystemInfo.supportsComputeShaders),
 #if !UNITY_5
-				Info.Create("Vertex Programs", SystemInfo.supportsVertexPrograms),
+                Info.Create("Vertex Programs", SystemInfo.supportsVertexPrograms),
 #endif
                 Info.Create("Image Effects", SystemInfo.supportsImageEffects),
                 Info.Create("Cubemaps", SystemInfo.supportsRenderToCubemap),

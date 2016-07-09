@@ -4,41 +4,33 @@
     using SRF;
     using UnityEngine.UI;
 
-    public class BoolControl : DataBoundControl
+    public class ReadOnlyControl : DataBoundControl
     {
-        [RequiredField] public Text Title;
+        [RequiredField]
+        public Text ValueText;
 
-        [RequiredField] public Toggle Toggle;
+        [RequiredField]
+        public Text Title;
 
         protected override void Start()
         {
             base.Start();
-            Toggle.onValueChanged.AddListener(ToggleOnValueChanged);
-        }
-
-        private void ToggleOnValueChanged(bool isOn)
-        {
-            UpdateValue(isOn);
         }
 
         protected override void OnBind(string propertyName, Type t)
         {
             base.OnBind(propertyName, t);
-
             Title.text = propertyName;
-
-            Toggle.interactable = !IsReadOnly;
         }
 
         protected override void OnValueUpdated(object newValue)
         {
-            var value = (bool) newValue;
-            Toggle.isOn = value;
+            ValueText.text = Convert.ToString(newValue);
         }
 
         public override bool CanBind(Type type, bool isReadOnly)
         {
-            return type == typeof (bool);
+            return type == typeof(string) && isReadOnly;
         }
     }
 }

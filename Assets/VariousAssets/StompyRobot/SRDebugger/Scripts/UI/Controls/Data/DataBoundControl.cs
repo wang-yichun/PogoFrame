@@ -79,7 +79,7 @@
         protected virtual void OnBind(string propertyName, Type t) {}
         protected abstract void OnValueUpdated(object newValue);
 
-        public abstract bool CanBind(Type type);
+        public abstract bool CanBind(Type type, bool isReadOnly);
 
         #endregion
 

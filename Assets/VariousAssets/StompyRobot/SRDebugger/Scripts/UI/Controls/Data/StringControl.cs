@@ -39,9 +39,9 @@
             InputField.text = value;
         }
 
-        public override bool CanBind(Type type)
+        public override bool CanBind(Type type, bool isReadOnly)
         {
-            return type == typeof (string);
+            return type == typeof (string) && !isReadOnly;
         }
     }
 }

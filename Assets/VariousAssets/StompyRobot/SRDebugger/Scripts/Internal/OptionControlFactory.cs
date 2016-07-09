@@ -69,7 +69,7 @@
 
         private static DataBoundControl CreateDataControl(OptionDefinition from, string categoryPrefix = null)
         {
-            var prefab = _dataControlPrefabs.FirstOrDefault(p => p.CanBind(from.Property.PropertyType));
+            var prefab = _dataControlPrefabs.FirstOrDefault(p => p.CanBind(@from.Property.PropertyType, !from.Property.CanWrite));
 
             if (prefab == null)
             {

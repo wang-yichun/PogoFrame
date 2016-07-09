@@ -1,4 +1,8 @@
-﻿namespace SRDebugger.Services.Implementation
+﻿#if !(UNITY_4_6 || UNITY_4_7  || UNITY_5_0 || UNITY_5_1 || UNITY_5_2 || UNITY_5_3)
+#define USE_NEW_SCENE_MANAGEMENT
+#endif
+
+namespace SRDebugger.Services.Implementation
 {
     using System;
     using Internal;
@@ -101,13 +105,20 @@
                     throw new Exception("Unhandled TriggerBehaviour");
             }
 
+#if USE_NEW_SCENE_MANAGEMENT
+            UnityEngine.SceneManagement.SceneManager.activeSceneChanged += (s1, s2) => {
+                SRDebuggerUtil.EnsureEventSystemExists();
+            };
+#endif
             SRDebuggerUtil.EnsureEventSystemExists();
         }
 
+#if !USE_NEW_SCENE_MANAGEMENT
         private void OnLevelWasLoaded(int level)
         {
             SRDebuggerUtil.EnsureEventSystemExists();
         }
+#endif
 
         private void OnTriggerButtonClick()
         {
