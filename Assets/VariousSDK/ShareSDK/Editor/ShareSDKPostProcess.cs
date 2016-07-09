@@ -32,6 +32,10 @@ public class ShareSDKPostProcess
 			AddTBDFile (projPath, proj, target, "libz.tbd");
 			AddTBDFile (projPath, proj, target, "libstdc++.tbd");
 			AddTBDFile (projPath, proj, target, "libsqlite3.tbd");
+
+			proj.AddFrameworkToProject (target, "JavaScriptCore.framework", false);
+
+			File.WriteAllText (projPath, proj.WriteToString ());
 		}
 	}
 
