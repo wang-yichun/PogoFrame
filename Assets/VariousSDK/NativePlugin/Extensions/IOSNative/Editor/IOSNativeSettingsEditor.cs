@@ -30,37 +30,37 @@ public class IOSNativeSettingsEditor : Editor {
 	
 	
 	
-	private static string IOSNotificationController_Path = "Extensions/IOSNative/Notifications/IOSNotificationController.cs";
-	private static string DeviceTokenListener_Path = "Extensions/IOSNative/Notifications/DeviceTokenListener.cs";
+	private static string IOSNotificationController_Path = "VariousSDK/NativePlugin/Extensions/IOSNative/Notifications/IOSNotificationController.cs";
+	private static string DeviceTokenListener_Path = "VariousSDK/NativePlugin/Extensions/IOSNative/Notifications/DeviceTokenListener.cs";
 	
-	private static string GameCenterManager_Path = "Extensions/IOSNative/GameCenter/Manage/GameCenterManager.cs";
-	private static string GameCenter_TBM_Path = "Extensions/IOSNative/GameCenter/Manage/GameCenter_TBM.cs";
-	private static string GameCenter_RTM_Path = "Extensions/IOSNative/GameCenter/Manage/GameCenter_RTM.cs";
-	private static string ISN_GameSaves_Path = "Extensions/IOSNative/GameCenter/Manage/ISN_GameSaves.cs";
+	private static string GameCenterManager_Path = "VariousSDK/NativePlugin/Extensions/IOSNative/GameCenter/Manage/GameCenterManager.cs";
+	private static string GameCenter_TBM_Path = "VariousSDK/NativePlugin/Extensions/IOSNative/GameCenter/Manage/GameCenter_TBM.cs";
+	private static string GameCenter_RTM_Path = "VariousSDK/NativePlugin/Extensions/IOSNative/GameCenter/Manage/GameCenter_RTM.cs";
+	private static string ISN_GameSaves_Path = "VariousSDK/NativePlugin/Extensions/IOSNative/GameCenter/Manage/ISN_GameSaves.cs";
 	
-	private static string IOSNativeMarketBridge_Path = "Extensions/IOSNative/Market/IOSNativeMarketBridge.cs";
-	private static string IOSStoreProductView_Path = "Extensions/IOSNative/Market/IOSStoreProductView.cs";
-	private static string ISN_Security_Path = "Extensions/IOSNative/Other/System/ISN_Security.cs";
-	
-	
-	private static string iAdBannerControllerr_Path = "Extensions/IOSNative/iAd/iAdBannerController.cs";
-	private static string iAdBanner_Path = "Extensions/IOSNative/iAd/iAdBanner.cs";
-	
-	private static string IOSSocialManager_Path = "Extensions/IOSNative/Social/IOSSocialManager.cs";
-	
-	private static string IOSCamera_Path = "Extensions/IOSNative/Other/Camera/IOSCamera.cs";
-	private static string ISN_FilePicker_Path = "Extensions/IOSNative/Other/Camera/ISN_FilePicker.cs";
-	
-	private static string IOSVideoManager_Path = "Extensions/IOSNative/Other/VIdeo/IOSVideoManager.cs";
-	private static string ISN_MediaController_Path = "Extensions/IOSNative/Other/Media/Controllers/ISN_MediaController.cs";
+	private static string IOSNativeMarketBridge_Path = "VariousSDK/NativePlugin/Extensions/IOSNative/Market/IOSNativeMarketBridge.cs";
+	private static string IOSStoreProductView_Path = "VariousSDK/NativePlugin/Extensions/IOSNative/Market/IOSStoreProductView.cs";
+	private static string ISN_Security_Path = "VariousSDK/NativePlugin/Extensions/IOSNative/Other/System/ISN_Security.cs";
 	
 	
-	private static string ISN_ReplayKit_Path = "Extensions/IOSNative/Other/VIdeo/ISN_ReplayKit.cs";
-	private static string ISN_CloudKit_Path = "Extensions/IOSNative/iCloud/ISN_CloudKit.cs";
-	private static string ISN_Soomla_Path = "Extensions/IOSNative/Addons/Soomla/Controllers/ISN_SoomlaGrow.cs";
+	private static string iAdBannerControllerr_Path = "VariousSDK/NativePlugin/Extensions/IOSNative/iAd/iAdBannerController.cs";
+	private static string iAdBanner_Path = "VariousSDK/NativePlugin/Extensions/IOSNative/iAd/iAdBanner.cs";
+	
+	private static string IOSSocialManager_Path = "VariousSDK/NativePlugin/Extensions/IOSNative/Social/IOSSocialManager.cs";
+	
+	private static string IOSCamera_Path = "VariousSDK/NativePlugin/Extensions/IOSNative/Other/Camera/IOSCamera.cs";
+	private static string ISN_FilePicker_Path = "VariousSDK/NativePlugin/Extensions/IOSNative/Other/Camera/ISN_FilePicker.cs";
+	
+	private static string IOSVideoManager_Path = "VariousSDK/NativePlugin/Extensions/IOSNative/Other/VIdeo/IOSVideoManager.cs";
+	private static string ISN_MediaController_Path = "VariousSDK/NativePlugin/Extensions/IOSNative/Other/Media/Controllers/ISN_MediaController.cs";
+	
+	
+	private static string ISN_ReplayKit_Path = "VariousSDK/NativePlugin/Extensions/IOSNative/Other/VIdeo/ISN_ReplayKit.cs";
+	private static string ISN_CloudKit_Path = "VariousSDK/NativePlugin/Extensions/IOSNative/iCloud/ISN_CloudKit.cs";
+	private static string ISN_Soomla_Path = "VariousSDK/NativePlugin/Extensions/IOSNative/Addons/Soomla/Controllers/ISN_SoomlaGrow.cs";
 
 
-	private static string ISN_GestureRecognizer_Path = "Extensions/IOSNative/Other/System/Gestures/ISN_GestureRecognizer.cs";
+	private static string ISN_GestureRecognizer_Path = "VariousSDK/NativePlugin/Extensions/IOSNative/Other/System/Gestures/ISN_GestureRecognizer.cs";
 	
 	
 	private  GUIStyle _ImageBoxStyle = null;

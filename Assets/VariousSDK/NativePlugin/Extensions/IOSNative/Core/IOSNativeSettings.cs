@@ -110,8 +110,8 @@ public class IOSNativeSettings : ScriptableObject {
 				
 					/*string properPath = Path.Combine(Application.dataPath, ISNSettingsPath);
 					if (!Directory.Exists(properPath)) {
-						AssetDatabase.CreateFolder("Extensions/", "IOSNative");
-						AssetDatabase.CreateFolder("Extensions/IOSNative", "Resources");
+						AssetDatabase.CreateFolder("VariousSDK/NativePlugin/Extensions/", "IOSNative");
+						AssetDatabase.CreateFolder("VariousSDK/NativePlugin/Extensions/IOSNative", "Resources");
 					}
 					*/
 					
