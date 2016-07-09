@@ -15,30 +15,30 @@ MonoBehaviour:
   _autoLoad: 0
   _defaultTab: 2
   _triggerEnableMode: 0
-  _triggerBehaviour: 0
+  _triggerBehaviour: 2
   _enableKeyboardShortcuts: 1
   _keyboardShortcuts: []
   _newKeyboardShortcuts:
   - Action: 1
-    Alt: 0
-    Control: 1
+    Alt: 1
+    Control: 0
     Key: 282
-    Shift: 1
+    Shift: 0
   - Action: 2
-    Alt: 0
-    Control: 1
+    Alt: 1
+    Control: 0
     Key: 283
-    Shift: 1
+    Shift: 0
   - Action: 3
-    Alt: 0
-    Control: 1
+    Alt: 1
+    Control: 0
     Key: 284
-    Shift: 1
+    Shift: 0
   - Action: 4
-    Alt: 0
-    Control: 1
+    Alt: 1
+    Control: 0
     Key: 285
-    Shift: 1
+    Shift: 0
   _keyboardModifierControl: 1
   _keyboardModifierAlt: 0
   _keyboardModifierShift: 1

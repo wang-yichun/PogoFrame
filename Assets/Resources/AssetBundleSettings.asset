@@ -22,7 +22,7 @@ MonoBehaviour:
     UrlId: asset1
     Title: Local FTP @ Ethan's MAC
     IsLocal: 0
-    Simulation: 0
+    Simulation: 1
     Url: ftp://192.168.199.215/PogoFrameAssets
   - Enable: 0
     UrlId: asset2
