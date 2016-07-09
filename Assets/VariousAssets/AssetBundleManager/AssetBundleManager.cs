@@ -256,9 +256,10 @@ namespace AssetBundles
 			} else {
 				simulate = AssetBundleSettings.Instance.loadingUrls.Exists (_ => _.Enable && _.UrlId == url_id && _.Simulation);
 			}
-			Log (LogType.Info, string.Format ("{0} - Simulation Mode", url_id));
-			if (simulate)
+			if (simulate) {
+				Log (LogType.Info, string.Format ("{0} - Simulation Mode", url_id));
 				return null;
+			}
 			#endif
 
 			Log (LogType.Info, string.Format ("{0} - AssetBundle Mode", url_id));
