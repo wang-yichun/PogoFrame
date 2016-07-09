@@ -211,17 +211,17 @@ namespace GameAnalyticsSDK
 				if(_settings == null)
 				{
 					//If the settings asset doesn't exist, then create it. We require a resources folder
-					if(!Directory.Exists(Application.dataPath + "/Resources"))
+					if(!Directory.Exists(Application.dataPath + "/VariousSDK/GameAnalyticsSDK/Resources"))
 					{
-						Directory.CreateDirectory(Application.dataPath + "/Resources");
+						Directory.CreateDirectory(Application.dataPath + "/VariousSDK/GameAnalyticsSDK/Resources");
 					}
-					if(!Directory.Exists(Application.dataPath + "/Resources/GameAnalytics"))
+					if(!Directory.Exists(Application.dataPath + "/VariousSDK/GameAnalyticsSDK/Resources/GameAnalytics"))
 					{
-						Directory.CreateDirectory(Application.dataPath + "/Resources/GameAnalytics");
-						Debug.LogWarning("GameAnalytics: Resources/GameAnalytics folder is required to store settings. it was created ");
+						Directory.CreateDirectory(Application.dataPath + "/VariousSDK/GameAnalyticsSDK/Resources/GameAnalytics");
+						Debug.LogWarning("GameAnalytics: VariousSDK/GameAnalyticsSDK/Resources/GameAnalytics folder is required to store settings. it was created ");
 					}
 
-					const string path = "Assets/Resources/GameAnalytics/Settings.asset";
+					const string path = "Assets/VariousSDK/GameAnalyticsSDK/Resources/GameAnalytics/Settings.asset";
 
 					if(File.Exists(path))
 					{
@@ -641,7 +641,7 @@ namespace GameAnalyticsSDK
 				
 				if(GameAnalytics.SettingsGA.Logo == null)
 				{
-					GameAnalytics.SettingsGA.Logo = (Texture2D)AssetDatabase.LoadAssetAtPath("Assets/Gizmos/GameAnalytics/gaLogo.png", typeof(Texture2D));
+					GameAnalytics.SettingsGA.Logo = (Texture2D)AssetDatabase.LoadAssetAtPath("Assets/VariousSDK/GameAnalyticsSDK/Gizmos/GameAnalytics/gaLogo.png", typeof(Texture2D));
 				}
 				
 				Graphics.DrawTexture(new Rect(GUILayoutUtility.GetLastRect().width - selectionRect.height - 5 - addX, selectionRect.y, selectionRect.height, selectionRect.height), GameAnalytics.SettingsGA.Logo);
