@@ -63,7 +63,7 @@ public class IOSDeployPostProcess  {
 		string languageFolders  = string.Join (" ", ISDSettings.Instance.langFolders.ToArray ());
 
 
-		myCustomProcess.StartInfo.Arguments = string.Format("Assets/Extensions/IOSDeploy/Scripts/Editor/post_process.py \"{0}\" \"{1}\" \"{2}\" \"{3}\" \"{4}\" \"{5}\"", new object[] { pathToBuiltProject, frameworks, libraries, compileFlags, linkFlags, languageFolders });
+		myCustomProcess.StartInfo.Arguments = string.Format("Assets/VariousSDK/NativePlugin/Extensions/IOSDeploy/Scripts/Editor/post_process.py \"{0}\" \"{1}\" \"{2}\" \"{3}\" \"{4}\" \"{5}\"", new object[] { pathToBuiltProject, frameworks, libraries, compileFlags, linkFlags, languageFolders });
 		myCustomProcess.StartInfo.UseShellExecute = false;
 		myCustomProcess.StartInfo.RedirectStandardOutput = true;
 		myCustomProcess.Start(); 
