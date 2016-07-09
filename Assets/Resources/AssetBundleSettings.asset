@@ -42,7 +42,7 @@ MonoBehaviour:
     targetStandalone: 1
     targetIOS: 0
     targetAndroid: 0
-  - Enable: 1
+  - Enable: 0
     UrlId: asset1
     Title: Default asset1
     Clear: 1

@@ -452,7 +452,7 @@ PlayerSettings:
   WebGL::emscriptenArgs: 
   WebGL::template: APPLICATION:Default
   additionalIl2CppArgs::additionalIl2CppArgs: 
-  cloudProjectId: 
-  projectName: 
-  organizationId: 
+  cloudProjectId: 12381590-c27a-4ba8-9b5a-60bebff27c13
+  projectName: PogoFrame
+  organizationId: pogorockgames
   cloudEnabled: 0
