@@ -8,7 +8,7 @@ namespace GameAnalyticsSDK.Editor
 		{
 			#region iOS and tvOS
 			{
-				PluginImporter importer = AssetImporter.GetAtPath("Assets/Plugins/tvOS/GameAnalyticsTVOS.h") as PluginImporter;
+				PluginImporter importer = AssetImporter.GetAtPath("Assets/VariousSDK/GameAnalyticsSDK/Plugins/tvOS/GameAnalyticsTVOS.h") as PluginImporter;
 				if(importer != null && (importer.GetCompatibleWithAnyPlatform() || !importer.GetCompatibleWithPlatform(BuildTarget.tvOS) || importer.GetCompatibleWithPlatform(BuildTarget.iOS)))
 				{
 					importer.SetCompatibleWithAnyPlatform(false);
@@ -32,7 +32,7 @@ namespace GameAnalyticsSDK.Editor
 				}
 			}
 			{
-				PluginImporter importer = AssetImporter.GetAtPath("Assets/Plugins/tvOS/GameAnalyticsTVOSUnity.m") as PluginImporter;
+				PluginImporter importer = AssetImporter.GetAtPath("Assets/VariousSDK/GameAnalyticsSDK/Plugins/tvOS/GameAnalyticsTVOSUnity.m") as PluginImporter;
 				if(importer != null && (importer.GetCompatibleWithAnyPlatform() || !importer.GetCompatibleWithPlatform(BuildTarget.tvOS) || importer.GetCompatibleWithPlatform(BuildTarget.iOS)))
 				{
 					importer.SetCompatibleWithAnyPlatform(false);
@@ -56,7 +56,7 @@ namespace GameAnalyticsSDK.Editor
 				}
 			}
 			{
-				PluginImporter importer = AssetImporter.GetAtPath("Assets/Plugins/tvOS/libGameAnalyticsTVOS.a") as PluginImporter;
+				PluginImporter importer = AssetImporter.GetAtPath("Assets/VariousSDK/GameAnalyticsSDK/Plugins/tvOS/libGameAnalyticsTVOS.a") as PluginImporter;
 				if(importer != null && (importer.GetCompatibleWithAnyPlatform() || !importer.GetCompatibleWithPlatform(BuildTarget.tvOS) || importer.GetCompatibleWithPlatform(BuildTarget.iOS)))
 				{
 					importer.SetCompatibleWithAnyPlatform(false);
@@ -82,7 +82,7 @@ namespace GameAnalyticsSDK.Editor
             #endregion // iOS and tvOS
             #region General
             {
-				PluginImporter importer = AssetImporter.GetAtPath("Assets/GameAnalytics/Plugins/GameAnalytics.dll") as PluginImporter;
+				PluginImporter importer = AssetImporter.GetAtPath("Assets/VariousSDK/GameAnalyticsSDK/GameAnalytics/Plugins/GameAnalytics.dll") as PluginImporter;
 				if(importer != null && (importer.GetCompatibleWithAnyPlatform() || !importer.GetCompatibleWithPlatform(BuildTarget.StandaloneLinux) ||
 				    !importer.GetCompatibleWithPlatform(BuildTarget.StandaloneLinux64) ||
 				    !importer.GetCompatibleWithPlatform(BuildTarget.StandaloneLinuxUniversal) ||
@@ -115,7 +115,7 @@ namespace GameAnalyticsSDK.Editor
             #endregion // General
             #region Standalone
             {
-                PluginImporter importer = AssetImporter.GetAtPath("Assets/Plugins/Windows/x86/sqlite3.dll") as PluginImporter;
+                PluginImporter importer = AssetImporter.GetAtPath("Assets/VariousSDK/GameAnalyticsSDK/Plugins/Windows/x86/sqlite3.dll") as PluginImporter;
 				if(importer != null && (importer.GetCompatibleWithAnyPlatform() || !importer.GetCompatibleWithPlatform(BuildTarget.StandaloneWindows)))
 				{
 					importer.SetCompatibleWithAnyPlatform(false);
@@ -139,7 +139,7 @@ namespace GameAnalyticsSDK.Editor
 				}
 			}
 			{
-				PluginImporter importer = AssetImporter.GetAtPath("Assets/Plugins/Windows/x64/sqlite3.dll") as PluginImporter;
+				PluginImporter importer = AssetImporter.GetAtPath("Assets/VariousSDK/GameAnalyticsSDK/Plugins/Windows/x64/sqlite3.dll") as PluginImporter;
 				if(importer != null && (importer.GetCompatibleWithAnyPlatform() || !importer.GetCompatibleWithPlatform(BuildTarget.StandaloneWindows64)))
 				{
 					importer.SetCompatibleWithAnyPlatform(false);
@@ -163,7 +163,7 @@ namespace GameAnalyticsSDK.Editor
 				}
 			}
 			{
-				PluginImporter importer = AssetImporter.GetAtPath("Assets/Plugins/Mac/sqlite3.bundle") as PluginImporter;
+				PluginImporter importer = AssetImporter.GetAtPath("Assets/VariousSDK/GameAnalyticsSDK/Plugins/Mac/sqlite3.bundle") as PluginImporter;
 				if(importer != null && (importer.GetCompatibleWithAnyPlatform() || !importer.GetCompatibleWithPlatform(BuildTarget.StandaloneOSXIntel) ||
 				    !importer.GetCompatibleWithPlatform(BuildTarget.StandaloneOSXIntel64) ||
 				    !importer.GetCompatibleWithPlatform(BuildTarget.StandaloneOSXUniversal)))
@@ -189,7 +189,7 @@ namespace GameAnalyticsSDK.Editor
 				}
 			}
 			{
-				PluginImporter importer = AssetImporter.GetAtPath("Assets/Plugins/Linux/sqlite3.so") as PluginImporter;
+				PluginImporter importer = AssetImporter.GetAtPath("Assets/VariousSDK/GameAnalyticsSDK/Plugins/Linux/sqlite3.so") as PluginImporter;
 				if(importer != null && (importer.GetCompatibleWithAnyPlatform() || !importer.GetCompatibleWithPlatform(BuildTarget.StandaloneLinux) ||
 				    !importer.GetCompatibleWithPlatform(BuildTarget.StandaloneLinux64) ||
 				    !importer.GetCompatibleWithPlatform(BuildTarget.StandaloneLinuxUniversal)))
@@ -217,7 +217,7 @@ namespace GameAnalyticsSDK.Editor
 			#endregion // Standalone
 			#region WebGL
 			{
-				PluginImporter importer = AssetImporter.GetAtPath("Assets/Plugins/WebGL/GameAnalytics.WebGL.dll") as PluginImporter;
+				PluginImporter importer = AssetImporter.GetAtPath("Assets/VariousSDK/GameAnalyticsSDK/Plugins/WebGL/GameAnalytics.WebGL.dll") as PluginImporter;
 				if(importer != null && (importer.GetCompatibleWithAnyPlatform() || !importer.GetCompatibleWithPlatform(BuildTarget.WebGL)))
 				{
 					importer.SetCompatibleWithAnyPlatform(false);
@@ -241,7 +241,7 @@ namespace GameAnalyticsSDK.Editor
 				}
 			}
 			{
-				PluginImporter importer = AssetImporter.GetAtPath("Assets/Plugins/WebGL/HandleIO.jslib") as PluginImporter;
+				PluginImporter importer = AssetImporter.GetAtPath("Assets/VariousSDK/GameAnalyticsSDK/Plugins/WebGL/HandleIO.jslib") as PluginImporter;
 				if(importer != null && (importer.GetCompatibleWithAnyPlatform() || !importer.GetCompatibleWithPlatform(BuildTarget.WebGL)))
 				{
 					importer.SetCompatibleWithAnyPlatform(false);
@@ -265,7 +265,7 @@ namespace GameAnalyticsSDK.Editor
 				}
 			}
 			{
-				PluginImporter importer = AssetImporter.GetAtPath("Assets/Plugins/WebGL/Mono.Data.Sqlite.dll") as PluginImporter;
+				PluginImporter importer = AssetImporter.GetAtPath("Assets/VariousSDK/GameAnalyticsSDK/Plugins/WebGL/Mono.Data.Sqlite.dll") as PluginImporter;
 				if(importer != null && (importer.GetCompatibleWithAnyPlatform() || !importer.GetCompatibleWithPlatform(BuildTarget.WebGL)))
 				{
 					importer.SetCompatibleWithAnyPlatform(false);
@@ -289,7 +289,7 @@ namespace GameAnalyticsSDK.Editor
 				}
 			}
 			{
-				PluginImporter importer = AssetImporter.GetAtPath("Assets/Plugins/WebGL/sqlite.c") as PluginImporter;
+				PluginImporter importer = AssetImporter.GetAtPath("Assets/VariousSDK/GameAnalyticsSDK/Plugins/WebGL/sqlite.c") as PluginImporter;
 				if(importer != null && (importer.GetCompatibleWithAnyPlatform() || !importer.GetCompatibleWithPlatform(BuildTarget.WebGL)))
 				{
 					importer.SetCompatibleWithAnyPlatform(false);
@@ -313,7 +313,7 @@ namespace GameAnalyticsSDK.Editor
 				}
 			}
 			{
-				PluginImporter importer = AssetImporter.GetAtPath("Assets/Plugins/WebGL/sqlite.h") as PluginImporter;
+				PluginImporter importer = AssetImporter.GetAtPath("Assets/VariousSDK/GameAnalyticsSDK/Plugins/WebGL/sqlite.h") as PluginImporter;
 				if(importer != null && (importer.GetCompatibleWithAnyPlatform() || !importer.GetCompatibleWithPlatform(BuildTarget.WebGL)))
 				{
 					importer.SetCompatibleWithAnyPlatform(false);
@@ -339,7 +339,7 @@ namespace GameAnalyticsSDK.Editor
             #endregion // WebGL
             #region WSA
             {
-                PluginImporter importer = AssetImporter.GetAtPath("Assets/Plugins/WSA/GameAnalytics.WSA.dll") as PluginImporter;
+                PluginImporter importer = AssetImporter.GetAtPath("Assets/VariousSDK/GameAnalyticsSDK/Plugins/WSA/GameAnalytics.WSA.dll") as PluginImporter;
                 if (importer != null && (importer.GetCompatibleWithAnyPlatform() || !importer.GetCompatibleWithPlatform(BuildTarget.WSAPlayer) ||
                     !importer.GetPlatformData(BuildTarget.WSAPlayer, "SDK").Equals("UWP")))
                 {
@@ -365,7 +365,7 @@ namespace GameAnalyticsSDK.Editor
                 }
             }
             {
-                PluginImporter importer = AssetImporter.GetAtPath("Assets/Plugins/WSA/Microsoft.Data.Sqlite.dll") as PluginImporter;
+                PluginImporter importer = AssetImporter.GetAtPath("Assets/VariousSDK/GameAnalyticsSDK/Plugins/WSA/Microsoft.Data.Sqlite.dll") as PluginImporter;
                 if (importer != null && (importer.GetCompatibleWithAnyPlatform() || !importer.GetCompatibleWithPlatform(BuildTarget.WSAPlayer) ||
                     !importer.GetPlatformData(BuildTarget.WSAPlayer, "SDK").Equals("UWP")))
                 {
@@ -391,7 +391,7 @@ namespace GameAnalyticsSDK.Editor
                 }
             }
             {
-                PluginImporter importer = AssetImporter.GetAtPath("Assets/Plugins/WSA/x86/sqlite3.dll") as PluginImporter;
+                PluginImporter importer = AssetImporter.GetAtPath("Assets/VariousSDK/GameAnalyticsSDK/Plugins/WSA/x86/sqlite3.dll") as PluginImporter;
                 if (importer != null && (importer.GetCompatibleWithAnyPlatform() || !importer.GetCompatibleWithPlatform(BuildTarget.WSAPlayer) ||
                     !importer.GetPlatformData(BuildTarget.WSAPlayer, "SDK").Equals("UWP") ||
                     !importer.GetPlatformData(BuildTarget.WSAPlayer, "CPU").Equals("X86")))
@@ -419,7 +419,7 @@ namespace GameAnalyticsSDK.Editor
                 }
             }
             {
-                PluginImporter importer = AssetImporter.GetAtPath("Assets/Plugins/WSA/x64/sqlite3.dll") as PluginImporter;
+                PluginImporter importer = AssetImporter.GetAtPath("Assets/VariousSDK/GameAnalyticsSDK/Plugins/WSA/x64/sqlite3.dll") as PluginImporter;
                 if (importer != null && (importer.GetCompatibleWithAnyPlatform() || !importer.GetCompatibleWithPlatform(BuildTarget.WSAPlayer) ||
                     !importer.GetPlatformData(BuildTarget.WSAPlayer, "SDK").Equals("UWP") ||
                     !importer.GetPlatformData(BuildTarget.WSAPlayer, "CPU").Equals("X64")))
