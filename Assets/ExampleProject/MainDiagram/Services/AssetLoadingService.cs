@@ -9,7 +9,6 @@ using UnityEngine;
 using uFrame.MVVM;
 using pogorock;
 using AssetBundles;
-using pogorock;
 
 namespace uFrame.ExampleProject
 {

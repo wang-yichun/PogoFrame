@@ -392,7 +392,7 @@ namespace AssetBundles
 		{
 			string[] dependencies;
 
-			if (m_AssetBundleManifests.ContainsKey (url_id) == null) {
+			if (m_AssetBundleManifests.ContainsKey (url_id) == false) {
 				Debug.LogError ("Please initialize AssetBundleManifest by calling AssetBundleManager.Initialize() - " + url_id);
 				return;
 			}

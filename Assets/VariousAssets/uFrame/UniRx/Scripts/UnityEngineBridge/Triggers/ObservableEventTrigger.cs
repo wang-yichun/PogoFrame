@@ -4,7 +4,6 @@
 using System; // require keep for Windows Universal App
 using UnityEngine;
 using UnityEngine.EventSystems;
-using System; // Required for WP8 and Store APPS
 namespace UniRx.Triggers
 {
     [DisallowMultipleComponent]
