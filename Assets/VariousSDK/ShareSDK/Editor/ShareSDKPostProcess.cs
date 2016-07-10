@@ -8,8 +8,14 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text.RegularExpressions;
 using UnityEditor.iOS.Xcode;
+using System;
 
 using Debug = UnityEngine.Debug;
+
+/// <summary>
+/// ethan tip: 为了将ShareSDK 整个文件夹导入iOS 项目, 需要先将 ShareSDK 拷入Unity 项目根目录的 /DevData 下准备好.
+/// Build之前,把准备ShareSDK 的位置应该在 [Unity项目根目录]/DevData/ShareSDK
+/// </summary>
 
 public class ShareSDKPostProcess
 {
@@ -35,8 +41,29 @@ public class ShareSDKPostProcess
 
 			proj.AddFrameworkToProject (target, "JavaScriptCore.framework", false);
 
+			CopyShareSDKDirtionary (path, proj, target);
+
 			File.WriteAllText (projPath, proj.WriteToString ());
 		}
+	}
+
+	public static void CopyShareSDKDirtionary (string projRootPath, PBXProject proj, string target)
+	{
+		string sourceDirectory = Application.dataPath + "/../DevData/ShareSDK";
+		string destDirectory = Path.Combine (projRootPath, "ShareSDK");
+
+		Debug.Log (string.Format ("source: {0}\ndest: {1}", sourceDirectory, destDirectory));
+
+		copyDirectory (
+			sourceDirectory, 
+			destDirectory,
+			(sourceFile, destFile) => {
+				destFile = destFile.Replace (projRootPath + "/", string.Empty);
+				Debug.Log (string.Format ("1: {0}\n2: {1}", sourceFile, destFile));
+				proj.AddFileToBuild (target, proj.AddFile (destFile, destFile, PBXSourceTree.Source));
+			},
+			projRootPath
+		);
 	}
 
 	public static void AddTBDFile (string projPath, PBXProject proj, string target, string tbdName)
@@ -97,6 +124,74 @@ public class ShareSDKPostProcess
 		}
 
 		return string.Join ("\n", newLines.ToArray ());
+	}
+
+	public static void copyDirectory (string sourceDirectory, string destDirectory, Action<string, string> afterCopyCallback = null, string projRootPath = "")
+	{
+		//判断源目录和目标目录是否存在，如果不存在，则创建一个目录
+		if (!Directory.Exists (sourceDirectory)) {
+			Directory.CreateDirectory (sourceDirectory);
+		}
+		if (!Directory.Exists (destDirectory)) {
+			Directory.CreateDirectory (destDirectory);
+		}
+
+		//拷贝子目录       
+		//获取所有子目录名称
+
+		Action<string,string> sub_callback = afterCopyCallback;
+
+		if (sourceDirectory.EndsWith (".framework")) {
+			sub_callback = null;
+		}
+
+		string[] directionName = Directory.GetDirectories (sourceDirectory);
+
+		foreach (string directionPath in directionName) {
+			//根据每个子目录名称生成对应的目标子目录名称
+			string directionPathTemp = destDirectory + "/" + directionPath.Substring (sourceDirectory.Length + 1);
+
+			//递归下去
+			copyDirectory (directionPath, directionPathTemp, sub_callback, projRootPath);
+		}
+
+		//拷贝文件
+		if (sourceDirectory.EndsWith (".framework")) {
+			string destFile = destDirectory.Replace (projRootPath + "/", string.Empty);
+			Debug.Log ("*.framework destFile: " + destFile);
+
+			if (afterCopyCallback != null) {
+				afterCopyCallback.Invoke (sourceDirectory, destDirectory);
+			}
+		} else {
+			copyFile (sourceDirectory, destDirectory, afterCopyCallback);
+		}
+	}
+
+	public static void copyFile (string sourceDirectory, string destDirectory, Action<string, string> afterCopyCallback = null)
+	{
+		//获取所有文件名称
+		string[] fileName = Directory.GetFiles (sourceDirectory);
+
+		foreach (string filePath in fileName) {
+			//根据每个文件名称生成对应的目标文件名称
+			string filePathTemp = destDirectory + "/" + filePath.Substring (sourceDirectory.Length + 1);
+
+			if (filePathTemp.ToLower ().Contains (".ds_store"))
+				break;
+
+			//若不存在，直接复制文件；若存在，覆盖复制
+			if (File.Exists (filePathTemp)) {
+				File.Copy (filePath, filePathTemp, true);
+			} else {
+				File.Copy (filePath, filePathTemp);
+			}
+
+			Debug.Log (string.Format ("file copy: {0}", filePathTemp));
+			if (afterCopyCallback != null) {
+				afterCopyCallback.Invoke (filePath, filePathTemp);
+			}
+		}
 	}
 
 	[MenuItem ("PogoTools/Run ShareSDK PostProcess #%c")]
