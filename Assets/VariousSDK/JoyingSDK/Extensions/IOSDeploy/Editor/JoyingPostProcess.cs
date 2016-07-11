@@ -63,11 +63,7 @@
 				proj.AddBuildProperty (target, "OTHER_LDFLAGS", "-ObjC");
 
 				//-Wl,-sectcreate,__RESTRICT,__restrict,/dev/null
-				proj.AddBuildPropertyForConfig (releaseConfig, "OTHER_LDFLAGS", "-Wl");
-				proj.AddBuildPropertyForConfig (releaseConfig, "OTHER_LDFLAGS", "-sectcreate");
-				proj.AddBuildPropertyForConfig (releaseConfig, "OTHER_LDFLAGS", "__RESTRICT");
-				proj.AddBuildPropertyForConfig (releaseConfig, "OTHER_LDFLAGS", "__restrict");
-				proj.AddBuildPropertyForConfig (releaseConfig, "OTHER_LDFLAGS", "/dev/null");
+				proj.AddBuildPropertyForConfig (releaseConfig, "OTHER_LDFLAGS", "-Wl,-sectcreate,__RESTRICT,__restrict,/dev/null");
 
 				File.WriteAllText (projPath, proj.WriteToString ());
 

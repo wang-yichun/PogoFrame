@@ -159,15 +159,25 @@ namespace AssetBundles
 	
 		public static string GetStreamingAssetsPath ()
 		{
-			if (Application.isEditor)
-				// return "file://" + System.Environment.CurrentDirectory.Replace ("\\", "/"); // Use the build output folder directly.
+			if (Application.isEditor) {
 				return "file://" + Application.streamingAssetsPath;
-			else if (Application.isWebPlayer)
+			} else if (Application.isWebPlayer) {
 				return System.IO.Path.GetDirectoryName (Application.absoluteURL).Replace ("\\", "/") + "/StreamingAssets";
-			else if (Application.isMobilePlatform || Application.isConsolePlatform)
+			} else if (Application.isMobilePlatform || Application.isConsolePlatform) {
+				switch (Application.platform) {
+				case RuntimePlatform.Android:
+					return Application.streamingAssetsPath;
+					break;
+				case RuntimePlatform.IPhonePlayer:
+					return Application.dataPath + "/Raw";
+					break;
+				default:
+					break;
+				}
 				return Application.streamingAssetsPath;
-			else // For standalone player.
+			} else {// For standalone player.
 				return "file://" + Application.streamingAssetsPath;
+			}
 		}
 
 		//		public static void SetSourceAssetBundleDirectory (string relativePath)
