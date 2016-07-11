@@ -11,5 +11,34 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 67c191282583c47ec9e9ae122e993c0c, type: 3}
   m_Name: AssetBundleSettings
   m_EditorClassIdentifier: 
-  loadingUrls: []
-  exportUrls: []
+  loadingUrls:
+  - Enable: 1
+    UrlId: asset1
+    Title: StreamingAssets
+    IsLocal: 1
+    Simulation: 0
+    Url: 
+  - Enable: 0
+    UrlId: asset1
+    Title: Local FTP @ Ethan's MAC
+    IsLocal: 0
+    Simulation: 0
+    Url: ftp://192.168.199.215/PogoFrameAssets
+  - Enable: 0
+    UrlId: asset2
+    Title: Local FTP @ Ethan's MAC
+    IsLocal: 0
+    Simulation: 0
+    Url: ftp://192.168.199.215/PogoFrameAssets
+  exportUrls:
+  - Enable: 1
+    UrlId: asset1
+    Title: Default asset1
+    Clear: 1
+    Urls:
+    - AssetBundles
+    - Assets/StreamingAssets
+    - ftp://192.168.199.215:21/PogoFrameAssets|ethan|ethan
+    targetStandalone: 1
+    targetIOS: 0
+    targetAndroid: 0
