@@ -40,6 +40,7 @@ public class ShareSDKPostProcess
 			AddTBDFile (projPath, proj, target, "libsqlite3.tbd");
 
 			proj.AddFrameworkToProject (target, "JavaScriptCore.framework", false);
+			proj.AddFrameworkToProject (target, "ImageIO.framework", false);
 
 			CopyShareSDKDirtionary (path, proj, target);
 

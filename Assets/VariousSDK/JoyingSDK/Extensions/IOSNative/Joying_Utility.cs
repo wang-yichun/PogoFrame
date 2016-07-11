@@ -44,6 +44,7 @@ namespace pogorock.Joying
 		public void InitAppID (string appId, string appKey)
 		{
 			#if (UNITY_IPHONE && !UNITY_EDITOR) || SA_DEBUG_MODE
+			Debug.Log("Joying_Utility InitAppID.");
 			initAppID (appId, appKey);
 			#endif
 		}

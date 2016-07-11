@@ -12,13 +12,13 @@ MonoBehaviour:
   m_Name: AssetBundleSettings
   m_EditorClassIdentifier: 
   loadingUrls:
-  - Enable: 1
+  - Enable: 0
     UrlId: asset1
     Title: StreamingAssets
     IsLocal: 1
     Simulation: 0
     Url: 
-  - Enable: 0
+  - Enable: 1
     UrlId: asset1
     Title: Local FTP @ Ethan's MAC
     IsLocal: 0
