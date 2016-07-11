@@ -43,6 +43,15 @@ public class ShareSDKPostProcess
 
 			CopyShareSDKDirtionary (path, proj, target);
 
+			proj.AddBuildProperty (target, "FRAMEWORK_SEARCH_PATHS", "$(PROJECT_DIR)/ShareSDK");
+			proj.AddBuildProperty (target, "FRAMEWORK_SEARCH_PATHS", "$(PROJECT_DIR)/ShareSDK/Support/Optional");
+			proj.AddBuildProperty (target, "FRAMEWORK_SEARCH_PATHS", "$(PROJECT_DIR)/ShareSDK/Support/PlatformSDK/QQSDK");
+			proj.AddBuildProperty (target, "FRAMEWORK_SEARCH_PATHS", "$(PROJECT_DIR)/ShareSDK/Support/Required");
+
+			proj.AddBuildProperty(target, "LIBRARY_SEARCH_PATHS", "$(PROJECT_DIR)/ShareSDK/Support/PlatformSDK/SinaWeiboSDK");
+			proj.AddBuildProperty(target, "LIBRARY_SEARCH_PATHS", "$(PROJECT_DIR)/ShareSDK/Support/PlatformSDK/WeChatSDK");
+			proj.AddBuildProperty(target, "LIBRARY_SEARCH_PATHS", "$(SRCROOT)/Libraries");
+
 			File.WriteAllText (projPath, proj.WriteToString ());
 		}
 	}
@@ -157,6 +166,9 @@ public class ShareSDKPostProcess
 
 		//拷贝文件
 		if (sourceDirectory.EndsWith (".framework")) {
+			
+			copyFile (sourceDirectory, destDirectory, sub_callback);
+
 			string destFile = destDirectory.Replace (projRootPath + "/", string.Empty);
 			Debug.Log ("*.framework destFile: " + destFile);
 
@@ -178,7 +190,7 @@ public class ShareSDKPostProcess
 			string filePathTemp = destDirectory + "/" + filePath.Substring (sourceDirectory.Length + 1);
 
 			if (filePathTemp.ToLower ().Contains (".ds_store"))
-				break;
+				continue;
 
 			//若不存在，直接复制文件；若存在，覆盖复制
 			if (File.Exists (filePathTemp)) {
