@@ -58,6 +58,8 @@
 				proj.AddFrameworkToProject (target, "CoreTelephony.framework", false);
 				proj.AddFrameworkToProject (target, "Security.framework", false);
 
+				proj.AddBuildProperty (target, "OTHER_LDFLAGS", "-ObjC");
+
 				File.WriteAllText (projPath, proj.WriteToString ());
 			}
 		}
@@ -123,7 +125,7 @@
 			return string.Join ("\n", newLines.ToArray ());
 		}
 
-		[MenuItem ("PogoTools/Run Joying PostProcess #%c")]
+		[MenuItem ("PogoTools/Run Joying PostProcess")]
 		public static void Execute ()
 		{
 			string pathToBuiltProject = @"/Users/EthanW/Documents/UnityProjects/PogoFrame/Builds/IOSProj";

@@ -206,7 +206,7 @@ public class ShareSDKPostProcess
 		}
 	}
 
-	[MenuItem ("PogoTools/Run ShareSDK PostProcess #%c")]
+	[MenuItem ("PogoTools/Run ShareSDK PostProcess")]
 	public static void Execute ()
 	{
 		string pathToBuiltProject = @"/Users/EthanW/Documents/UnityProjects/PogoFrame/Builds/IOSProj";
