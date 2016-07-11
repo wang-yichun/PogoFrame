@@ -10,6 +10,8 @@ using uFrame.MVVM;
 using pogorock;
 using AssetBundles;
 
+using pogorock.Joying;
+
 namespace uFrame.ExampleProject
 {
 	public class AssetLoadingService : AssetLoadingServiceBase
@@ -61,6 +63,8 @@ namespace uFrame.ExampleProject
 //			yield return StartCoroutine (InitializeMulti ());
 
 			yield return StartCoroutine (InitializeUseSettings ());
+
+			Joying_Utility.Instance.InitAppID ("3ca89e8b4b868b6f", "9b95a47c62a3b4b1");
 
 			yield return new WaitForSeconds (.1f);
 

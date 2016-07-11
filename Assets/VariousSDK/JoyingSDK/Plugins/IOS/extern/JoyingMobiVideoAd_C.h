@@ -14,7 +14,7 @@ extern "C"
 {
     
     void init();
-    void initAppID();
+    void initAppID(char* appId, char* appKey);
     
 }
 

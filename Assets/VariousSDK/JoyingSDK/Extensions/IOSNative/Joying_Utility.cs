@@ -1,4 +1,4 @@
-﻿//#define SA_DEBUG_MODE
+﻿#define SA_DEBUG_MODE
 
 namespace pogorock.Joying
 {
@@ -13,7 +13,7 @@ namespace pogorock.Joying
 
 
 
-	public class Joying_Utility : ISN_Singleton<IOSNativeUtility>
+	public class Joying_Utility : ISN_Singleton<Joying_Utility>
 	{
 		
 		#if (UNITY_IPHONE && !UNITY_EDITOR) || SA_DEBUG_MODE
@@ -24,24 +24,30 @@ namespace pogorock.Joying
 		[DllImport ("__Internal")]
 		private static extern void initAppID (string appId, string appKey);
 
+		#endif
 
 		void Awake ()
 		{
+			#if (UNITY_IPHONE && !UNITY_EDITOR) || SA_DEBUG_MODE
 			DontDestroyOnLoad (gameObject);
 			init ();
+			#endif
 		}
 
 		void Init ()
 		{
+			#if (UNITY_IPHONE && !UNITY_EDITOR) || SA_DEBUG_MODE
 			init ();
+			#endif
 		}
 
-		void InitAppID (string appId, string appKey)
+		public void InitAppID (string appId, string appKey)
 		{
+			#if (UNITY_IPHONE && !UNITY_EDITOR) || SA_DEBUG_MODE
 			initAppID (appId, appKey);
+			#endif
 		}
 
-		#endif
 	}
 
 }

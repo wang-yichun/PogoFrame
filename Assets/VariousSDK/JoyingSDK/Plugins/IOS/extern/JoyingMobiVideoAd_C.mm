@@ -40,9 +40,11 @@ extern "C"
     
     void initAppID (char* appId, char* appKey) {
         NSLog(@"NSLog: initAppID");
-        
         NSString* appId_str = [NSString stringWithUTF8String:appId];
         NSString* appKey_str = [NSString stringWithUTF8String:appKey];
+        
+        NSLog(@"appId: %@", appId_str);
+        NSLog(@"initAppID: %@", appKey_str);
         [JoyingMobiVideoAd initAppID:appId_str appKey:appKey_str];
     }
     
