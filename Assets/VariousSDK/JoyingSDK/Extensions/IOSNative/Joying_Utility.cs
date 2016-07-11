@@ -1,4 +1,4 @@
-﻿#define SA_DEBUG_MODE
+﻿//#define SA_DEBUG_MODE
 
 namespace pogorock.Joying
 {

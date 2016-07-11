@@ -14,17 +14,17 @@
 
 	using Debug = UnityEngine.Debug;
 
-//	SystemConfiguration.framework
-//	CFNetwork.framework
-//	MediaPlayer.framework
-//	libz.dylib
-//	StoreKit.framework
-//	CoreMotion.framework
-//	AudioToolbox.framework
-//	libicucore.tbd
-//	AdSupport.framework
-//	CoreTelephony.framework
-//	Security.framework
+	//	SystemConfiguration.framework
+	//	CFNetwork.framework
+	//	MediaPlayer.framework
+	//	libz.dylib
+	//	StoreKit.framework
+	//	CoreMotion.framework
+	//	AudioToolbox.framework
+	//	libicucore.tbd
+	//	AdSupport.framework
+	//	CoreTelephony.framework
+	//	Security.framework
 
 	public class JoyingPostProcess
 	{
@@ -41,12 +41,14 @@
 
 				string targetName = PBXProject.GetUnityTargetName ();
 				string target = proj.TargetGuidByName (targetName);
+//				string debugConfig = proj.BuildConfigByName(target, "Debug");
+				string releaseConfig = proj.BuildConfigByName (target, "Release");
 
 				proj.AddFrameworkToProject (target, "SystemConfiguration.framework", false);
 				proj.AddFrameworkToProject (target, "CFNetwork.framework", false);
 				proj.AddFrameworkToProject (target, "MediaPlayer.framework", false);
 
-				proj.AddFileToBuild(target, proj.AddFile("usr/lib/libz.dylib", "Frameworks/libz.dylib", PBXSourceTree.Sdk));
+				proj.AddFileToBuild (target, proj.AddFile ("usr/lib/libz.dylib", "Frameworks/libz.dylib", PBXSourceTree.Sdk));
 
 				proj.AddFrameworkToProject (target, "StoreKit.framework", false);
 				proj.AddFrameworkToProject (target, "CoreMotion.framework", false);
@@ -60,10 +62,48 @@
 
 				proj.AddBuildProperty (target, "OTHER_LDFLAGS", "-ObjC");
 
+				//-Wl,-sectcreate,__RESTRICT,__restrict,/dev/null
+				proj.AddBuildPropertyForConfig (releaseConfig, "OTHER_LDFLAGS", "-Wl");
+				proj.AddBuildPropertyForConfig (releaseConfig, "OTHER_LDFLAGS", "-sectcreate");
+				proj.AddBuildPropertyForConfig (releaseConfig, "OTHER_LDFLAGS", "__RESTRICT");
+				proj.AddBuildPropertyForConfig (releaseConfig, "OTHER_LDFLAGS", "__restrict");
+				proj.AddBuildPropertyForConfig (releaseConfig, "OTHER_LDFLAGS", "/dev/null");
+
 				File.WriteAllText (projPath, proj.WriteToString ());
+
+				// plist
+//				XmlDocument document = new XmlDocument ();
+//				string filePath = Path.Combine (path, "Info.plist");
+//				document.Load (filePath);
+//				document.PreserveWhitespace = true;
+//				XmlNode plist_item = GetItemInPlist (document, "NSAppTransportSecurity");
+//				if (plist_item == null) {
+//					XmlNode keyNode = document.CreateElement ("NSAppTransportSecurity");
+//					XmlNode valNode = document.CreateElement ("dict");
+//					XmlNode innerKey = document.CreateElement ("key");
+//					innerKey.InnerText = "NSAllowsArbitraryLoads";
+//					XmlNode innerValue = document.CreateElement ("true");
+//					valNode.AppendChild (innerKey);
+//					valNode.AppendChild (innerValue);
+//					document.DocumentElement.FirstChild.AppendChild (keyNode);
+//					document.DocumentElement.FirstChild.AppendChild (valNode);
+//				}
+				string infoPlistPath = Path.Combine (path, "Info.plist");
+				PlistDocument plist = new PlistDocument ();
+				plist.ReadFromString (File.ReadAllText (infoPlistPath));
+				PlistElementDict rootDict = plist.root;
+				PlistElementDict dict = rootDict.CreateDict ("NSAppTransportSecurity");
+				dict.SetBoolean ("NSAllowsArbitraryLoads", true);
+				File.WriteAllText (infoPlistPath, plist.WriteToString ());
+
 			}
 		}
 
+		//		public static XmlNode GetItemInPlist (XmlDocument document, string key)
+		//		{
+		//			XmlNode temp = document.SelectSingleNode ("/plist/dict/key[text() = '" + key + "']");
+		//			return temp;
+		//		}
 
 		public static void AddTBDFile (string projPath, PBXProject proj, string target, string tbdName)
 		{
