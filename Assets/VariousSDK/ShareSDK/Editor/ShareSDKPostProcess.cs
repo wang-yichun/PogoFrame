@@ -49,9 +49,9 @@ public class ShareSDKPostProcess
 			proj.AddBuildProperty (target, "FRAMEWORK_SEARCH_PATHS", "$(PROJECT_DIR)/ShareSDK/Support/PlatformSDK/QQSDK");
 			proj.AddBuildProperty (target, "FRAMEWORK_SEARCH_PATHS", "$(PROJECT_DIR)/ShareSDK/Support/Required");
 
-			proj.AddBuildProperty(target, "LIBRARY_SEARCH_PATHS", "$(PROJECT_DIR)/ShareSDK/Support/PlatformSDK/SinaWeiboSDK");
-			proj.AddBuildProperty(target, "LIBRARY_SEARCH_PATHS", "$(PROJECT_DIR)/ShareSDK/Support/PlatformSDK/WeChatSDK");
-			proj.AddBuildProperty(target, "LIBRARY_SEARCH_PATHS", "$(SRCROOT)/Libraries");
+			proj.AddBuildProperty (target, "LIBRARY_SEARCH_PATHS", "$(PROJECT_DIR)/ShareSDK/Support/PlatformSDK/SinaWeiboSDK");
+			proj.AddBuildProperty (target, "LIBRARY_SEARCH_PATHS", "$(PROJECT_DIR)/ShareSDK/Support/PlatformSDK/WeChatSDK");
+			proj.AddBuildProperty (target, "LIBRARY_SEARCH_PATHS", "$(SRCROOT)/Libraries");
 
 			File.WriteAllText (projPath, proj.WriteToString ());
 		}
@@ -151,7 +151,7 @@ public class ShareSDKPostProcess
 
 		Action<string,string> sub_callback = afterCopyCallback;
 
-		if (sourceDirectory.EndsWith (".framework")) {
+		if (sourceDirectory.EndsWith (".framework") || sourceDirectory.EndsWith (".bundle")) {
 			sub_callback = null;
 		}
 
@@ -166,7 +166,7 @@ public class ShareSDKPostProcess
 		}
 
 		//拷贝文件
-		if (sourceDirectory.EndsWith (".framework")) {
+		if (sourceDirectory.EndsWith (".framework") || sourceDirectory.EndsWith (".bundle")) {
 			
 			copyFile (sourceDirectory, destDirectory, sub_callback);
 
@@ -212,5 +212,43 @@ public class ShareSDKPostProcess
 	{
 		string pathToBuiltProject = @"/Users/EthanW/Documents/UnityProjects/PogoFrame/Builds/IOSProj";
 		OnPostprocessBuild (BuildTarget.iOS, pathToBuiltProject);
+	}
+
+	public static  void SetURLTypesAndWhiteName (string path)
+	{
+		string infoPlistPath = Path.Combine (path, "./Info.plist");
+		PlistDocument plist = new PlistDocument ();
+		plist.ReadFromString (File.ReadAllText (infoPlistPath));
+
+		PlistElementDict rootDict = plist.root;
+		SetURLTypes (rootDict);
+		SetWhiteNameArray (rootDict);
+
+		File.WriteAllText (infoPlistPath, plist.WriteToString ());
+	}
+
+	public static void SetURLTypes (PlistElementDict rootDict)
+	{
+		PlistElementArray URLTypesArray;
+		if (rootDict.values.ContainsKey ("CFBundleURLTypes")) {
+			URLTypesArray = rootDict ["CFBundleURLTypes"].AsArray ();
+		} else {
+			URLTypesArray = rootDict.CreateArray ("CFBundleURLTypes");
+		}
+		var URLTypesDicItem = URLTypesArray.AddDict ();
+		var schemesArray = URLTypesDicItem.CreateArray ("CFBundleURLSchemes");
+		schemesArray.AddString ("wx4868b35061f87885");
+	}
+
+	public static void SetWhiteNameArray (PlistElementDict rootDict)
+	{
+		PlistElementArray WhiteNameArray;
+		if (rootDict.values.ContainsKey ("LSApplicationQueriesSchemes")) {
+			WhiteNameArray = rootDict ["LSApplicationQueriesSchemes"].AsArray ();
+		} else {
+			WhiteNameArray = rootDict.CreateArray ("LSApplicationQueriesSchemes");
+		}
+		WhiteNameArray.AddString ("weixin");
+		WhiteNameArray.AddString ("wechat");
 	}
 }
