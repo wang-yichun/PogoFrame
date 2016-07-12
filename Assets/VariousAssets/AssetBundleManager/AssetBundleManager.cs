@@ -159,54 +159,18 @@ namespace AssetBundles
 	
 		public static string GetStreamingAssetsPath ()
 		{
+			string path = string.Empty;
 			if (Application.isEditor) {
-				return "file://" + Application.streamingAssetsPath;
-			} else if (Application.isWebPlayer) {
-				return System.IO.Path.GetDirectoryName (Application.absoluteURL).Replace ("\\", "/") + "/StreamingAssets";
-			} else if (Application.isMobilePlatform || Application.isConsolePlatform) {
-				switch (Application.platform) {
-				case RuntimePlatform.Android:
-					return Application.streamingAssetsPath;
-					break;
-				case RuntimePlatform.IPhonePlayer:
-					return Application.dataPath + "/Raw";
-					break;
-				default:
-					break;
-				}
-				return Application.streamingAssetsPath;
-			} else {// For standalone player.
-				return "file://" + Application.streamingAssetsPath;
+				path = "file://" + Application.streamingAssetsPath;
+			} else if (Application.isMobilePlatform && Application.platform == RuntimePlatform.Android) {
+				path = "jar:file://" + Application.dataPath + "!/assets";
+			} else if (Application.isMobilePlatform && Application.platform == RuntimePlatform.IPhonePlayer) {
+				path = "file://" + Application.dataPath + "/Raw";
+			} else {
+				path = "file://" + Application.streamingAssetsPath;
 			}
+			return path;
 		}
-
-		//		public static void SetSourceAssetBundleDirectory (string relativePath)
-		//		{
-		//			BaseDownloadingURL = GetStreamingAssetsPath () + relativePath;
-		//		}
-		//
-		//		public static void SetSourceAssetBundleURL (string absolutePath)
-		//		{
-		//			BaseDownloadingURL = absolutePath + Utility.GetPlatformName () + "/";
-		//		}
-
-		//		public static void SetDevelopmentAssetBundleServer ()
-		//		{
-		//			#if UNITY_EDITOR
-		//			// If we're in Editor simulation mode, we don't have to setup a download URL
-		//			if (SimulateAssetBundleInEditor)
-		//				return;
-		//			#endif
-		//
-		//			TextAsset urlFile = Resources.Load ("AssetBundleServerURL") as TextAsset;
-		//			string url = (urlFile != null) ? urlFile.text.Trim () : null;
-		//			if (url == null || url.Length == 0) {
-		//				Debug.LogError ("Development Server URL could not be found.");
-		//				//AssetBundleManager.SetSourceAssetBundleURL("http://localhost:7888/" + UnityHelper.GetPlatformName() + "/");
-		//			} else {
-		//				AssetBundleManager.SetSourceAssetBundleURL (url);
-		//			}
-		//		}
 		
 		// Get loaded AssetBundle, only return vaild object when all the dependencies are downloaded successfully.
 		static public LoadedAssetBundle GetLoadedAssetBundle (string assetBundleName, out string error)
