@@ -27,6 +27,9 @@ namespace pogorock.Joying
 		[DllImport ("__Internal")]
 		private static extern void videoHasCanPlayVideo ();
 
+		[DllImport ("__Internal")]
+		private static extern void videoPlay_FullScreen ();
+
 		#endif
 
 		void Awake ()
@@ -65,6 +68,26 @@ namespace pogorock.Joying
 			Debug.Log ("videoHasCanPlayVideo_Callback: " + idStr);
 			#endif
 		}
-	}
 
+		public void VideoPlay_FullScreen ()
+		{
+			#if (UNITY_IPHONE && !UNITY_EDITOR) || SA_DEBUG_MODE
+			videoPlay_FullScreen ();
+			#endif
+		}
+
+		public void VideoPlay_Callback_isFinishPlay (string idStr)
+		{
+			#if (UNITY_IPHONE && !UNITY_EDITOR) || SA_DEBUG_MODE
+			Debug.Log ("videoPlay_Callback_isFinishPlay: " + idStr);
+			#endif
+		}
+
+		public void VideoPlay_Callback_isLegal (string idStr)
+		{
+			#if (UNITY_IPHONE && !UNITY_EDITOR) || SA_DEBUG_MODE
+			Debug.Log ("videoPlay_Callback_isLegal: " + idStr);
+			#endif
+		}
+	}
 }

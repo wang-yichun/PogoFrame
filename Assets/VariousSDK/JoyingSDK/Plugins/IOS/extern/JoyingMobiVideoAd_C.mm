@@ -56,6 +56,23 @@ extern "C"
         }];
     }
     
+    void videoPlay_FullScreen() {
+        [JoyingMobiVideoAd videoPlay:[[[UIApplication sharedApplication] keyWindow] rootViewController]
+        videoPlayFinishCallBackBlock:^(BOOL isFinishPlay) {
+            if (isFinishPlay){
+                UnitySendMessage("Joying_Utility", "videoPlay_Callback_isFinishPlay", "yes");
+            } else {
+                UnitySendMessage("Joying_Utility", "videoPlay_Callback_isFinishPlay", "no");
+            }
+        }
+        videoPlayConfigCallBackBlock:^(BOOL isLegal) {
+            if (isLegal){
+                UnitySendMessage("Joying_Utility", "videoPlay_Callback_isLegal", "yes");
+            } else {
+                UnitySendMessage("Joying_Utility", "videoPlay_Callback_isLegal", "no");
+            }
+        }];
+    }
 }
 
 
