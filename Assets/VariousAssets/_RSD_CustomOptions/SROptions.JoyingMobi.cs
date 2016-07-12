@@ -17,9 +17,9 @@ public partial class SROptions
 	[Category ("JoyingMobi"), DisplayName ("准备好?")] 
 	public void Joying_VideoHasCanPlayVideo ()
 	{
-		Joying_Utility.instance.VideoHasCanPlayVideo ();
+		Joying_Utility.Instance.VideoHasCanPlayVideo ();
 	}
 
-//	public void Joying
+	//	public void Joying
 }
 #endif
