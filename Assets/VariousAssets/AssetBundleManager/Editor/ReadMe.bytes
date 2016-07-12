@@ -1,5 +1,5 @@
 AssetBundleManager Extend
-Version 1.0
+Version 1.1
 
 启动: PogoTools/AssetBundle Settings
 快捷键: Shift + Command + A
@@ -34,3 +34,7 @@ Version 1.0
 - Settings
   - "Save to .config files ..." 将配置信息存入文件
   - "Load from configs files ..." 从文件读取配置信息
+  - 开启/关闭 HTTP 服务
+    - 可以使本机项目根目录下的 AssetBundles 位置成为 HTTP服务主目录
+    - 便于模拟测试本机的 AssetBundles 产品
+    - 如果没有 FTP 的话还是很方便的

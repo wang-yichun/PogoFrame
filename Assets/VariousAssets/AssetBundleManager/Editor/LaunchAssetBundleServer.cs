@@ -16,18 +16,15 @@ namespace AssetBundles
 		const string kLocalAssetbundleServerMenu = "Assets/AssetBundles/Local AssetBundle Server";
 
 		[SerializeField]
-		int 	m_ServerPID = 0;
+		public int m_ServerPID = 0;
 
 		[MenuItem (kLocalAssetbundleServerMenu)]
 		public static void ToggleLocalAssetBundleServer ()
 		{
-			bool isRunning = IsRunning();
-			if (!isRunning)
-			{
+			bool isRunning = IsRunning ();
+			if (!isRunning) {
 				Run ();
-			}
-			else
-			{
+			} else {
 				KillRunningAssetBundleServer ();
 			}
 		}
@@ -36,11 +33,11 @@ namespace AssetBundles
 		public static bool ToggleLocalAssetBundleServerValidate ()
 		{
 			bool isRunnning = IsRunning ();
-			Menu.SetChecked(kLocalAssetbundleServerMenu, isRunnning);
+			Menu.SetChecked (kLocalAssetbundleServerMenu, isRunnning);
 			return true;
 		}
 
-		static bool IsRunning ()
+		public static bool IsRunning ()
 		{
 			if (instance.m_ServerPID == 0)
 				return false;
@@ -52,48 +49,48 @@ namespace AssetBundles
 			return !process.HasExited;
 		}
 
-		static void KillRunningAssetBundleServer ()
+		public static void KillRunningAssetBundleServer ()
 		{
 			// Kill the last time we ran
-			try
-			{
+			try {
 				if (instance.m_ServerPID == 0)
 					return;
 
 				var lastProcess = Process.GetProcessById (instance.m_ServerPID);
-				lastProcess.Kill();
+				lastProcess.Kill ();
 				instance.m_ServerPID = 0;
-			}
-			catch
-			{
+			} catch {
 			}
 		}
-		
-		static void Run ()
+
+		public static void Run ()
 		{
-			string pathToAssetServer = Path.Combine(Application.dataPath, "VariousAssets/AssetBundleManager/Editor/AssetBundleServer.exe");
-			string pathToApp = Application.dataPath.Substring(0, Application.dataPath.LastIndexOf('/'));
+			string pathToAssetServer = Path.Combine (Application.dataPath, "VariousAssets/AssetBundleManager/Editor/AssetBundleServer.exe");
+			string pathToApp = Application.dataPath.Substring (0, Application.dataPath.LastIndexOf ('/'));
 	
-			KillRunningAssetBundleServer();
+			KillRunningAssetBundleServer ();
 			
-			BuildScript.WriteServerURL();
+			BuildScript.WriteServerURL ();
 			
 			string args = Path.Combine (pathToApp, "AssetBundles");
-			args = string.Format("\"{0}\" {1}", args, Process.GetCurrentProcess().Id);
-			ProcessStartInfo startInfo = ExecuteInternalMono.GetProfileStartInfoForMono(MonoInstallationFinder.GetMonoInstallation("MonoBleedingEdge"), "4.0", pathToAssetServer, args, true);
-			startInfo.WorkingDirectory = Path.Combine(System.Environment.CurrentDirectory, "AssetBundles");
+			args = string.Format ("\"{0}\" {1}", args, Process.GetCurrentProcess ().Id);
+			startInfo = ExecuteInternalMono.GetProfileStartInfoForMono (MonoInstallationFinder.GetMonoInstallation ("MonoBleedingEdge"), "4.0", pathToAssetServer, args, true);
+			startInfo.WorkingDirectory = Path.Combine (System.Environment.CurrentDirectory, "AssetBundles");
 			startInfo.UseShellExecute = false;
-			Process launchProcess = Process.Start(startInfo);
-			if (launchProcess == null || launchProcess.HasExited == true || launchProcess.Id == 0)
-			{
+			Process launchProcess = Process.Start (startInfo);
+			if (launchProcess == null || launchProcess.HasExited == true || launchProcess.Id == 0) {
 				//Unable to start process
 				UnityEngine.Debug.LogError ("Unable Start AssetBundleServer process");
-			}
-			else
-			{
+			} else {
 				//We seem to have launched, let's save the PID
 				instance.m_ServerPID = launchProcess.Id;
 			}
 		}
+
+		public static LaunchAssetBundleServer Instance {
+			get { return instance; }
+		}
+
+		public static ProcessStartInfo startInfo;
 	}
 }

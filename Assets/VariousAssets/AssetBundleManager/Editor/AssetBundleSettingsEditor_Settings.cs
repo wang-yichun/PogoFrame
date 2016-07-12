@@ -7,12 +7,15 @@
 	using Newtonsoft.Json;
 	using System;
 	using System.IO;
+	using System.Text;
 
 	public partial class AssetBundleSettingsEditor : Editor
 	{
 		public string default_absc_filename = "asset_bundle_settings";
 
 		public static TextAsset readme;
+
+		StringBuilder httpServerInfoText = new StringBuilder ();
 
 		public void SettingHandle ()
 		{
@@ -54,9 +57,35 @@
 					}
 				}
 			}
+
+			EditorGUILayout.EndVertical ();
+
+			EditorGUILayout.Space ();
+
+			EditorGUILayout.BeginVertical ("box");
+			EditorGUILayout.BeginHorizontal ();
+
+			if (LaunchAssetBundleServer.IsRunning ()) {
+				GUILayout.Label (AssetBundleSettingsEditor.gizmo_enable);
+				GUILayout.Label ("服务器已开启");
+				if (GUILayout.Button ("关闭 HTTP 服务")) {
+					LaunchAssetBundleServer.KillRunningAssetBundleServer ();
+				}
+			} else {
+				GUILayout.Label (AssetBundleSettingsEditor.gizmo_disable);
+				GUILayout.Label ("服务器已关闭");
+				if (GUILayout.Button ("开启 HTTP 服务")) {
+					LaunchAssetBundleServer.Run ();
+				}
+			}
+
+			EditorGUILayout.EndHorizontal ();
+
+			GUILayout.Label ("Server PID: " + LaunchAssetBundleServer.Instance.m_ServerPID);
+			GUILayout.Label ("Server Url: " + "http://192.168.111.215:7888");
+
 			EditorGUILayout.EndVertical ();
 		}
-
 	}
 
 }
