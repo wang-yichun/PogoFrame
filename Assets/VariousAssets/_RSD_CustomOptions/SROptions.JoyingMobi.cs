@@ -1,4 +1,4 @@
-﻿#define SDK_JOYINGMOBI
+﻿//#define SDK_JOYINGMOBI
 
 #if SDK_JOYINGMOBI
 using UnityEngine;
