@@ -29,6 +29,7 @@ JoyingMobiVideoAd_C *m_JoyingMobiVideo_C = NULL;
 
 extern "C"
 {
+    extern void UnitySendMessage(const char* obj, const char* method, const char* msg);
     
     void init () {
         if (m_JoyingMobiVideo_C == NULL) {
@@ -46,6 +47,13 @@ extern "C"
         NSLog(@"appId: %@", appId_str);
         NSLog(@"initAppID: %@", appKey_str);
         [JoyingMobiVideoAd initAppID:appId_str appKey:appKey_str];
+    }
+    
+    void videoHasCanPlayVideo () {
+        [JoyingMobiVideoAd videoHasCanPlayVideo:^(int isHaveVideoStatue) {
+            NSString *isHaveVideoStatue_str = [NSString stringWithFormat:@"%d",isHaveVideoStatue];
+            UnitySendMessage("Joying_Utility", "VideoHasCanPlayVideo_Callback", [isHaveVideoStatue_str UTF8String]);
+        }];
     }
     
 }

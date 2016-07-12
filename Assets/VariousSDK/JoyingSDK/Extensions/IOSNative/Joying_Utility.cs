@@ -1,4 +1,4 @@
-﻿//#define SA_DEBUG_MODE
+﻿#define SA_DEBUG_MODE
 
 namespace pogorock.Joying
 {
@@ -13,7 +13,7 @@ namespace pogorock.Joying
 
 
 
-	public class Joying_Utility : ISN_Singleton<Joying_Utility>
+	public class Joying_Utility : Joying_Singleton<Joying_Utility>
 	{
 		
 		#if (UNITY_IPHONE && !UNITY_EDITOR) || SA_DEBUG_MODE
@@ -23,6 +23,9 @@ namespace pogorock.Joying
 
 		[DllImport ("__Internal")]
 		private static extern void initAppID (string appId, string appKey);
+
+		[DllImport ("__Internal")]
+		private static extern void videoHasCanPlayVideo ();
 
 		#endif
 
@@ -44,11 +47,24 @@ namespace pogorock.Joying
 		public void InitAppID (string appId, string appKey)
 		{
 			#if (UNITY_IPHONE && !UNITY_EDITOR) || SA_DEBUG_MODE
-			Debug.Log("Joying_Utility InitAppID.");
+			Debug.Log ("Joying_Utility InitAppID.");
 			initAppID (appId, appKey);
 			#endif
 		}
 
+		public void VideoHasCanPlayVideo ()
+		{
+			#if (UNITY_IPHONE && !UNITY_EDITOR) || SA_DEBUG_MODE
+			videoHasCanPlayVideo ();
+			#endif
+		}
+
+		public void VideoHasCanPlayVideo_Callback (string idStr)
+		{
+			#if (UNITY_IPHONE && !UNITY_EDITOR) || SA_DEBUG_MODE
+			Debug.Log ("videoHasCanPlayVideo_Callback: " + idStr);
+			#endif
+		}
 	}
 
 }

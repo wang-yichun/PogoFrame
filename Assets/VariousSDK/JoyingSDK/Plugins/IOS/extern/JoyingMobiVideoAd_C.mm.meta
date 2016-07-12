@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: a283b9caa0e294b1dac550fbe29cb90e
-timeCreated: 1468224728
+timeCreated: 1468315397
 licenseType: Pro
 PluginImporter:
   serializedVersion: 1
@@ -9,13 +9,6 @@ PluginImporter:
   isPreloaded: 0
   platformData:
     Any:
-      enabled: 0
-      settings: {}
-    Editor:
-      enabled: 0
-      settings:
-        DefaultValueInitialized: true
-    iOS:
       enabled: 1
       settings: {}
   userData: 
