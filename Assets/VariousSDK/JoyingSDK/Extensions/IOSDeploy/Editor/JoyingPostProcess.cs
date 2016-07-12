@@ -60,7 +60,7 @@
 				proj.AddFrameworkToProject (target, "CoreTelephony.framework", false);
 				proj.AddFrameworkToProject (target, "Security.framework", false);
 
-//				proj.AddBuildProperty (target, "OTHER_LDFLAGS", "-ObjC");
+				proj.AddBuildProperty (target, "OTHER_LDFLAGS", "-ObjC");
 
 				//-Wl,-sectcreate,__RESTRICT,__restrict,/dev/null
 				proj.AddBuildPropertyForConfig (releaseConfig, "OTHER_LDFLAGS", "-Wl,-sectcreate,__RESTRICT,__restrict,/dev/null");
