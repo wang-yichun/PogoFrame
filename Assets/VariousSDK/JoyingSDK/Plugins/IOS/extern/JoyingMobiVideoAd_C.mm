@@ -60,16 +60,39 @@ extern "C"
         [JoyingMobiVideoAd videoPlay:[[[UIApplication sharedApplication] keyWindow] rootViewController]
         videoPlayFinishCallBackBlock:^(BOOL isFinishPlay) {
             if (isFinishPlay){
-                UnitySendMessage("Joying_Utility", "videoPlay_Callback_isFinishPlay", "yes");
+                UnitySendMessage("Joying_Utility", "VideoPlay_Callback_isFinishPlay", "yes");
             } else {
-                UnitySendMessage("Joying_Utility", "videoPlay_Callback_isFinishPlay", "no");
+                UnitySendMessage("Joying_Utility", "VideoPlay_Callback_isFinishPlay", "no");
             }
         }
         videoPlayConfigCallBackBlock:^(BOOL isLegal) {
             if (isLegal){
-                UnitySendMessage("Joying_Utility", "videoPlay_Callback_isLegal", "yes");
+                UnitySendMessage("Joying_Utility", "VideoPlay_Callback_isLegal", "yes");
             } else {
-                UnitySendMessage("Joying_Utility", "videoPlay_Callback_isLegal", "no");
+                UnitySendMessage("Joying_Utility", "VideoPlay_Callback_isLegal", "no");
+            }
+        }];
+    }
+    
+    void videoPlay_CustomRect() {
+
+        UIViewController* controller = [[[UIApplication sharedApplication] keyWindow] rootViewController];
+        
+        [JoyingMobiVideoAd videoPlay:controller
+                      videoSuperView:controller.view
+                    videoPlayerFrame:CGRectMake(0, 40, controller.view.frame.size.width, (controller.view.frame.size.width)*4/7)
+        videoPlayFinishCallBackBlock:^(BOOL isFinishPlay){
+            if (isFinishPlay) {
+                UnitySendMessage("Joying_Utility", "VideoPlay_Callback_isFinishPlay", "yes");
+            } else {
+                UnitySendMessage("Joying_Utility", "VideoPlay_Callback_isFinishPlay", "no");
+            }
+        }
+        videoPlayConfigCallBackBlock:^(BOOL isLegal){
+            if (isLegal) {
+                UnitySendMessage("Joying_Utility", "VideoPlay_Callback_isLegal", "yes");
+            } else {
+                UnitySendMessage("Joying_Utility", "VideoPlay_Callback_isFinishPlay", "no");
             }
         }];
     }

@@ -17,6 +17,7 @@ extern "C"
     void initAppID(char* appId, char* appKey);
     void videoHasCanPlayVideo();
     void videoPlay_FullScreen();
+    void videoPlay_CustomRect();
 }
 
 #endif /* JoyingMobiVideoAd_C_h */

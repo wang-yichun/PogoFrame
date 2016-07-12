@@ -20,10 +20,16 @@ public partial class SROptions
 		Joying_Utility.Instance.VideoHasCanPlayVideo ();
 	}
 
-	[Category ("JoyingMobi"), DisplayName ("全屏播放")] 
+	[Category ("JoyingMobi"), DisplayName ("全屏视频")] 
 	public void Joying_VideoPlay_FullScreen ()
 	{
 		Joying_Utility.Instance.VideoPlay_FullScreen ();
+	}
+
+	[Category ("JoyingMobi"), DisplayName ("非全屏视频")] 
+	public void Joying_VideoPlay_CustomRect ()
+	{
+		Joying_Utility.Instance.VideoPlay_CustomRect ();
 	}
 }
 #endif

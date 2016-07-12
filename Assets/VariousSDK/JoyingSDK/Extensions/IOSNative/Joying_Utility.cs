@@ -30,6 +30,9 @@ namespace pogorock.Joying
 		[DllImport ("__Internal")]
 		private static extern void videoPlay_FullScreen ();
 
+		[DllImport ("__Internal")]
+		private static extern void videoPlay_CustomRect ();
+
 		#endif
 
 		void Awake ()
@@ -73,6 +76,13 @@ namespace pogorock.Joying
 		{
 			#if (UNITY_IPHONE && !UNITY_EDITOR) || SA_DEBUG_MODE
 			videoPlay_FullScreen ();
+			#endif
+		}
+
+		public void VideoPlay_CustomRect ()
+		{
+			#if (UNITY_IPHONE && !UNITY_EDITOR) || SA_DEBUG_MODE
+			videoPlay_CustomRect ();
 			#endif
 		}
 
