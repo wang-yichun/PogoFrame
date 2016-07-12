@@ -1,0 +1,1 @@
+﻿#define SDK_JOYINGMOBI
