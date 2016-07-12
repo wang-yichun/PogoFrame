@@ -23,7 +23,7 @@ MonoBehaviour:
     Title: Local HTTP
     IsLocal: 0
     Simulation: 0
-    Url: http://192.168.111.215/AssetBundles
+    Url: http://192.168.111.215:7888
   - Enable: 0
     UrlId: asset1
     Title: Local FTP @ Ethan's MAC
