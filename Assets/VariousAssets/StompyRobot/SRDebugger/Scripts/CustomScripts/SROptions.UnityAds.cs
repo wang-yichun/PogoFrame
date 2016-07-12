@@ -5,6 +5,8 @@ using UnityEngine.Advertisements;
 
 public partial class SROptions
 {
+	const string RewardedZoneId = "rewardedVideo";
+
 	[Category ("Unity Ads")]
 	public string gameId {
 		get { return Advertisement.gameId; }
@@ -32,7 +34,7 @@ public partial class SROptions
 			var options = new ShowOptions {
 				resultCallback = HandleShowResult
 			};
-			Advertisement.Show ();
+			Advertisement.Show (RewardedZoneId, options);
 		}
 	}
 
