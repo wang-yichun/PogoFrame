@@ -33,6 +33,17 @@ namespace pogorock.Joying
 		[DllImport ("__Internal")]
 		private static extern void videoPlay_CustomRect ();
 
+		#region delegate
+
+		public delegate void VideoPlayCallback_IsFinishPlay (bool isFinishPlay);
+
+		public delegate void VideoPlayCallback_IsLegal (bool isLegal);
+
+		public static event VideoPlayCallback_IsFinishPlay OnVideoPlayCallback_IsFinishPlay;
+		public static event VideoPlayCallback_IsLegal OnVideoPlayCallback_IsLegal;
+
+		#endregion
+
 		#endif
 
 		void Awake ()
@@ -86,17 +97,26 @@ namespace pogorock.Joying
 			#endif
 		}
 
-		public void VideoPlay_Callback_isFinishPlay (string idStr)
+		public void VideoPlay_Callback_isFinishPlay (string value)
 		{
 			#if (UNITY_IPHONE && !UNITY_EDITOR) || SA_DEBUG_MODE
-			Debug.Log ("videoPlay_Callback_isFinishPlay: " + idStr);
+			Debug.Log ("videoPlay_Callback_isFinishPlay: " + value);
+			if (value.ToLower () == "yes") {
+				OnVideoPlayCallback_IsFinishPlay.Invoke (true);
+			} else if (value.ToLower () == "no") {
+				OnVideoPlayCallback_IsFinishPlay.Invoke (false);
+			}
 			#endif
 		}
 
-		public void VideoPlay_Callback_isLegal (string idStr)
+		public void VideoPlay_Callback_isLegal (string value)
 		{
 			#if (UNITY_IPHONE && !UNITY_EDITOR) || SA_DEBUG_MODE
-			Debug.Log ("videoPlay_Callback_isLegal: " + idStr);
+			if (value.ToLower () == "yes") {
+				OnVideoPlayCallback_IsLegal.Invoke (true);
+			} else if (value.ToLower () == "no") {
+				OnVideoPlayCallback_IsLegal.Invoke (false);
+			}
 			#endif
 		}
 	}
