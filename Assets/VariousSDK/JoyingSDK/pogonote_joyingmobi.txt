@@ -1,0 +1,11 @@
+掌盈 iOS 视频广告
+http://www.joyingmobi.com/
+
+掌盈 iOS 视频广告 SDK 开发者文档
+file:///Users/EthanW/Desktop/joying_video_ios_ipv6_sdk_v3.0.7_2016-07-06/doc/joyingsdk-doc.html
+
+IOS 版本 (20160712为解决 -ObjC 修改包)
+joying_video_ios_ipv6_sdk_v3.0.7_2016-07-12
+
+pogo-Unity 版本
+v0.1 (by Ethan.W);
