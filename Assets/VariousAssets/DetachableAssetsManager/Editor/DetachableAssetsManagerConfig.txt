@@ -1,6 +1,8 @@
 [
   {
     "Name": "JoyingSDK",
+    "Description": "掌盈",
+    "Url": "http://www.joyingmobi.com/",
     "DevDataPathRoot": "DevData/DetachableAssets/JoyingSDK",
     "AssetsPathRoot": "Assets/VariousSDK/JoyingSDK",
     "Symbol": "SDK_JOYINGMOBI",
@@ -8,9 +10,20 @@
   },
   {
     "Name": "ShareSDK",
+    "Description": "",
+    "Url": "http://www.mob.com/",
     "DevDataPathRoot": "DevData/DetachableAssets/ShareSDK",
     "AssetsPathRoot": "Assets/VariousSDK/ShareSDK",
     "Symbol": "SDK_SHARESDK",
     "Version": "Android - V2.7.0 | iOS - V3.2.1"
+  },
+  {
+    "Name": "UMengSDK",
+    "Description": "U-Gplus游戏分析",
+    "Url": "http://mobile.umeng.com/analytics_games",
+    "DevDataPathRoot": "DevData/DetachableAssets/UMengSDK",
+    "AssetsPathRoot": "Assets/VariousSDK/UMengSDK",
+    "Symbol": "SDK_UMengSDK",
+    "Version": "v1.7"
   }
 ]

@@ -50,9 +50,19 @@
 		void fixedInfoContent (DetachableAssetInfo info, bool enable)
 		{
 			EditorGUILayout.BeginVertical (GUILayout.Width (360f));
-			string title = string.Format ("{0} {1}", info.Name, enable ? string.Empty : " (已拆卸)");
-			GUILayout.Label (title, EditorStyles.boldLabel);
+			string title = string.Format ("{0} ({1}) {2}", info.Name, info.Description, enable ? string.Empty : " (已拆卸)");
+			GUILayout.Label (title, EditorStyles.largeLabel);
 			GUILayout.Label ("    版本信息: " + info.Version ?? "(with no version)");
+
+			EditorGUILayout.BeginHorizontal ();
+			GUILayout.Label ("    官网: " + info.Url);
+			EditorGUILayout.BeginVertical (GUILayout.Width (50f));
+			if (GUILayout.Button (gizmo_enter)) {
+				Application.OpenURL (string.Format (info.Url));
+			}
+			EditorGUILayout.EndVertical ();
+			EditorGUILayout.EndHorizontal ();
+
 			GUILayout.Label ("    原存放位置: " + info.DevDataPathRoot);
 			GUILayout.Label ("    项目中位置: " + info.AssetsPathRoot);
 			GUILayout.Label ("    定义Symbol: " + info.Symbol);

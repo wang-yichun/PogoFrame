@@ -27,6 +27,7 @@
 		Texture2D gizmo_integrated;
 		Texture2D gizmo_detached;
 		Texture2D gizmo_unready;
+		Texture2D gizmo_enter;
 
 		void Awake ()
 		{
@@ -34,6 +35,7 @@
 			gizmo_detached = AssetDatabase.LoadAssetAtPath<Texture2D> (GetSysRootPath () + "Gizmos/gizmo_detached.psd");
 			gizmo_unready = AssetDatabase.LoadAssetAtPath<Texture2D> (GetSysRootPath () + "Gizmos/gizmo_unready.psd");
 			gizmo_title_banner = AssetDatabase.LoadAssetAtPath<Texture2D> (GetSysRootPath () + "Gizmos/title_banner.psd");
+			gizmo_enter = AssetDatabase.LoadAssetAtPath<Texture2D> (GetSysRootPath () + "Gizmos/gizmo_enter.psd");
 		}
 
 		public static string GetSysRootPath ()
@@ -51,7 +53,14 @@
 			}
 
 			GUI.DrawTexture (new Rect (0f, 0f, 500f, 74f), gizmo_title_banner);
-			GUILayout.Space (60f);
+			GUILayout.Space (50f);
+
+			EditorGUILayout.BeginHorizontal (GUILayout.Width (100f));
+			if (GUILayout.Button ("Config文件")) {
+				UnityEditorInternal.InternalEditorUtility.OpenFileAtLineExternal (ConfigFileFullPath, 1);
+			}
+			EditorGUILayout.EndHorizontal ();
+
 			scrollPos = EditorGUILayout.BeginScrollView (scrollPos);
 			for (int i = 0; i < ConfigList.Count; i++) {
 				var info = ConfigList [i];
