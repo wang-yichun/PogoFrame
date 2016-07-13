@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿#if SDK_SHARESDK
+
+using UnityEngine;
 using System.Collections;
 using cn.sharesdk.unity3d;
 
@@ -14,12 +16,12 @@ public class ShareImageManager : MonoBehaviour
 
 	void Start ()
 	{
-		#if !UNITY_EDITOR
+#if !UNITY_EDITOR
 		ssdk = transform.GetComponent<ShareSDK> ();
 		ssdk.shareHandler = ShareResultHandler;
 		ssdk.authHandler = AuthResultHandler;
 		ssdk.showUserHandler = GetUserInfoResultHandler;
-		#endif
+#endif
 	}
 
 	void OnGUI ()
@@ -33,11 +35,11 @@ public class ShareImageManager : MonoBehaviour
 	public void TestShareWebPage ()
 	{
 		print ("执行下");
-		#if !UNITY_EDITOR
+#if !UNITY_EDITOR
 		ssdk.GetUserInfo (PlatformType.WeChat);
 		ssdk.Authorize (PlatformType.WeChat);
 		ssdk.ShowShareContentEditor (PlatformType.WeChat,GetShareContent());
-		#endif
+#endif
 	}
 
 	public ShareContent GetShareContent ()
@@ -92,3 +94,4 @@ public class ShareImageManager : MonoBehaviour
 		}
 	}
 }
+#endif

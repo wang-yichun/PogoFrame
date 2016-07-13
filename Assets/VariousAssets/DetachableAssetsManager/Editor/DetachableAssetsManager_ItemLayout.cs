@@ -17,8 +17,8 @@
 			if (SymbolHelper.ExistSymbol (info.Symbol)) {
 				enable = true;
 			}
-
-			EditorGUILayout.BeginVertical ();
+			EditorGUILayout.Space ();
+			EditorGUILayout.BeginVertical (GUILayout.Width (100f));
 			EditorGUILayout.Space ();
 			if (enable) {
 				GUILayout.Label (gizmo_integrated);
@@ -40,6 +40,8 @@
 
 			EditorGUILayout.EndVertical ();
 
+			EditorGUILayout.Space ();
+
 			fixedInfoContent (info, enable);
 
 			EditorGUILayout.EndHorizontal ();
@@ -47,14 +49,13 @@
 
 		void fixedInfoContent (DetachableAssetInfo info, bool enable)
 		{
-			EditorGUILayout.BeginVertical ();
+			EditorGUILayout.BeginVertical (GUILayout.Width (360f));
 			string title = string.Format ("{0} {1}", info.Name, enable ? string.Empty : " (已拆卸)");
 			GUILayout.Label (title, EditorStyles.boldLabel);
 			GUILayout.Label ("    版本信息: " + info.Version ?? "(with no version)");
 			GUILayout.Label ("    原存放位置: " + info.DevDataPathRoot);
 			GUILayout.Label ("    项目中位置: " + info.AssetsPathRoot);
 			GUILayout.Label ("    定义Symbol: " + info.Symbol);
-			EditorGUILayout.Space ();
 			EditorGUILayout.EndVertical ();
 		}
 	}

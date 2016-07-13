@@ -130,7 +130,7 @@
 
 			AssetDatabase.Refresh ();
 
-			Debug.Log ("继承结束: " + info.Name + ".");
+			Debug.Log ("集成结束: " + info.Name + ".");
 		}
 	}
 }
