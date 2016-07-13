@@ -1,0 +1,8 @@
+[
+  {
+    "Name": "JoyingSDK",
+    "DevDataPathRoot": "DevData/DetachableAssets/JoyingSDK",
+    "AssetsPathRoot": "Assets/VariousSDK/JoyingSDK",
+    "Symbol": "SDK_JOYINGMOBI"
+  }
+]
