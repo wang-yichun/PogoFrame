@@ -10,7 +10,7 @@
   },
   {
     "Name": "ShareSDK",
-    "Description": "",
+    "Description": "掌淘科技 - ShareSDK",
     "Url": "http://www.mob.com/",
     "DevDataPathRoot": "DevData/DetachableAssets/ShareSDK",
     "AssetsPathRoot": "Assets/VariousSDK/ShareSDK",
@@ -25,5 +25,14 @@
     "AssetsPathRoot": "Assets/VariousSDK/UMengSDK",
     "Symbol": "SDK_UMengSDK",
     "Version": "v1.7"
+  },  
+  {
+    "Name": "GameAnalyticsSDK",
+    "Description": "GameAnalytics",
+    "Url": "http://www.gameanalytics.com/",
+    "DevDataPathRoot": "DevData/DetachableAssets/GameAnalyticsSDK",
+    "AssetsPathRoot": "Assets/VariousSDK/GameAnalyticsSDK",
+    "Symbol": "SDK_GameAnalytics",
+    "Version": "Unity SDK v.3.4.3"
   }
 ]

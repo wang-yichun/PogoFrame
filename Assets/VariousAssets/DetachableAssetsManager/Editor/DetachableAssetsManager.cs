@@ -28,6 +28,7 @@
 		Texture2D gizmo_detached;
 		Texture2D gizmo_unready;
 		Texture2D gizmo_enter;
+		Texture2D gizmo_ok_nobackup;
 
 		void Awake ()
 		{
@@ -36,6 +37,7 @@
 			gizmo_unready = AssetDatabase.LoadAssetAtPath<Texture2D> (GetSysRootPath () + "Gizmos/gizmo_unready.psd");
 			gizmo_title_banner = AssetDatabase.LoadAssetAtPath<Texture2D> (GetSysRootPath () + "Gizmos/title_banner.psd");
 			gizmo_enter = AssetDatabase.LoadAssetAtPath<Texture2D> (GetSysRootPath () + "Gizmos/gizmo_enter.psd");
+			gizmo_ok_nobackup = AssetDatabase.LoadAssetAtPath<Texture2D> (GetSysRootPath () + "Gizmos/gizmo_ok_nobackup.psd");
 		}
 
 		public static string GetSysRootPath ()
@@ -106,6 +108,14 @@
 		{
 			Debug.Log ("开始拆卸: " + info.Name + ".");
 
+			if (Directory.Exists (info.DevDataPathRoot) == false) {
+				if (EditorUtility.DisplayDialog ("拆卸没有副本的项", "该资源没有备份,拆卸后将无法还原!!\n 请确认拆卸副本", "确认拆卸", "取消操作")) {
+				} else {
+					Debug.Log ("取消拆卸: " + info.Name + ".");
+					return;
+				}
+			}
+
 			// 删除资源文件
 			if (Directory.Exists (info.AssetsPathRoot)) {
 				Directory.Delete (info.AssetsPathRoot, true);
@@ -140,6 +150,33 @@
 			AssetDatabase.Refresh ();
 
 			Debug.Log ("集成结束: " + info.Name + ".");
+		}
+
+
+		void DoCopy (DetachableAssetInfo info)
+		{
+			Debug.Log ("开始备份拆卸副本: " + info.Name + ".");
+
+			// 拷贝资源文件
+			DAM_FilesCopy.copyDirectory (info.AssetsPathRoot, info.DevDataPathRoot);
+			Debug.Log ("项目中位置 -> " + info.AssetsPathRoot + "\n原备份位置 -> " + info.DevDataPathRoot);
+
+			Debug.Log ("备份结束: " + info.Name + ".");
+		}
+
+		void DoDelete (DetachableAssetInfo info)
+		{
+			Debug.Log ("开始删除拆卸副本: " + info.Name + ".");
+			if (Directory.Exists (info.DevDataPathRoot)) {
+				if (EditorUtility.DisplayDialog ("删除拆卸副本", "请确认删除拆卸副本", "确认删除", "取消操作")) {
+					Directory.Delete (info.DevDataPathRoot, true);
+
+					EditorUtility.DisplayDialog ("已删除拆卸副本", "请注意备份拆卸副本,否则无法使用集成功能", "确认"); 
+				}
+			} else {
+				Debug.Log ("未发现拆卸副本.");
+			}
+			Debug.Log ("删除结束: " + info.Name + ".");
 		}
 	}
 }

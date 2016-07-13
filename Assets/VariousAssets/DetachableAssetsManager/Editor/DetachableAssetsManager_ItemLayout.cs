@@ -21,7 +21,11 @@
 			EditorGUILayout.BeginVertical (GUILayout.Width (100f));
 			EditorGUILayout.Space ();
 			if (enable) {
-				GUILayout.Label (gizmo_integrated);
+				if (Directory.Exists (info.DevDataPathRoot)) {
+					GUILayout.Label (gizmo_integrated);
+				} else {
+					GUILayout.Label (gizmo_ok_nobackup);
+				}
 			} else {
 				if (Directory.Exists (info.DevDataPathRoot)) {
 					GUILayout.Label (gizmo_detached);
@@ -38,6 +42,23 @@
 			}
 			EditorGUILayout.EndHorizontal ();
 
+			EditorGUILayout.BeginHorizontal ();
+			if (GUILayout.Button ("备份")) {
+				DoCopy (info);
+			}
+			if (GUILayout.Button ("删除")) {
+				DoDelete (info);
+			}
+			EditorGUILayout.EndHorizontal ();
+
+			EditorGUILayout.BeginHorizontal ();
+			if (GUILayout.Button ("清理")) {
+			}
+			if (GUILayout.Button ("打包")) {
+				Debug.Log ("待开发.");
+			}
+			EditorGUILayout.EndHorizontal ();
+
 			EditorGUILayout.EndVertical ();
 
 			EditorGUILayout.Space ();
@@ -49,8 +70,18 @@
 
 		void fixedInfoContent (DetachableAssetInfo info, bool enable)
 		{
-			EditorGUILayout.BeginVertical (GUILayout.Width (360f));
-			string title = string.Format ("{0} ({1}) {2}", info.Name, info.Description, enable ? string.Empty : " (已拆卸)");
+			EditorGUILayout.BeginVertical (GUILayout.Width (350f));
+
+			string tip_after_title = string.Empty;
+			if (enable == false) {
+				if (Directory.Exists (info.DevDataPathRoot) == false) {
+					tip_after_title = "(未准备)";
+				} else {
+					tip_after_title = "(已拆卸)";
+				}
+			}
+
+			string title = string.Format ("{0} ({1}) {2}", info.Name, info.Description, tip_after_title);
 			GUILayout.Label (title, EditorStyles.largeLabel);
 			GUILayout.Label ("    版本信息: " + info.Version ?? "(with no version)");
 
