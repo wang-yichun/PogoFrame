@@ -30,9 +30,6 @@
 		{
 			gizmo_opened = AssetDatabase.LoadAssetAtPath<Texture2D> (GetSysRootPath () + "Gizmos/gizmo_opened.psd");
 			gizmo_closed = AssetDatabase.LoadAssetAtPath<Texture2D> (GetSysRootPath () + "Gizmos/gizmo_closed.psd");
-			
-			tryCreateASampleConfig ();
-			loadConfig ();
 		}
 
 		public static string GetSysRootPath ()
@@ -42,6 +39,10 @@
 
 		void OnGUI ()
 		{
+			if (ConfigList == null) {
+				tryCreateASampleConfig ();
+				loadConfig ();
+			}
 			for (int i = 0; i < ConfigList.Count; i++) {
 				var info = ConfigList [i];
 				InfoItemLayout (info);
@@ -83,13 +84,42 @@
 
 		void DoDetach (DetachableAssetInfo info)
 		{
-			Debug.Log ("Detach " + info.Name + ".");
+			Debug.Log ("开始拆卸: " + info.Name + ".");
+
+			// 删除资源文件
+			if (Directory.Exists (info.AssetsPathRoot)) {
+				Directory.Delete (info.AssetsPathRoot, true);
+			} else {
+				Debug.LogFormat ("在位置: {0} 已经不存在资源,请检查是否已经删掉了这个位置的资源?", info.AssetsPathRoot);
+			}
+			if (Directory.Exists (info.AssetsPathRoot + ".meta")) {
+				File.Delete (info.AssetsPathRoot + ".meta");
+			}
+
+			// 删除预定义 symbol
+			SymbolHelper.DeleteSymbol (info.Symbol);
+			Debug.LogFormat ("从 Scripting Define Symbols 删除了: {0}", info.Symbol);
+
+			AssetDatabase.Refresh ();
+
+			Debug.Log ("拆卸结束: " + info.Name + ".");
 		}
 
 		void DoIntegrate (DetachableAssetInfo info)
 		{
-			Debug.Log ("Integrate " + info.Name + ".");
+			Debug.Log ("开始集成: " + info.Name + ".");
+
+			// 拷贝资源文件
 			DAM_FilesCopy.copyDirectory (info.DevDataPathRoot, info.AssetsPathRoot);
+			Debug.Log ("原存放位置 -> " + info.DevDataPathRoot + "\n项目中位置 -> " + info.AssetsPathRoot);
+
+			// 添加预定义 symbol
+			SymbolHelper.AddNewSymbol (info.Symbol);
+			Debug.LogFormat ("向 Scripting Define Symbols 加入了: {0}", info.Symbol);
+
+			AssetDatabase.Refresh ();
+
+			Debug.Log ("继承结束: " + info.Name + ".");
 		}
 	}
 }

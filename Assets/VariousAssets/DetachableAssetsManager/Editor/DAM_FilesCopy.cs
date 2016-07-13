@@ -38,6 +38,10 @@
 			string[] fileName = Directory.GetFiles (sourceDirectory);
 
 			foreach (string filePath in fileName) {
+				if (filePath.EndsWith (".DS_Store")) {
+					continue;
+				}
+
 				//根据每个文件名称生成对应的目标文件名称
 				string filePathTemp = destDirectory + "/" + filePath.Substring (sourceDirectory.Length + 1);
 

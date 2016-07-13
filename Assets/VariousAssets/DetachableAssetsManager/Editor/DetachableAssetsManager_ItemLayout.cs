@@ -37,18 +37,18 @@
 
 			EditorGUILayout.EndVertical ();
 
-			fixedInfoContent (info);
+			fixedInfoContent (info, enable);
 
 			EditorGUILayout.EndHorizontal ();
 		}
 
-		void fixedInfoContent (DetachableAssetInfo info)
+		void fixedInfoContent (DetachableAssetInfo info, bool enable)
 		{
 			EditorGUILayout.BeginVertical ();
-			GUILayout.Label (info.Name, EditorStyles.boldLabel);
-			GUILayout.Label ("    原 Assets 存放位置: " + info.DevDataPathRoot);
+			GUILayout.Label (info.Name + (enable ? string.Empty : " (已拆卸)"), EditorStyles.boldLabel);
+			GUILayout.Label ("    原存放位置: " + info.DevDataPathRoot);
 			GUILayout.Label ("    项目中位置: " + info.AssetsPathRoot);
-			GUILayout.Label ("    预定义 Symbol: " + info.Symbol);
+			GUILayout.Label ("    定义Symbol: " + info.Symbol);
 			EditorGUILayout.Space ();
 			EditorGUILayout.EndVertical ();
 		}
