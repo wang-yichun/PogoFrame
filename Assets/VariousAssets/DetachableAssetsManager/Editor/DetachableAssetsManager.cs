@@ -7,7 +7,7 @@
 	using Newtonsoft.Json;
 	using System.IO;
 
-	public class DetachableAssetsManagerWindow : EditorWindow
+	public partial class DetachableAssetsManagerWindow : EditorWindow
 	{
 		[MenuItem ("PogoTools/Detachable Assets Manager #%d")]
 		static void AddWindow ()
@@ -23,16 +23,32 @@
 			window.Show ();
 		}
 
+		Texture2D gizmo_opened;
+		Texture2D gizmo_closed;
+
 		void Awake ()
 		{
+			gizmo_opened = AssetDatabase.LoadAssetAtPath<Texture2D> (GetSysRootPath () + "Gizmos/gizmo_opened.psd");
+			gizmo_closed = AssetDatabase.LoadAssetAtPath<Texture2D> (GetSysRootPath () + "Gizmos/gizmo_closed.psd");
+			
 			tryCreateASampleConfig ();
 			loadConfig ();
 		}
 
+		public static string GetSysRootPath ()
+		{
+			return "Assets/VariousAssets/DetachableAssetsManager/";
+		}
+
 		void OnGUI ()
 		{
-			Debug.Log ("OnGUI()");
+			for (int i = 0; i < ConfigList.Count; i++) {
+				var info = ConfigList [i];
+				InfoItemLayout (info);
+			}
 		}
+
+		#region config file
 
 		List<DetachableAssetInfo> ConfigList;
 
@@ -61,6 +77,19 @@
 		{
 			string text = File.ReadAllText (ConfigFileFullPath);
 			ConfigList = JsonConvert.DeserializeObject<List<DetachableAssetInfo>> (text);
+		}
+
+		#endregion
+
+		void DoDetach (DetachableAssetInfo info)
+		{
+			Debug.Log ("Detach " + info.Name + ".");
+		}
+
+		void DoIntegrate (DetachableAssetInfo info)
+		{
+			Debug.Log ("Integrate " + info.Name + ".");
+			DAM_FilesCopy.copyDirectory (info.DevDataPathRoot, info.AssetsPathRoot);
 		}
 	}
 }

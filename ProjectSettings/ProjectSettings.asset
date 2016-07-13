@@ -330,7 +330,10 @@ PlayerSettings:
   psp2InfoBarColor: 0
   psmSplashimage: {fileID: 0}
   spritePackerPolicy: DefaultPackerPolicy
-  scriptingDefineSymbols: {}
+  scriptingDefineSymbols:
+    1: SDK_JOYINGMOBI
+    4: SDK_JOYINGMOBI
+    7: SDK_JOYINGMOBI
   metroPackageName: PogoFrame
   metroPackageVersion: 
   metroCertificatePath: 
