@@ -1,6 +1,5 @@
-﻿//#define SDK_JOYINGMOBI
+﻿#if SDK_JOYINGMOBI
 
-#if SDK_JOYINGMOBI
 using UnityEngine;
 using System.ComponentModel;
 using UnityEngine.Advertisements;
