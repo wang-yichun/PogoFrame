@@ -5,40 +5,5 @@
     "AssetsPathRoot": "Assets/VariousSDK/JoyingSDK",
     "Symbol": "SDK_JOYINGMOBI",
     "Version": "joying_video_ios_ipv6_sdk_v3.0.7_2016-07-12"
-  },
-  {
-    "Name": "JoyingSDK",
-    "DevDataPathRoot": "DevData/DetachableAssets/JoyingSDK",
-    "AssetsPathRoot": "Assets/VariousSDK/JoyingSDK",
-    "Symbol": "SDK_JOYINGMOBI",
-    "Version": "joying_video_ios_ipv6_sdk_v3.0.7_2016-07-12"
-  },
-  {
-    "Name": "JoyingSDK",
-    "DevDataPathRoot": "DevData/DetachableAssets/JoyingSDK",
-    "AssetsPathRoot": "Assets/VariousSDK/JoyingSDK",
-    "Symbol": "SDK_JOYINGMOBI",
-    "Version": "joying_video_ios_ipv6_sdk_v3.0.7_2016-07-12"
-  },
-  {
-    "Name": "JoyingSDK",
-    "DevDataPathRoot": "DevData/DetachableAssets/JoyingSDK",
-    "AssetsPathRoot": "Assets/VariousSDK/JoyingSDK",
-    "Symbol": "SDK_JOYINGMOBI",
-    "Version": "joying_video_ios_ipv6_sdk_v3.0.7_2016-07-12"
-  },
-  {
-    "Name": "JoyingSDK",
-    "DevDataPathRoot": "DevData/DetachableAssets/JoyingSDK",
-    "AssetsPathRoot": "Assets/VariousSDK/JoyingSDK",
-    "Symbol": "SDK_JOYINGMOBI",
-    "Version": "joying_video_ios_ipv6_sdk_v3.0.7_2016-07-12"
-  },
-  {
-    "Name": "JoyingSDK",
-    "DevDataPathRoot": "DevData/DetachableAssets/JoyingSDK",
-    "AssetsPathRoot": "Assets/VariousSDK/JoyingSDK",
-    "Symbol": "SDK_JOYINGMOBI",
-    "Version": "joying_video_ios_ipv6_sdk_v3.0.7_2016-07-12"
   }
 ]
