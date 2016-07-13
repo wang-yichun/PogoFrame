@@ -6,6 +6,7 @@
 	using UnityEditor;
 	using Newtonsoft.Json;
 	using System.IO;
+	using UniRx;
 
 	public partial class DetachableAssetsManagerWindow : EditorWindow
 	{
@@ -177,6 +178,26 @@
 				Debug.Log ("未发现拆卸副本.");
 			}
 			Debug.Log ("删除结束: " + info.Name + ".");
+		}
+
+		void DoClean (DetachableAssetInfo info)
+		{
+			Debug.Log ("在拆卸副本中开始清理 \".DS_Store\", \".meta\" 等文件: " + info.Name + ".");
+			DAM_FilesCopy.cleanDirectory (info.DevDataPathRoot);
+			Debug.Log ("清理结束: " + info.Name + ".");
+		}
+
+		void DoExportPackage (DetachableAssetInfo info)
+		{
+			Debug.Log ("开始将资源重新打包: " + info.Name + ".");
+
+//			string detachable_assets_path = new DirectoryInfo (info.DevDataPathRoot).Parent.Name;
+//			string pachage_full_path = Path.Combine (detachable_assets_path, string.Format ("{0} ({1}).unitypackage", info.Name, info.Version));
+
+			Observable.NextFrame ().Subscribe (_ => {
+				AssetDatabase.ExportPackage (info.AssetsPathRoot, string.Format ("{0} ({1}).unitypackage", info.Name, info.Version));
+				Debug.Log ("打包结束: " + info.Name + ".");
+			});
 		}
 	}
 }

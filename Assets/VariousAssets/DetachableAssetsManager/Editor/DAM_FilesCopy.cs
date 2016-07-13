@@ -53,5 +53,36 @@
 				}
 			}
 		}
+
+		public static void cleanDirectory (string sourceDirectory)
+		{
+			//判断源目录和目标目录是否存在，如果不存在，则创建一个目录
+			if (!Directory.Exists (sourceDirectory)) {
+				return;
+			}
+			//拷贝文件
+			cleanFile (sourceDirectory);
+
+			//拷贝子目录       
+			//获取所有子目录名称
+			string[] directionName = Directory.GetDirectories (sourceDirectory);
+
+			foreach (string directionPath in directionName) {
+				//递归下去
+				cleanDirectory (directionPath);
+			}                     
+		}
+
+		public static void cleanFile (string sourceDirectory)
+		{
+			//获取所有文件名称
+			string[] fileName = Directory.GetFiles (sourceDirectory);
+
+			foreach (string filePath in fileName) {
+				if (filePath.EndsWith (".DS_Store") || filePath.EndsWith (".meta")) {
+					File.Delete (filePath);	
+				}
+			}
+		}
 	}
 }

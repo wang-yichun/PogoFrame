@@ -53,9 +53,10 @@
 
 			EditorGUILayout.BeginHorizontal ();
 			if (GUILayout.Button ("清理")) {
+				DoClean (info);
 			}
 			if (GUILayout.Button ("打包")) {
-				Debug.Log ("待开发.");
+				DoExportPackage (info);
 			}
 			EditorGUILayout.EndHorizontal ();
 
