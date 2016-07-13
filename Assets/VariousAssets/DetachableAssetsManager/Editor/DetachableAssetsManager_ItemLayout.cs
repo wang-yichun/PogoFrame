@@ -21,10 +21,13 @@
 			EditorGUILayout.BeginVertical ();
 			EditorGUILayout.Space ();
 			if (enable) {
-				GUILayout.Label (gizmo_opened, GUILayout.Width (80f), GUILayout.Height (30f));
+				GUILayout.Label (gizmo_integrated);
 			} else {
-				GUILayout.Label (gizmo_closed, GUILayout.Width (80f), GUILayout.Height (30f));
-
+				if (Directory.Exists (info.DevDataPathRoot)) {
+					GUILayout.Label (gizmo_detached);
+				} else {
+					GUILayout.Label (gizmo_unready);
+				}
 			}
 			EditorGUILayout.BeginHorizontal ();
 			if (GUILayout.Button ("集成")) {
@@ -45,7 +48,9 @@
 		void fixedInfoContent (DetachableAssetInfo info, bool enable)
 		{
 			EditorGUILayout.BeginVertical ();
-			GUILayout.Label (info.Name + (enable ? string.Empty : " (已拆卸)"), EditorStyles.boldLabel);
+			string title = string.Format ("{0} {1}", info.Name, enable ? string.Empty : " (已拆卸)");
+			GUILayout.Label (title, EditorStyles.boldLabel);
+			GUILayout.Label ("    版本信息: " + info.Version ?? "(with no version)");
 			GUILayout.Label ("    原存放位置: " + info.DevDataPathRoot);
 			GUILayout.Label ("    项目中位置: " + info.AssetsPathRoot);
 			GUILayout.Label ("    定义Symbol: " + info.Symbol);

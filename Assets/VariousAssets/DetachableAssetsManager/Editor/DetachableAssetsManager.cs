@@ -23,13 +23,17 @@
 			window.Show ();
 		}
 
-		Texture2D gizmo_opened;
-		Texture2D gizmo_closed;
+		Texture2D gizmo_title_banner;
+		Texture2D gizmo_integrated;
+		Texture2D gizmo_detached;
+		Texture2D gizmo_unready;
 
 		void Awake ()
 		{
-			gizmo_opened = AssetDatabase.LoadAssetAtPath<Texture2D> (GetSysRootPath () + "Gizmos/gizmo_opened.psd");
-			gizmo_closed = AssetDatabase.LoadAssetAtPath<Texture2D> (GetSysRootPath () + "Gizmos/gizmo_closed.psd");
+			gizmo_integrated = AssetDatabase.LoadAssetAtPath<Texture2D> (GetSysRootPath () + "Gizmos/gizmo_integrated.psd");
+			gizmo_detached = AssetDatabase.LoadAssetAtPath<Texture2D> (GetSysRootPath () + "Gizmos/gizmo_detached.psd");
+			gizmo_unready = AssetDatabase.LoadAssetAtPath<Texture2D> (GetSysRootPath () + "Gizmos/gizmo_unready.psd");
+			gizmo_title_banner = AssetDatabase.LoadAssetAtPath<Texture2D> (GetSysRootPath () + "Gizmos/title_banner.psd");
 		}
 
 		public static string GetSysRootPath ()
@@ -37,16 +41,23 @@
 			return "Assets/VariousAssets/DetachableAssetsManager/";
 		}
 
+		Vector2 scrollPos;
+
 		void OnGUI ()
 		{
 			if (ConfigList == null) {
 				tryCreateASampleConfig ();
 				loadConfig ();
 			}
+
+			GUI.DrawTexture (new Rect (0f, 0f, 500f, 74f), gizmo_title_banner);
+			GUILayout.Space (60f);
+			scrollPos = EditorGUILayout.BeginScrollView (scrollPos);
 			for (int i = 0; i < ConfigList.Count; i++) {
 				var info = ConfigList [i];
 				InfoItemLayout (info);
 			}
+			EditorGUILayout.EndScrollView ();
 		}
 
 		#region config file
