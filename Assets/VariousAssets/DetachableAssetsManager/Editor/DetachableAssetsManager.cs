@@ -195,7 +195,7 @@
 //			string pachage_full_path = Path.Combine (detachable_assets_path, string.Format ("{0} ({1}).unitypackage", info.Name, info.Version));
 
 			Observable.NextFrame ().Subscribe (_ => {
-				AssetDatabase.ExportPackage (info.AssetsPathRoot, string.Format ("{0} ({1}).unitypackage", info.Name, info.Version));
+				AssetDatabase.ExportPackage (info.AssetsPathRoot, string.Format ("{0} ({1}).unitypackage", info.Name, info.Version), ExportPackageOptions.Recurse);
 				Debug.Log ("打包结束: " + info.Name + ".");
 			});
 		}
