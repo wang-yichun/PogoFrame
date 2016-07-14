@@ -29,6 +29,7 @@
 				// TODO:
 
 				string root_path = GetSysRootPath ();
+				httpServerUrl = GetHTTPServerUrl();
 
 				toolbar_index = EditorPrefs.GetInt ("asset_bundle_settings_toolbar_index", 0);
 

@@ -82,9 +82,20 @@
 			EditorGUILayout.EndHorizontal ();
 
 			GUILayout.Label ("Server PID: " + LaunchAssetBundleServer.Instance.m_ServerPID);
-			GUILayout.Label ("Server Url: " + "http://192.168.111.215:7888");
+			GUILayout.Label ("Server Url: " + httpServerUrl);
 
 			EditorGUILayout.EndVertical ();
+		}
+
+		public static string httpServerUrl;
+
+		public static string GetHTTPServerUrl ()
+		{
+			string assetBundleManagerResourcesDirectory = "Assets/Resources";
+			string assetBundleUrlPath = Path.Combine (assetBundleManagerResourcesDirectory, "AssetBundleServerURL.bytes");
+			Directory.CreateDirectory (assetBundleManagerResourcesDirectory);
+			string url = File.ReadAllText (assetBundleUrlPath);
+			return url;
 		}
 	}
 
