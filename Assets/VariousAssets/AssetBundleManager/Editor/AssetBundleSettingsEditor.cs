@@ -10,6 +10,8 @@
 	using System.Text;
 	using System;
 	using UniRx;
+	using System.Net;
+	using System.Net.Sockets;
 
 	[CustomEditor (typeof(AssetBundleSettings))]
 	public partial class AssetBundleSettingsEditor : Editor
@@ -29,7 +31,7 @@
 				// TODO:
 
 				string root_path = GetSysRootPath ();
-				httpServerUrl = GetHTTPServerUrl();
+				httpServerUrl = GetHTTPServerUrl ();
 
 				toolbar_index = EditorPrefs.GetInt ("asset_bundle_settings_toolbar_index", 0);
 
@@ -270,6 +272,20 @@
 				EditorGUILayout.Space ();
 				EditorGUILayout.HelpBox (sb.ToString (), MessageType.Warning);
 			}
+		}
+
+		public static string GetLocalIP ()
+		{
+			IPHostEntry host;
+			string localIP = "";
+			host = Dns.GetHostEntry (Dns.GetHostName ());
+			foreach (IPAddress ip in host.AddressList) {
+				if (ip.AddressFamily == AddressFamily.InterNetwork) {
+					localIP = ip.ToString ();
+					break;
+				}
+			}
+			return localIP;
 		}
 	}
 

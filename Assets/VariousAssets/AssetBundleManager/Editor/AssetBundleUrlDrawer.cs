@@ -82,14 +82,43 @@
 		public void UrlItemGUIMenu_Loading (Rect position, SerializedProperty property, GUIContent label)
 		{
 			Rect menuRect = new Rect (position.x, position.y + position.height - GetUrlItemGUIMenuHeight_Loading () - 8f, position.width, GetUrlItemGUIMenuHeight_Loading ());
-			if (GUI.Button (menuRect, "加载")) {
-				OnMenuButtonClicked_Loading (property);
+			int buttonCountInRow = 4;
+			float spaceBetweenButton = 5f;
+			float spaceTotal = (buttonCountInRow - 1) * spaceBetweenButton;
+			float buttonWidth = (menuRect.width - spaceTotal) / buttonCountInRow;
+
+			for (int i = 0; i < buttonCountInRow; i++) {
+				Rect buttonRect = new Rect (menuRect.x + (buttonWidth + spaceBetweenButton) * i, menuRect.y, buttonWidth, menuRect.height);
+				switch (i) {
+				case 0:
+					if (GUI.Button (buttonRect, "本地资源")) {
+						SetStreamingAssetsButtonClicked (property);
+					}
+					break;
+				case 1:
+					if (GUI.Button (buttonRect, "本机HTTP")) {
+						SetHTTPButtonClicked (property);
+					}
+					break;
+				case 2:
+					if (GUI.Button (buttonRect, "本机FTP")) {
+						SetFTPButtonClicked (property);
+					}
+					break;
+				case 3:
+					if (GUI.Button (buttonRect, "模拟加载")) {
+						OnMenuButtonClicked_Loading (property);
+					}
+					break;
+				default:
+					break;
+				}
 			}
 		}
 
 		public float GetUrlItemGUIMenuHeight_Loading ()
 		{
-			return 20f;
+			return EditorGUIUtility.singleLineHeight + EditorGUIUtility.standardVerticalSpacing;
 		}
 
 		public void UrlItemGUIMenu_Export (Rect position, SerializedProperty property, GUIContent label)
@@ -105,28 +134,76 @@
 			return 20f;
 		}
 
-		public void OnMenuButtonClicked_Loading (SerializedProperty property)
+		public T GetAssetBundleUrlByItemProperty<T> (SerializedProperty property) where T : AssetBundleUrl
+		{
+			int dummy;
+			return GetAssetBundleUrlByItemProperty<T> (property, out dummy);
+		}
+
+		public T GetAssetBundleUrlByItemProperty<T> (SerializedProperty property, out int index) where T : AssetBundleUrl
 		{
 			string idx_str = property.displayName.Replace ("Element ", string.Empty);
 			int idx = Convert.ToInt32 (idx_str);
-			AssetBundleUrl_Loading url = AssetBundleSettings.Instance.loadingUrls [idx];
+			index = idx;
+			T url = null;
+			if (typeof(T) == typeof(AssetBundleUrl_Loading)) {
+				url = (T)Convert.ChangeType (AssetBundleSettings.Instance.loadingUrls [idx], typeof(T));
+			} else if (typeof(T) == typeof(AssetBundleUrl_Export)) {
+				url = (T)Convert.ChangeType (AssetBundleSettings.Instance.exportUrls [idx], typeof(T));
+			}
+			return url;
+		}
+
+		public void OnMenuButtonClicked_Loading (SerializedProperty property)
+		{
+			AssetBundleUrl_Loading url = GetAssetBundleUrlByItemProperty<AssetBundleUrl_Loading> (property);
 
 			Debug.Log ("加载: " + JsonConvert.SerializeObject (url, Formatting.Indented));
 		}
 
-
 		public void OnMenuButtonClicked_Export (SerializedProperty property)
 		{
-			string idx_str = property.displayName.Replace ("Element ", string.Empty);
-			int idx = Convert.ToInt32 (idx_str);
-			AssetBundleUrl_Export url = AssetBundleSettings.Instance.exportUrls [idx];
+			int idx;
+			AssetBundleUrl_Export url = GetAssetBundleUrlByItemProperty<AssetBundleUrl_Export> (property, out idx);
 
 			Debug.Log ("发布: " + JsonConvert.SerializeObject (url, Formatting.Indented));
 
 			Observable.NextFrame ().Subscribe (_ => {
 				AssetBundleSettingsEditor.Instance.PublishAssetBundles (url, idx);
 			});
+		}
 
+		public void SetStreamingAssetsButtonClicked (SerializedProperty property)
+		{
+			property.FindPropertyRelative ("Url").stringValue = string.Empty;
+			property.FindPropertyRelative ("Simulation").boolValue = false;
+			property.FindPropertyRelative ("IsLocal").boolValue = true;
+			property.FindPropertyRelative ("Title").stringValue = "StreamingAssets Mode(Auto Set)";
+
+			AssetBundleSettingsEditor.Instance.serializedObject.ApplyModifiedProperties ();
+			Selection.activeObject = AssetBundleSettings.Instance;
+		}
+
+		public void SetHTTPButtonClicked (SerializedProperty property)
+		{
+			property.FindPropertyRelative ("Url").stringValue = AssetBundleSettingsEditor.GetHTTPServerUrl ();
+			property.FindPropertyRelative ("Simulation").boolValue = false;
+			property.FindPropertyRelative ("IsLocal").boolValue = false;
+			property.FindPropertyRelative ("Title").stringValue = "Local HTTP(Auto Set)";
+
+			AssetBundleSettingsEditor.Instance.serializedObject.ApplyModifiedProperties ();
+			Selection.activeObject = AssetBundleSettings.Instance;
+		}
+
+		public void SetFTPButtonClicked (SerializedProperty property)
+		{
+			property.FindPropertyRelative ("Url").stringValue = string.Format ("ftp://{0}/PogoFrameAssets", AssetBundleSettingsEditor.GetLocalIP ());
+			property.FindPropertyRelative ("Simulation").boolValue = false;
+			property.FindPropertyRelative ("IsLocal").boolValue = false;
+			property.FindPropertyRelative ("Title").stringValue = "Local FTP(Auto Set)";
+
+			AssetBundleSettingsEditor.Instance.serializedObject.ApplyModifiedProperties ();
+			Selection.activeObject = AssetBundleSettings.Instance;
 		}
 	}
 }
