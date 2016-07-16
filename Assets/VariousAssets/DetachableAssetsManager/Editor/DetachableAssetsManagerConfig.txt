@@ -1,4 +1,13 @@
 [
+{
+    "Name": "ChanceSDK",
+    "Description": "畅思广告",
+    "Url": "http://www.chance-ad.com/",
+    "DevDataPathRoot": "DevData/DetachableAssets/ChanceSDK",
+    "AssetsPathRoot": "Assets/VariousSDK/ChanceSDK",
+    "Symbol": "SDK_CHANCEAD",
+    "Version": "IOS - v6.3.0 | (Android - 5.3.5.6 未含入)"
+  },
   {
     "Name": "JoyingSDK",
     "Description": "掌盈",
