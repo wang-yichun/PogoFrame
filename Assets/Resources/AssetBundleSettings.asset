@@ -12,13 +12,13 @@ MonoBehaviour:
   m_Name: AssetBundleSettings
   m_EditorClassIdentifier: 
   loadingUrls:
-  - Enable: 0
+  - Enable: 1
     UrlId: asset1
     Title: StreamingAssets Mode(Auto Set)
     IsLocal: 1
     Simulation: 0
     Url: 
-  - Enable: 1
+  - Enable: 0
     UrlId: asset1
     Title: Local HTTP(Auto Set)
     IsLocal: 0
