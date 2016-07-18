@@ -52,5 +52,14 @@
     "AssetsPathRoot": "Assets/VariousSDK/GameAnalyticsSDK",
     "Symbol": "SDK_GameAnalytics",
     "Version": "Unity SDK v.3.4.3"
+  },  
+  {
+    "Name": "FacebookSDK",
+    "Description": "Facebook",
+    "Url": "https://developers.facebook.com/",
+    "DevDataPathRoot": "DevData/DetachableAssets/FacebookSDK",
+    "AssetsPathRoot": "Assets/VariousSDK/FacebookSDK",
+    "Symbol": "SDK_FACEBOOK",
+    "Version": "v7.7.0"
   }
 ]

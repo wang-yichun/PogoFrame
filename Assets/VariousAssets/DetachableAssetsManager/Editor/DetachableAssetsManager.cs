@@ -118,13 +118,13 @@
 			}
 
 			// 删除资源文件
+			if (Directory.Exists (info.AssetsPathRoot + ".meta")) {
+				File.Delete (info.AssetsPathRoot + ".meta");
+			}
 			if (Directory.Exists (info.AssetsPathRoot)) {
 				Directory.Delete (info.AssetsPathRoot, true);
 			} else {
 				Debug.LogFormat ("在位置: {0} 已经不存在资源,请检查是否已经删掉了这个位置的资源?", info.AssetsPathRoot);
-			}
-			if (Directory.Exists (info.AssetsPathRoot + ".meta")) {
-				File.Delete (info.AssetsPathRoot + ".meta");
 			}
 
 			// 删除预定义 symbol
