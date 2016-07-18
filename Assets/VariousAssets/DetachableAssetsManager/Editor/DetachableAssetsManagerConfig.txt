@@ -82,5 +82,41 @@
     "AssetsPathRoot": "Assets/VariousSDK/GameAnalyticsSDK",
     "AssetsPathRoots": null,
     "Symbol": "SDK_GameAnalytics"
+  },
+  {
+    "Name": "FacebookSDK",
+    "Description": "Facebook",
+    "Url": "https://developers.facebook.com/",
+    "Version": "v7.7.0",
+    "DevDataPathRoot": "DevData/DetachableAssets/FacebookSDK",
+    "isMultiPaths": false,
+    "rootsFolded": false,
+    "AssetsPathRoot": "Assets/VariousSDK/FacebookSDK",
+    "AssetsPathRoots": null,
+    "Symbol": "SDK_FacebookSDK"
+  },
+  {
+    "Name": "AWSSDK",
+    "Description": "Facebook",
+    "Url": "https://console.aws.amazon.com/console",
+    "Version": "n/a",
+    "DevDataPathRoot": "DevData/DetachableAssets/AWSSDK",
+    "isMultiPaths": false,
+    "rootsFolded": false,
+    "AssetsPathRoot": "Assets/VariousSDK/AWSSDK",
+    "AssetsPathRoots": null,
+    "Symbol": "SDK_AWSSDK"
+  },
+  {
+    "Name": "PlayFabSDK",
+    "Description": "PlayFab",
+    "Url": "https://playfab.com/",
+    "Version": "Release: 160627",
+    "DevDataPathRoot": "DevData/DetachableAssets/PlayFabSDK",
+    "isMultiPaths": false,
+    "rootsFolded": false,
+    "AssetsPathRoot": "Assets/VariousSDK/PlayFabSDK",
+    "AssetsPathRoots": null,
+    "Symbol": "SDK_PlayFabSDK"
   }
 ]

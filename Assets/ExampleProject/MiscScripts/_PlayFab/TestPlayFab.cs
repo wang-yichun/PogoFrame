@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿#if SDK_PlayFabSDK
+
+using UnityEngine;
 using System.Collections;
 using PlayFab;
 using PlayFab.ClientModels;
@@ -6,7 +8,6 @@ using Newtonsoft.Json;
 
 public class TestPlayFab : MonoBehaviour
 {
-
 	public string titleId = "D84D";
 
 	// Use this for initialization
@@ -46,3 +47,5 @@ public class TestPlayFab : MonoBehaviour
 		Debug.Log (JsonConvert.SerializeObject (error));
 	}
 }
+
+#endif
