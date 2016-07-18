@@ -19,7 +19,7 @@ namespace pogorock.Joying
 		#if (UNITY_IPHONE && !UNITY_EDITOR) || SA_DEBUG_MODE
 	
 		[DllImport ("__Internal")]
-		private static extern void init ();
+		private static extern void joying_init ();
 
 		[DllImport ("__Internal")]
 		private static extern void initAppID (string appId, string appKey);
@@ -50,14 +50,14 @@ namespace pogorock.Joying
 		{
 			#if (UNITY_IPHONE && !UNITY_EDITOR) || SA_DEBUG_MODE
 			DontDestroyOnLoad (gameObject);
-			init ();
+			joying_init ();
 			#endif
 		}
 
 		void Init ()
 		{
 			#if (UNITY_IPHONE && !UNITY_EDITOR) || SA_DEBUG_MODE
-			init ();
+			joying_init ();
 			#endif
 		}
 
