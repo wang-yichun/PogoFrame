@@ -35,21 +35,37 @@
 		public static void copyFile (string sourceDirectory, string destDirectory)
 		{
 			//获取所有文件名称
-			string[] fileName = Directory.GetFiles (sourceDirectory);
+			if (Directory.Exists (sourceDirectory)) {
 
-			foreach (string filePath in fileName) {
-				if (filePath.EndsWith (".DS_Store")) {
-					continue;
+				string[] fileName = Directory.GetFiles (sourceDirectory);
+
+				foreach (string filePath in fileName) {
+					if (filePath.EndsWith (".DS_Store")) {
+						continue;
+					}
+
+					//根据每个文件名称生成对应的目标文件名称
+					string filePathTemp = destDirectory + "/" + filePath.Substring (sourceDirectory.Length + 1);
+
+					//若不存在，直接复制文件；若存在，覆盖复制
+					if (File.Exists (filePathTemp)) {
+						File.Copy (filePath, filePathTemp, true);
+					} else {
+						File.Copy (filePath, filePathTemp);
+					}
 				}
-
+			} else if (File.Exists (sourceDirectory)) {
 				//根据每个文件名称生成对应的目标文件名称
-				string filePathTemp = destDirectory + "/" + filePath.Substring (sourceDirectory.Length + 1);
 
 				//若不存在，直接复制文件；若存在，覆盖复制
-				if (File.Exists (filePathTemp)) {
-					File.Copy (filePath, filePathTemp, true);
+				if (File.Exists (destDirectory)) {
+					File.Copy (sourceDirectory, destDirectory, true);
 				} else {
-					File.Copy (filePath, filePathTemp);
+					string fileDirectory = Path.GetDirectoryName (destDirectory);
+					if (Directory.Exists (fileDirectory) == false) {
+						Directory.CreateDirectory (fileDirectory);
+					}
+					File.Copy (sourceDirectory, destDirectory);
 				}
 			}
 		}

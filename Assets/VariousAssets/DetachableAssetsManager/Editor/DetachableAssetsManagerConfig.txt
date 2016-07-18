@@ -3,63 +3,84 @@
     "Name": "ChartboostSDK",
     "Description": "Chartboost",
     "Url": "https://www.chartboost.com/products/video/",
+    "Version": "v6.4.5",
     "DevDataPathRoot": "DevData/DetachableAssets/ChartboostSDK",
-    "AssetsPathRoot": "Assets/VariousSDK/ChartboostSDK",
-    "Symbol": "SDK_Chartboost",
-    "Version": "v6.4.6"
+    "isMultiPaths": true,
+    "rootsFolded": false,
+    "AssetsPathRoot": null,
+    "AssetsPathRoots": [
+      {"path":"Assets/Chartboost","integrate":true,"backup":true},
+      {"path":"Assets/Plugins/iOS/CBAnalytics.h","integrate":true,"backup":true},
+      {"path":"Assets/Plugins/iOS/CBInPlay.h","integrate":true,"backup":true},
+      {"path":"Assets/Plugins/iOS/Chartboost.h","integrate":true,"backup":true},
+      {"path":"Assets/Plugins/iOS/ChartBoostBinding.m","integrate":true,"backup":true},
+      {"path":"Assets/Plugins/iOS/ChartboostManager.h","integrate":true,"backup":true},
+      {"path":"Assets/Plugins/iOS/ChartBoostManager.mm","integrate":true,"backup":true},
+      {"path":"Assets/Plugins/iOS/libChartboost.a","integrate":true,"backup":true},
+      {"path":"Assets/Plugins/Android/AndroidManifest.xml","integrate":false,"backup":true},
+      {"path":"Assets/Plugins/Android/ChartboostSDK","integrate":true,"backup":true},
+      {"path":"Assets/Plugins/Android/play-services-basement-9.0.0.aar","integrate":false,"backup":true}
+    ],
+    "Symbol": "SDK_Chartboost"
   },
   {
     "Name": "ChanceSDK",
     "Description": "畅思广告",
     "Url": "http://www.chance-ad.com/",
+    "Version": "IOS - v6.3.0 | (Android - 5.3.5.6 未含入)",
     "DevDataPathRoot": "DevData/DetachableAssets/ChanceSDK",
+    "isMultiPaths": false,
+    "rootsFolded": false,
     "AssetsPathRoot": "Assets/VariousSDK/ChanceSDK",
-    "Symbol": "SDK_CHANCEAD",
-    "Version": "IOS - v6.3.0 | (Android - 5.3.5.6 未含入)"
+    "AssetsPathRoots": null,
+    "Symbol": "SDK_CHANCEAD"
   },
   {
     "Name": "JoyingSDK",
     "Description": "掌盈",
     "Url": "http://www.joyingmobi.com/",
+    "Version": "joying_video_ios_ipv6_sdk_v3.0.7_2016-07-12",
     "DevDataPathRoot": "DevData/DetachableAssets/JoyingSDK",
+    "isMultiPaths": false,
+    "rootsFolded": false,
     "AssetsPathRoot": "Assets/VariousSDK/JoyingSDK",
-    "Symbol": "SDK_JOYINGMOBI",
-    "Version": "joying_video_ios_ipv6_sdk_v3.0.7_2016-07-12"
+    "AssetsPathRoots": null,
+    "Symbol": "SDK_JOYINGMOBI"
   },
   {
     "Name": "ShareSDK",
     "Description": "掌淘科技 - ShareSDK",
     "Url": "http://www.mob.com/",
+    "Version": "Android - V2.7.0 | iOS - V3.2.1",
     "DevDataPathRoot": "DevData/DetachableAssets/ShareSDK",
+    "isMultiPaths": false,
+    "rootsFolded": false,
     "AssetsPathRoot": "Assets/VariousSDK/ShareSDK",
-    "Symbol": "SDK_SHARESDK",
-    "Version": "Android - V2.7.0 | iOS - V3.2.1"
+    "AssetsPathRoots": null,
+    "Symbol": "SDK_SHARESDK"
   },
   {
     "Name": "UMengSDK",
     "Description": "U-Gplus游戏分析",
     "Url": "http://mobile.umeng.com/analytics_games",
+    "Version": "v1.7",
     "DevDataPathRoot": "DevData/DetachableAssets/UMengSDK",
+    "isMultiPaths": false,
+    "rootsFolded": false,
     "AssetsPathRoot": "Assets/VariousSDK/UMengSDK",
-    "Symbol": "SDK_UMengSDK",
-    "Version": "v1.7"
-  },  
+    "AssetsPathRoots": null,
+    "Symbol": "SDK_UMengSDK"
+  },
   {
     "Name": "GameAnalyticsSDK",
     "Description": "GameAnalytics",
     "Url": "http://www.gameanalytics.com/",
+    "Version": "Unity SDK v.3.4.3",
     "DevDataPathRoot": "DevData/DetachableAssets/GameAnalyticsSDK",
+    "isMultiPaths": false,
+    "rootsFolded": false,
     "AssetsPathRoot": "Assets/VariousSDK/GameAnalyticsSDK",
-    "Symbol": "SDK_GameAnalytics",
-    "Version": "Unity SDK v.3.4.3"
-  },  
-  {
-    "Name": "FacebookSDK",
-    "Description": "Facebook",
-    "Url": "https://developers.facebook.com/",
-    "DevDataPathRoot": "DevData/DetachableAssets/FacebookSDK",
-    "AssetsPathRoot": "Assets/VariousSDK/FacebookSDK",
-    "Symbol": "SDK_FACEBOOK",
-    "Version": "v7.7.0"
+    "AssetsPathRoots": null,
+    "Symbol": "SDK_GameAnalytics"
   }
 ]

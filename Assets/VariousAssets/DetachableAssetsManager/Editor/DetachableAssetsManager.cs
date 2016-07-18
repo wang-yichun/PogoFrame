@@ -7,6 +7,7 @@
 	using Newtonsoft.Json;
 	using System.IO;
 	using UniRx;
+	using System.Linq;
 
 	public partial class DetachableAssetsManagerWindow : EditorWindow
 	{
@@ -14,7 +15,7 @@
 		static void AddWindow ()
 		{
 			//创建窗口
-			Rect rect = new Rect (0, 0, 500, 500);
+			Rect rect = new Rect (0, 0, 500, 800);
 			DetachableAssetsManagerWindow window = (DetachableAssetsManagerWindow)EditorWindow.GetWindowWithRect (
 				                                       typeof(DetachableAssetsManagerWindow),
 				                                       rect,
@@ -70,6 +71,12 @@
 				InfoItemLayout (info);
 			}
 			EditorGUILayout.EndScrollView ();
+
+
+
+			if (GUI.changed) {
+				saveConfig ();
+			}
 		}
 
 		#region config file
@@ -103,6 +110,12 @@
 			ConfigList = JsonConvert.DeserializeObject<List<DetachableAssetInfo>> (text);
 		}
 
+		void saveConfig ()
+		{
+			string text = JsonConvert.SerializeObject (ConfigList, Formatting.Indented, new AssetsPathRootInfoListConverter ());
+			File.WriteAllText (ConfigFileFullPath, text);
+		}
+
 		#endregion
 
 		void DoDetach (DetachableAssetInfo info)
@@ -117,14 +130,42 @@
 				}
 			}
 
-			// 删除资源文件
-			if (Directory.Exists (info.AssetsPathRoot + ".meta")) {
-				File.Delete (info.AssetsPathRoot + ".meta");
-			}
-			if (Directory.Exists (info.AssetsPathRoot)) {
-				Directory.Delete (info.AssetsPathRoot, true);
+			if (info.isMultiPaths) {
+
+				for (int i = 0; i < info.AssetsPathRoots.Length; i++) {
+					if (info.AssetsPathRoots [i].integrate) {
+						string path = info.AssetsPathRoots [i].path;
+						if (Directory.Exists (path)) {
+							Directory.Delete (path, true);
+							if (File.Exists (path + ".meta")) {
+								File.Delete (path + ".meta");
+							}
+						} else if (File.Exists (path)) {
+							File.Delete (path);
+							if (File.Exists (path + ".meta")) {
+								File.Delete (path + ".meta");
+							}
+							string fileDirectory = Path.GetDirectoryName (path);
+							if (Directory.GetFiles (fileDirectory).Length == 0 && Directory.GetDirectories (fileDirectory).Length == 0) {
+								Directory.Delete (fileDirectory);
+								File.Delete (fileDirectory + ".meta");
+							}
+						} else {
+							Debug.LogFormat ("在位置: {0} 已经不存在资源,请检查是否已经删掉了这个位置的资源?", path);
+						}
+					}
+				}
+
 			} else {
-				Debug.LogFormat ("在位置: {0} 已经不存在资源,请检查是否已经删掉了这个位置的资源?", info.AssetsPathRoot);
+				// 删除资源文件
+				if (Directory.Exists (info.AssetsPathRoot)) {
+					Directory.Delete (info.AssetsPathRoot, true);
+				} else {
+					Debug.LogFormat ("在位置: {0} 已经不存在资源,请检查是否已经删掉了这个位置的资源?", info.AssetsPathRoot);
+				}
+				if (File.Exists (info.AssetsPathRoot + ".meta")) {
+					File.Delete (info.AssetsPathRoot + ".meta");
+				}
 			}
 
 			// 删除预定义 symbol
@@ -140,10 +181,38 @@
 		{
 			Debug.Log ("开始集成: " + info.Name + ".");
 
-			// 拷贝资源文件
-			DAM_FilesCopy.copyDirectory (info.DevDataPathRoot, info.AssetsPathRoot);
-			Debug.Log ("原存放位置 -> " + info.DevDataPathRoot + "\n项目中位置 -> " + info.AssetsPathRoot);
+			if (info.isMultiPaths) {
+//				string defDataPathRoot = Path.Combine (info.DevDataPathRoot, "Assets");
+//				DAM_FilesCopy.copyDirectory (defDataPathRoot, Application.dataPath);
 
+				for (int i = 0; i < info.AssetsPathRoots.Length; i++) {
+					AssetsPathRootInfo apri = info.AssetsPathRoots [i];
+					if (apri.integrate) {
+						string defDataPathRoot = Path.Combine (info.DevDataPathRoot, apri.path);
+						string assetsPathRoot = apri.path;
+						if (Directory.Exists (defDataPathRoot)) {
+							DAM_FilesCopy.copyDirectory (defDataPathRoot, assetsPathRoot);
+							if (File.Exists (defDataPathRoot + ".meta")) {
+								DAM_FilesCopy.copyFile (defDataPathRoot + ".meta", assetsPathRoot + ".meta");
+							}
+						} else if (File.Exists (defDataPathRoot)) {
+							DAM_FilesCopy.copyFile (defDataPathRoot, assetsPathRoot);
+							if (File.Exists (defDataPathRoot + ".meta")) {
+								DAM_FilesCopy.copyFile (defDataPathRoot + ".meta", assetsPathRoot + ".meta");
+							}
+						} else {
+							Debug.Log ("在 DevDataPath 中缺少: " + defDataPathRoot);
+						}
+					}
+				}
+
+
+//				Debug.Log ("原存放位置 -> " + defDataPathRoot + "\n项目中位置 -> " + Application.dataPath);
+			} else {
+				// 拷贝资源文件
+				DAM_FilesCopy.copyDirectory (info.DevDataPathRoot, info.AssetsPathRoot);
+				Debug.Log ("原存放位置 -> " + info.DevDataPathRoot + "\n项目中位置 -> " + info.AssetsPathRoot);
+			}
 			// 添加预定义 symbol
 			SymbolHelper.AddNewSymbol (info.Symbol);
 			Debug.LogFormat ("向 Scripting Define Symbols 加入了: {0}", info.Symbol);
@@ -159,8 +228,26 @@
 			Debug.Log ("开始备份拆卸副本: " + info.Name + ".");
 
 			// 拷贝资源文件
-			DAM_FilesCopy.copyDirectory (info.AssetsPathRoot, info.DevDataPathRoot);
-			Debug.Log ("项目中位置 -> " + info.AssetsPathRoot + "\n原备份位置 -> " + info.DevDataPathRoot);
+			if (info.isMultiPaths) {
+				for (int i = 0; i < info.AssetsPathRoots.Length; i++) {
+					if (info.AssetsPathRoots [i].backup) {
+						string path = info.AssetsPathRoots [i].path;
+						string targetPath = Path.Combine (info.DevDataPathRoot, path);
+						if (Directory.Exists (path)) {
+							DAM_FilesCopy.copyDirectory (path, targetPath);
+							DAM_FilesCopy.copyFile (path + ".meta", targetPath + ".meta");
+						} else if (File.Exists (path)) {
+							DAM_FilesCopy.copyFile (path, targetPath);
+							DAM_FilesCopy.copyFile (path + ".meta", targetPath + ".meta");
+						} else {
+							Debug.Log ("未找到位置: " + path);
+						}
+					}
+				}
+			} else {
+				DAM_FilesCopy.copyDirectory (info.AssetsPathRoot, info.DevDataPathRoot);
+				Debug.Log ("项目中位置 -> " + info.AssetsPathRoot + "\n原备份位置 -> " + info.DevDataPathRoot);
+			}
 
 			Debug.Log ("备份结束: " + info.Name + ".");
 		}
@@ -195,7 +282,13 @@
 //			string pachage_full_path = Path.Combine (detachable_assets_path, string.Format ("{0} ({1}).unitypackage", info.Name, info.Version));
 
 			Observable.NextFrame ().Subscribe (_ => {
-				AssetDatabase.ExportPackage (info.AssetsPathRoot, string.Format ("{0} ({1}).unitypackage", info.Name, info.Version), ExportPackageOptions.Recurse);
+				string targetName = string.Format ("{0} ({1}).unitypackage", info.Name, info.Version);
+				if (info.isMultiPaths) {
+					string[] paths = info.AssetsPathRoots.Select (i => i.path).ToArray ();
+					AssetDatabase.ExportPackage (paths, targetName, ExportPackageOptions.Recurse);
+				} else {
+					AssetDatabase.ExportPackage (info.AssetsPathRoot, string.Format ("{0} ({1}).unitypackage", info.Name, info.Version), ExportPackageOptions.Recurse);
+				}
 				Debug.Log ("打包结束: " + info.Name + ".");
 			});
 		}

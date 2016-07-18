@@ -12,7 +12,10 @@
 
 		void InfoItemLayout (DetachableAssetInfo info)
 		{
-			EditorGUILayout.BeginHorizontal ("box");
+			EditorGUILayout.BeginVertical ("box");
+			EditorGUILayout.BeginHorizontal ();
+
+
 			bool enable = false;
 			if (SymbolHelper.ExistSymbol (info.Symbol)) {
 				enable = true;
@@ -67,6 +70,10 @@
 			fixedInfoContent (info, enable);
 
 			EditorGUILayout.EndHorizontal ();
+
+			multiPaths (info);
+
+			EditorGUILayout.EndVertical ();
 		}
 
 		void fixedInfoContent (DetachableAssetInfo info, bool enable)
@@ -84,7 +91,7 @@
 
 			string title = string.Format ("{0} ({1}) {2}", info.Name, info.Description, tip_after_title);
 			GUILayout.Label (title, EditorStyles.largeLabel);
-			GUILayout.Label ("    版本信息: " + info.Version ?? "(with no version)");
+			GUILayout.Label ("    版本: " + info.Version ?? "(with no version)");
 
 			EditorGUILayout.BeginHorizontal ();
 			GUILayout.Label ("    官网: " + info.Url);
@@ -95,10 +102,70 @@
 			EditorGUILayout.EndVertical ();
 			EditorGUILayout.EndHorizontal ();
 
-			GUILayout.Label ("    原存放位置: " + info.DevDataPathRoot);
-			GUILayout.Label ("    项目中位置: " + info.AssetsPathRoot);
-			GUILayout.Label ("    定义Symbol: " + info.Symbol);
+			GUILayout.Label ("    备份: " + info.DevDataPathRoot);
+
+			if (info.isMultiPaths) {
+//				if (info.rootsFolded = EditorGUILayout.ToggleLeft ("项目中位置: ", info.rootsFolded)) {
+//					EditorGUI.indentLevel++;
+//					EditorGUILayout.BeginVertical ("box");
+//					for (int i = 0; i < info.AssetsPathRoots.Length; i++) {
+//						EditorGUILayout.BeginHorizontal ();
+//						EditorGUILayout.BeginVertical (GUILayout.Width (20f));
+//						GUILayout.Toggle (info.AssetsPathRoots [i].integrate, "集成");
+//						EditorGUILayout.EndVertical ();
+//						EditorGUILayout.BeginVertical (GUILayout.Width (20f));
+//						GUILayout.Toggle (info.AssetsPathRoots [i].integrate, "备份");
+//						EditorGUILayout.EndVertical ();
+//						GUILayout.Label ("      " + info.AssetsPathRoots [i].path);
+//						EditorGUILayout.EndHorizontal ();
+//					}
+//					EditorGUILayout.EndVertical ();
+//					EditorGUI.indentLevel--;
+//				}
+				if (info.AssetsPathRoots == null || info.AssetsPathRoots.Length == 0) {
+
+					GUILayout.Label (string.Format ("    项目: (未定义)", info.AssetsPathRoots [0], info.AssetsPathRoots.Length));
+				} else {
+
+					EditorGUILayout.BeginHorizontal ();
+					GUILayout.Label (string.Format ("    项目: {0}... (等{1}个位置)", info.AssetsPathRoots [0].path, info.AssetsPathRoots.Length));
+
+					EditorGUILayout.BeginVertical (GUILayout.Width (50f));
+					if (GUILayout.Button (gizmo_enter)) {
+						info.rootsFolded = !info.rootsFolded;
+					}
+					EditorGUILayout.EndVertical ();
+					EditorGUILayout.EndHorizontal ();
+				}
+			} else {
+				GUILayout.Label ("    项目: " + info.AssetsPathRoot);
+			}
+
+			GUILayout.Label ("    定义: " + info.Symbol);
 			EditorGUILayout.EndVertical ();
+		}
+
+		void multiPaths (DetachableAssetInfo info)
+		{
+			if (info.isMultiPaths && info.rootsFolded) {
+//				if (info.rootsFolded = EditorGUILayout.ToggleLeft ("项目中位置: (详细)", info.rootsFolded)) {
+				EditorGUI.indentLevel++;
+				EditorGUILayout.BeginVertical ("box");
+				for (int i = 0; i < info.AssetsPathRoots.Length; i++) {
+					EditorGUILayout.BeginHorizontal ();
+					EditorGUILayout.BeginVertical (GUILayout.Width (20f));
+					info.AssetsPathRoots [i].integrate = GUILayout.Toggle (info.AssetsPathRoots [i].integrate, "集成");
+					EditorGUILayout.EndVertical ();
+					EditorGUILayout.BeginVertical (GUILayout.Width (20f));
+					info.AssetsPathRoots [i].backup = GUILayout.Toggle (info.AssetsPathRoots [i].backup, "备份");
+					EditorGUILayout.EndVertical ();
+					GUILayout.Label ("      " + info.AssetsPathRoots [i].path);
+					EditorGUILayout.EndHorizontal ();
+				}
+				EditorGUILayout.EndVertical ();
+				EditorGUI.indentLevel--;
+//				}
+			} 
 		}
 	}
 }
