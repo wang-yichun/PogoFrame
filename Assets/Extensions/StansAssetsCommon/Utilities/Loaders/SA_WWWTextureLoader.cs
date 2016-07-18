@@ -1,0 +1,64 @@
+﻿////////////////////////////////////////////////////////////////////////////////
+//  
+// @module Common Android Native Lib
+// @author Osipov Stanislav (Stan's Assets) 
+// @support stans.assets@gmail.com 
+//
+////////////////////////////////////////////////////////////////////////////////
+
+
+
+using System;
+using UnityEngine;
+using System.Collections.Generic;
+using System.Collections;
+
+public class SA_WWWTextureLoader : MonoBehaviour {
+
+
+	public static Dictionary<string, Texture2D> LocalCache =  new Dictionary<string, Texture2D>();
+
+
+	private string _url;
+
+	public event Action<Texture2D> OnLoad = delegate{}; 
+
+	public static SA_WWWTextureLoader Create() {
+		return new GameObject("WWWTextureLoader").AddComponent<SA_WWWTextureLoader>();
+	}
+
+	public void LoadTexture(string url) {
+		_url = url;
+		if(LocalCache.ContainsKey(_url)) {
+			OnLoad(LocalCache[_url]);
+			Destroy(gameObject);
+			return;
+		}
+		StartCoroutine(LoadCoroutin());
+	}
+
+
+	private IEnumerator LoadCoroutin () {
+		// Start a download of the given URL
+		WWW www = new WWW (_url);
+
+		// Wait for download to complete
+		yield return www;
+
+		if(www.error == null) {
+			UpdateLocalCache(_url, www.texture);
+			OnLoad(www.texture);
+
+		} else {
+			OnLoad(null);
+		}
+
+		Destroy(gameObject);
+
+	}
+
+	private static void UpdateLocalCache(string url, Texture2D image) {
+
+	}
+
+}

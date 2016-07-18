@@ -1,5 +1,33 @@
 [
   {
+    "Name": "NativePlugin",
+    "Description": "IOS/Android Native Plugin",
+    "Url": "https://stansassets.com/",
+    "Version": "IOS: 8.4 | ANDROID: 7.8",
+    "DevDataPathRoot": "DevData/DetachableAssets/NativePlugin",
+    "isMultiPaths": true,
+    "rootsFolded": true,
+    "AssetsPathRoot": null,
+    "AssetsPathRoots": [
+      {"path":"Assets/extensions/IOSDeploy","integrate":true,"backup":true},
+      {"path":"Assets/extensions/IOSNative","integrate":true,"backup":true},
+      {"path":"Assets/extensions/StansAssetsCommon","integrate":true,"backup":true},
+      {"path":"Assets/Extensions/StansAssetsConfig","integrate":true,"backup":true},
+      {"path":"Assets/Plugins/StansAssets","integrate":true,"backup":true},
+      {"path":"Assets/Plugins/IOS/ISN_iAd.mm","integrate":true,"backup":true},
+      {"path":"Assets/Plugins/IOS/ISN_NSData+Base64.h","integrate":true,"backup":true},
+      {"path":"Assets/Plugins/IOS/ISN_GameCenter.mm","integrate":true,"backup":true},
+      {"path":"Assets/Plugins/IOS/ISN_NativeCore.mm","integrate":true,"backup":true},
+      {"path":"Assets/Plugins/IOS/ISN_NativeCore.h","integrate":true,"backup":true},
+      {"path":"Assets/Plugins/IOS/ISN_InApp.mm","integrate":true,"backup":true},
+      {"path":"Assets/Plugins/IOS/ISN_Media.mm","integrate":true,"backup":true},
+      {"path":"Assets/Plugins/IOS/ISN_SocialGate.mm","integrate":true,"backup":true},
+      {"path":"Assets/Plugins/IOS/ISN_Camera.mm","integrate":true,"backup":true},
+      {"path":"Assets/Plugins/IOS/ISN_NSData+Base64.m","integrate":true,"backup":true}
+    ],
+    "Symbol": "SDK_NativePlugin"
+  },
+  {
     "Name": "ChartboostSDK",
     "Description": "Chartboost",
     "Url": "https://www.chartboost.com/products/video/",

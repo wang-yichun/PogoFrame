@@ -6,6 +6,7 @@
 	using UnityEditor;
 	using Newtonsoft.Json;
 	using System.IO;
+	using System.Linq;
 
 	public partial class DetachableAssetsManagerWindow : EditorWindow
 	{
@@ -145,11 +146,12 @@
 			EditorGUILayout.EndVertical ();
 		}
 
+		string inputPath;
+
 		void multiPaths (DetachableAssetInfo info)
 		{
 			if (info.isMultiPaths && info.rootsFolded) {
 //				if (info.rootsFolded = EditorGUILayout.ToggleLeft ("项目中位置: (详细)", info.rootsFolded)) {
-				EditorGUI.indentLevel++;
 				EditorGUILayout.BeginVertical ("box");
 				for (int i = 0; i < info.AssetsPathRoots.Length; i++) {
 					EditorGUILayout.BeginHorizontal ();
@@ -160,12 +162,79 @@
 					info.AssetsPathRoots [i].backup = GUILayout.Toggle (info.AssetsPathRoots [i].backup, "备份");
 					EditorGUILayout.EndVertical ();
 					GUILayout.Label ("      " + info.AssetsPathRoots [i].path);
+					EditorGUILayout.BeginVertical (GUILayout.Width (20f));
+					if (GUILayout.Button (gizmo_del)) {
+						List<AssetsPathRootInfo> list = info.AssetsPathRoots.ToList ();
+						list.RemoveAt (i);
+						info.AssetsPathRoots = list.ToArray ();
+					}
+					EditorGUILayout.EndVertical ();
 					EditorGUILayout.EndHorizontal ();
 				}
+
+				EditorGUILayout.BeginHorizontal ();
+
+				canDragPathsLabel (info);
+				EditorGUILayout.BeginVertical (GUILayout.Width (20f));
+				if (GUILayout.Button (gizmo_add)) {
+					List<AssetsPathRootInfo> list = info.AssetsPathRoots.ToList ();
+					if (list.Exists (_ => _.path == inputPath) == false) {
+						list.Add (new AssetsPathRootInfo () {
+							path = inputPath,
+							integrate = true,
+							backup = true
+						});
+					}
+					info.AssetsPathRoots = list.ToArray ();
+				}
 				EditorGUILayout.EndVertical ();
-				EditorGUI.indentLevel--;
-//				}
+				EditorGUILayout.EndHorizontal ();
+
+
+
+
+				EditorGUILayout.EndVertical ();
 			} 
+		}
+
+		void canDragPathsLabel (DetachableAssetInfo info)
+		{
+			Rect sfxPathRect = EditorGUILayout.GetControlRect ();
+			// 用刚刚获取的文本输入框的位置和大小参数，创建一个文本输入框，用于输入特效路径
+
+			inputPath = EditorGUI.TextField (sfxPathRect, inputPath);
+
+			// 判断当前鼠标正拖拽某对象或者在拖拽的过程中松开了鼠标按键
+			// 同时还需要判断拖拽时鼠标所在位置处于文本输入框内 
+			if (sfxPathRect.Contains (Event.current.mousePosition)) {
+				// 判断是否拖拽了文件 
+				if (DragAndDrop.paths != null && DragAndDrop.paths.Length > 0) {
+					string[] sfxPath = DragAndDrop.paths;
+					// 拖拽的过程中，松开鼠标之后，拖拽操作结束，此时就可以使用获得的 sfxPath 变量了 
+					if (sfxPath != null && sfxPath.Length > 0 && Event.current.type == EventType.DragExited) {
+						DragAndDrop.AcceptDrag ();
+						// 好了，这下想用这个 sfxPath 变量干嘛就干嘛吧 
+						Debug.Log ("sfxPaths:" + JsonConvert.SerializeObject (sfxPath));
+
+						List<AssetsPathRootInfo> list = info.AssetsPathRoots.ToList ();
+
+						foreach (string path in sfxPath) {
+
+							if (list.Exists (_ => _.path == path) == false) {
+								list.Add (new AssetsPathRootInfo () {
+									path = path,
+									integrate = true,
+									backup = true
+								});
+							}
+						}
+
+						info.AssetsPathRoots = list.ToArray ();
+
+						DragAndDrop.paths = null;
+					}
+				}
+			}
 		}
 	}
 }
