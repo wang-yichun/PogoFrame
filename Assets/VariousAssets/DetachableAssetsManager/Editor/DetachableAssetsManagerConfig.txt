@@ -47,7 +47,7 @@
       {"path":"Assets/Plugins/iOS/libChartboost.a","integrate":true,"backup":true},
       {"path":"Assets/Plugins/Android/AndroidManifest.xml","integrate":false,"backup":true},
       {"path":"Assets/Plugins/Android/ChartboostSDK","integrate":true,"backup":true},
-      {"path":"Assets/Plugins/Android/play-services-basement-9.0.0.aar","integrate":false,"backup":true}
+      {"path":"Assets/Plugins/Android/play-services-basement-9.0.0.aar","integrate":true,"backup":true}
     ],
     "Symbol": "SDK_Chartboost"
   },
