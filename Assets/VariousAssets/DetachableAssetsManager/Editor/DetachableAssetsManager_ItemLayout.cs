@@ -123,26 +123,35 @@
 //					EditorGUILayout.EndVertical ();
 //					EditorGUI.indentLevel--;
 //				}
+
+				EditorGUILayout.BeginHorizontal ();
 				if (info.AssetsPathRoots == null || info.AssetsPathRoots.Length == 0) {
-
-					GUILayout.Label (string.Format ("    项目: (未定义)", info.AssetsPathRoots [0], info.AssetsPathRoots.Length));
+					GUILayout.Label (string.Format ("    项目: (未定义)"));
 				} else {
-
-					EditorGUILayout.BeginHorizontal ();
 					GUILayout.Label (string.Format ("    项目: {0}... (等{1}个位置)", info.AssetsPathRoots [0].path, info.AssetsPathRoots.Length));
-
-					EditorGUILayout.BeginVertical (GUILayout.Width (50f));
-					if (GUILayout.Button (gizmo_detail)) {
-						info.rootsFolded = !info.rootsFolded;
-					}
-					EditorGUILayout.EndVertical ();
-					EditorGUILayout.EndHorizontal ();
 				}
+				EditorGUILayout.BeginVertical (GUILayout.Width (50f));
+				if (GUILayout.Button (gizmo_detail)) {
+					info.rootsFolded = !info.rootsFolded;
+				}
+				EditorGUILayout.EndVertical ();
+				EditorGUILayout.EndHorizontal ();
 			} else {
 				GUILayout.Label ("    项目: " + info.AssetsPathRoot);
 			}
 
+			EditorGUILayout.BeginHorizontal ();
 			GUILayout.Label ("    定义: " + info.Symbol);
+			EditorGUILayout.BeginVertical (GUILayout.Width (50f));
+			if (GUILayout.Button (gizmo_cmd_c)) {
+				TextEditor t = new TextEditor ();  
+				t.content = new GUIContent (info.Symbol);  
+				t.OnFocus ();  
+				t.Copy (); 
+			}
+			EditorGUILayout.EndVertical ();
+			EditorGUILayout.EndHorizontal ();
+
 			EditorGUILayout.EndVertical ();
 		}
 

@@ -6,7 +6,7 @@
     "Version": "IOS: 8.4 | ANDROID: 7.8",
     "DevDataPathRoot": "DevData/DetachableAssets/NativePlugin",
     "isMultiPaths": true,
-    "rootsFolded": true,
+    "rootsFolded": false,
     "AssetsPathRoot": null,
     "AssetsPathRoots": [
       {"path":"Assets/extensions/IOSDeploy","integrate":true,"backup":true},
@@ -50,6 +50,18 @@
       {"path":"Assets/Plugins/Android/play-services-basement-9.0.0.aar","integrate":false,"backup":true}
     ],
     "Symbol": "SDK_Chartboost"
+  },
+  {
+    "Name": "VungleSDK",
+    "Description": "Vungle",
+    "Url": "http://vungle.com/",
+    "Version": "iOS SDK 3.2.1, Android SDK 3.3.5, Windows SDK 1.1.6",
+    "DevDataPathRoot": "DevData/DetachableAssets/VungleSDK",
+    "isMultiPaths": false,
+    "rootsFolded": true,
+    "AssetsPathRoot": "Assets/VariousSDK/VungleSDK",
+    "AssetsPathRoots": null,
+    "Symbol": "SDK_Vungle"
   },
   {
     "Name": "ChanceSDK",
