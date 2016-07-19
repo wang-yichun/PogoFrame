@@ -26,15 +26,61 @@
 			}
 		}
 
-		public void loadConfigFile ()
+		public void Init ()
 		{
 			TextAsset textAsset = Resources.Load<TextAsset> ("PogoAdsXManagerConfig");
 			List<PogoAdInfo> adList = JsonConvert.DeserializeObject<List<PogoAdInfo>> (textAsset.text);
-			Ads = adList.ToDictionary<PogoAdInfo, string> (info => info.Key);
+			Ads = new Dictionary<string, IPogoAdsXCommon> ();
 
-			Debug.Log (JsonConvert.SerializeObject (Ads, Formatting.Indented));
+			for (int i = 0; i < adList.Count; i++) {
+				PogoAdInfo info = adList [i];
+				if (info.Enable) {
+					switch (info.Key) {
+					case "UnityAds":
+						#if UNITY_ADS
+						IPogoAdsXCommon ipac = new Ad_UnityAds () {
+							IOSAppId = info.iOSValue,
+							AndroidAppId = info.androidValue,
+							ShowResultCallback = OnShowResult
+						};
+						ipac.Init ();
+						Ads.Add (info.Key, ipac);
+						#endif
+						break;
+					default:
+						break;
+					}
+				}
+			}
 		}
 
-		public Dictionary<string, PogoAdInfo> Ads;
+		public Dictionary<string, IPogoAdsXCommon> Ads;
+
+		public void OnShowResult (string key, PogoAdsxShowResult result)
+		{
+			Debug.Log (string.Format ("key: {0}, result: {1}.{2}", key, result, result.ToString ()));
+		}
+
+		/// <summary>
+		/// 广告已准备好(至少有一个)
+		/// </summary>
+		/// <returns>true</returns>
+		/// <c>false</c>
+		public string IsReady ()
+		{
+			if (Ads != null) {
+				foreach (var kvp in Ads) {
+					if (kvp.Value.IsReady ()) {
+						return kvp.Key;
+					}
+				}
+			}
+			return null;
+		}
+
+		public void Show (string key)
+		{
+			Ads [key].Show ();
+		}
 	}
 }

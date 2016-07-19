@@ -2,7 +2,7 @@
   {
     "Key": "ChanceAd",
     "Title": "畅思",
-    "Enable": true,
+    "Enable": false,
     "Params": {
       "ios_app_id": "879722473",
       "ios_placement_id": "879722473o9zqmv",
@@ -14,7 +14,7 @@
   {
     "Key": "JoyingMobi",
     "Title": "掌盈",
-    "Enable": true,
+    "Enable": false,
     "Params": {
       "ios_app_id": "1dd4a1ca564fe908",
       "publisher_id": "f5beb370b337d0c4"
@@ -24,7 +24,7 @@
   {
     "Key": "Chartboost",
     "Title": "Chartboost",
-    "Enable": true,
+    "Enable": false,
     "Params": {
       "ios_app_id": "577f78bf43150f0995988d36",
       "android_app_id": "5789ff6f04b01667a568eb6a",
@@ -46,7 +46,7 @@
   {
     "Key": "Vungle",
     "Title": "Vungle",
-    "Enable": true,
+    "Enable": false,
     "Params": {
       "ios_app_id": "578a02ad0f48d5260d000059",
       "android_app_id": "5789f6e5b903546d23000015",

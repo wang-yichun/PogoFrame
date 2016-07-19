@@ -3,7 +3,6 @@
 	using UnityEngine;
 	using System.Collections;
 	using System.Collections.Generic;
-	using UnityEditor;
 	using Newtonsoft.Json;
 
 	[JsonObject (MemberSerialization.OptIn)]

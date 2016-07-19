@@ -331,9 +331,9 @@ PlayerSettings:
   psmSplashimage: {fileID: 0}
   spritePackerPolicy: DefaultPackerPolicy
   scriptingDefineSymbols:
-    1: SDK_Chartboost
-    4: SDK_Chartboost
-    7: SDK_Chartboost
+    1: SDK_Chartboost;SDK_Vungle;SDK_CHANCEAD;SDK_JOYINGMOBI
+    4: SDK_Chartboost;SDK_Vungle;SDK_CHANCEAD;SDK_JOYINGMOBI
+    7: SDK_Chartboost;SDK_Vungle;SDK_CHANCEAD;SDK_JOYINGMOBI
   metroPackageName: PogoFrame
   metroPackageVersion: 
   metroCertificatePath: 
