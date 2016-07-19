@@ -132,7 +132,7 @@
 					GUILayout.Label (string.Format ("    项目: {0}... (等{1}个位置)", info.AssetsPathRoots [0].path, info.AssetsPathRoots.Length));
 
 					EditorGUILayout.BeginVertical (GUILayout.Width (50f));
-					if (GUILayout.Button (gizmo_enter)) {
+					if (GUILayout.Button (gizmo_detail)) {
 						info.rootsFolded = !info.rootsFolded;
 					}
 					EditorGUILayout.EndVertical ();

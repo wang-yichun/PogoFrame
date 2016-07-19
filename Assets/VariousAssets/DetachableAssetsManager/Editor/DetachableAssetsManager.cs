@@ -30,6 +30,7 @@
 		Texture2D gizmo_detached;
 		Texture2D gizmo_unready;
 		Texture2D gizmo_enter;
+		Texture2D gizmo_detail;
 		Texture2D gizmo_add;
 		Texture2D gizmo_del;
 		Texture2D gizmo_ok_nobackup;
@@ -41,6 +42,7 @@
 			gizmo_unready = AssetDatabase.LoadAssetAtPath<Texture2D> (GetSysRootPath () + "Gizmos/gizmo_unready.psd");
 			gizmo_title_banner = AssetDatabase.LoadAssetAtPath<Texture2D> (GetSysRootPath () + "Gizmos/title_banner.psd");
 			gizmo_enter = AssetDatabase.LoadAssetAtPath<Texture2D> (GetSysRootPath () + "Gizmos/gizmo_enter.psd");
+			gizmo_detail = AssetDatabase.LoadAssetAtPath<Texture2D> (GetSysRootPath () + "Gizmos/gizmo_detail.psd");
 			gizmo_ok_nobackup = AssetDatabase.LoadAssetAtPath<Texture2D> (GetSysRootPath () + "Gizmos/gizmo_ok_nobackup.psd");
 			gizmo_add = AssetDatabase.LoadAssetAtPath<Texture2D> (GetSysRootPath () + "Gizmos/gizmo_add.psd");
 			gizmo_del = AssetDatabase.LoadAssetAtPath<Texture2D> (GetSysRootPath () + "Gizmos/gizmo_del.psd");
