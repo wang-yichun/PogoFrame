@@ -91,7 +91,7 @@
 
 		List<PogoAdInfo> ConfigList;
 
-		private static readonly string ConfigFilePath = "Assets/VariousAssets/PogoAdsX/Resourcs";
+		private static readonly string ConfigFilePath = "Assets/VariousAssets/PogoAdsX/Resources";
 		private static readonly string ConfigFileName = "PogoAdsXManagerConfig.txt";
 
 		private static string ConfigFileFullPath {

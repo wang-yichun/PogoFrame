@@ -36,6 +36,14 @@
 			}
 			EditorGUILayout.EndHorizontal ();
 
+			EditorGUILayout.BeginHorizontal ();
+			if (info.SetInEditor) {
+				if (GUILayout.Button ("预设置")) {
+					PogoAdsX_PreSet.PreSet (info.Key);
+				}
+			}
+			EditorGUILayout.EndHorizontal ();
+
 			EditorGUILayout.EndVertical ();
 
 			EditorGUILayout.Space ();
