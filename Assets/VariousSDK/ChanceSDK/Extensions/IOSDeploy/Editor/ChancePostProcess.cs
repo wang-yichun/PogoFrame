@@ -15,26 +15,15 @@
 
 	using Debug = UnityEngine.Debug;
 
-	//	SystemConfiguration.framework
-	//	CFNetwork.framework
-	//	MediaPlayer.framework
-	//	libz.dylib
-	//	StoreKit.framework
-	//	CoreMotion.framework
-	//	AudioToolbox.framework
-	//	libicucore.tbd
-	//	AdSupport.framework
-	//	CoreTelephony.framework
-	//	Security.framework
-
 	public class ChancePostProcess
 	{
 		[PostProcessBuild (100)]
 		public static void OnPostprocessBuild (BuildTarget buildTarget, string path)
 		{
-			Debug.Log ("ShareSDKPostProcess began to run!!");
-
 			if (buildTarget == BuildTarget.iOS) {
+
+				Debug.Log ("ChancePostProcess began to run!!");
+
 				string projPath = PBXProject.GetPBXProjectPath (path);
 
 				PBXProject proj = new PBXProject ();
