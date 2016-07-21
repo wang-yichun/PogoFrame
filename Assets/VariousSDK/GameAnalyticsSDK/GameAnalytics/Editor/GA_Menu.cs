@@ -32,7 +32,7 @@ namespace GameAnalyticsSDK.Editor
 		{
 			if (Object.FindObjectOfType (typeof(GameAnalytics)) == null)
 			{
-				GameObject go = PrefabUtility.InstantiatePrefab(AssetDatabase.LoadAssetAtPath("Assets/GameAnalytics/Plugins/Prefabs/GameAnalytics.prefab", typeof(GameObject))) as GameObject;
+				GameObject go = PrefabUtility.InstantiatePrefab(AssetDatabase.LoadAssetAtPath("Assets/VariousSDK/GameAnalyticsSDK/GameAnalytics/Plugins/Prefabs/GameAnalytics.prefab", typeof(GameObject))) as GameObject;
 				go.name = "GameAnalytics";
 				Selection.activeObject = go;
 				Undo.RegisterCreatedObjectUndo(go, "Created GameAnalytics Object");
@@ -53,18 +53,18 @@ namespace GameAnalyticsSDK.Editor
 			string replaceText = "#if true";
 			
 			string[] _files = new string[] {
-				"/GameAnalytics/Plugins/Playmaker/SendBusinessEvent.cs",
-				"/GameAnalytics/Plugins/Playmaker/SendDesignEvent.cs",
-				"/GameAnalytics/Plugins/Playmaker/SendErrorEvent.cs",
-				"/GameAnalytics/Plugins/Playmaker/SendProgressionEvent.cs",
-				"/GameAnalytics/Plugins/Playmaker/SendResourceEvent.cs",
-				"/GameAnalytics/Plugins/Playmaker/SetBirthYear.cs",
-				"/GameAnalytics/Plugins/Playmaker/SetFacebookID.cs",
-				"/GameAnalytics/Plugins/Playmaker/SetGender.cs",
-				"/GameAnalytics/Plugins/Playmaker/SetCustomDimension.cs",
-				"/GameAnalytics/Plugins/Playmaker/Editor/SendProgressionEventActionEditor.cs",
-				"/GameAnalytics/Plugins/Playmaker/Editor/SendResourceEventActionEditor.cs",
-				"/GameAnalytics/Plugins/Playmaker/Editor/SetGenderActionEditor.cs"
+				"/VariousSDK/GameAnalyticsSDK/GameAnalytics/Plugins/Playmaker/SendBusinessEvent.cs",
+				"/VariousSDK/GameAnalyticsSDK/GameAnalytics/Plugins/Playmaker/SendDesignEvent.cs",
+				"/VariousSDK/GameAnalyticsSDK/GameAnalytics/Plugins/Playmaker/SendErrorEvent.cs",
+				"/VariousSDK/GameAnalyticsSDK/GameAnalytics/Plugins/Playmaker/SendProgressionEvent.cs",
+				"/VariousSDK/GameAnalyticsSDK/GameAnalytics/Plugins/Playmaker/SendResourceEvent.cs",
+				"/VariousSDK/GameAnalyticsSDK/GameAnalytics/Plugins/Playmaker/SetBirthYear.cs",
+				"/VariousSDK/GameAnalyticsSDK/GameAnalytics/Plugins/Playmaker/SetFacebookID.cs",
+				"/VariousSDK/GameAnalyticsSDK/GameAnalytics/Plugins/Playmaker/SetGender.cs",
+				"/VariousSDK/GameAnalyticsSDK/GameAnalytics/Plugins/Playmaker/SetCustomDimension.cs",
+				"/VariousSDK/GameAnalyticsSDK/GameAnalytics/Plugins/Playmaker/Editor/SendProgressionEventActionEditor.cs",
+				"/VariousSDK/GameAnalyticsSDK/GameAnalytics/Plugins/Playmaker/Editor/SendResourceEventActionEditor.cs",
+				"/VariousSDK/GameAnalyticsSDK/GameAnalytics/Plugins/Playmaker/Editor/SetGenderActionEditor.cs"
 			};
 			
 			foreach(string _file in _files)

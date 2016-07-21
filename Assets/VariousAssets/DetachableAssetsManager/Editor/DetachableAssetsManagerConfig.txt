@@ -141,7 +141,7 @@
     "Name": "GameAnalyticsSDK",
     "Description": "GameAnalytics",
     "Url": "http://www.gameanalytics.com/",
-    "Version": "Unity SDK v.3.4.3",
+    "Version": "Unity SDK v.3.5.0",
     "DevDataPathRoot": "DevData/DetachableAssets/GameAnalyticsSDK",
     "isMultiPaths": false,
     "rootsFolded": false,
