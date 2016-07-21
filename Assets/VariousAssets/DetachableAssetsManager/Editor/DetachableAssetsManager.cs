@@ -57,6 +57,17 @@
 
 		Vector2 scrollPos;
 
+		GUIStyle GetBlueTextStyle ()
+		{
+			GUIStyle s = new GUIStyle ();
+			s.padding = new RectOffset (5, 5, 2, 2);
+			s.alignment = TextAnchor.MiddleCenter;
+			s.normal = new GUIStyleState () {
+				textColor = Color.blue
+			};
+			return s;
+		}
+
 		void OnGUI ()
 		{
 			if (ConfigList == null) {
@@ -68,9 +79,15 @@
 			GUILayout.Space (50f);
 
 			EditorGUILayout.BeginHorizontal (GUILayout.Width (100f));
-			if (GUILayout.Button ("Config文件")) {
+			if (GUILayout.Button ("Config文件", GetBlueTextStyle ())) {
 				UnityEditorInternal.InternalEditorUtility.OpenFileAtLineExternal (ConfigFileFullPath, 1);
 			}
+
+			bool click = GUILayout.Button ("处理Android的jar包冲突", GetBlueTextStyle ());
+			if (click) {
+				Application.OpenURL ("http://leanote.com/blog/post/578c40561f10011abc000004");
+			}
+
 			EditorGUILayout.EndHorizontal ();
 
 			scrollPos = EditorGUILayout.BeginScrollView (scrollPos);
