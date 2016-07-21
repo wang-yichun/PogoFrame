@@ -3,7 +3,7 @@
     "Name": "NativePlugin",
     "Description": "IOS/Android Native Plugin",
     "Url": "https://stansassets.com/",
-    "Version": "IOS: 8.4 | ANDROID: 7.8",
+    "Version": "IOS: 8.5 | ANDROID: 7.8",
     "DevDataPathRoot": "DevData/DetachableAssets/NativePlugin",
     "isMultiPaths": true,
     "rootsFolded": false,
