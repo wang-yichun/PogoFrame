@@ -12,11 +12,12 @@
 extern "C"
 {
     void init();
+    
+    void chance_init(char * publisherId, char * placementId);
+    
     void playVideoAD();
     void loadCSVideoAD();
-    void publisherID(char* publisherID);
     void queryVideoAD();
-    //void unitySendMessage(const char* obj, const char* method, const char* msg);
 }
 
 #endif /* ChanceAdVideo_h */

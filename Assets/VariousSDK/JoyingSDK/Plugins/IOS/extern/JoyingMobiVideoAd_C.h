@@ -13,7 +13,7 @@
 extern "C"
 {
     
-    void init();
+    void joying_init();
     void initAppID(char* appId, char* appKey);
     void videoHasCanPlayVideo();
     void videoPlay_FullScreen();

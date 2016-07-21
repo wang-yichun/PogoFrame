@@ -8,6 +8,7 @@
 	using System.IO;
 	using UniRx;
 	using System.Linq;
+	using System;
 
 	public partial class PogoAdsXManager : EditorWindow
 	{
@@ -15,7 +16,7 @@
 		static void AddWindow ()
 		{
 			//创建窗口
-			Rect rect = new Rect (0, 0, 700, 600);
+			Rect rect = new Rect (0, 0, 600, 600);
 			PogoAdsXManager window = (PogoAdsXManager)EditorWindow.GetWindowWithRect (
 				                         typeof(PogoAdsXManager),
 				                         rect,
@@ -64,7 +65,7 @@
 				loadConfig ();
 			}
 
-			GUI.DrawTexture (new Rect (0f, 0f, 700f, 74f), gizmo_title_banner);
+			GUI.DrawTexture (new Rect (0f, 0f, 600, 74f), gizmo_title_banner);
 			GUILayout.Space (50f);
 
 			EditorGUILayout.BeginHorizontal (GUILayout.Width (100f));
@@ -74,13 +75,12 @@
 			EditorGUILayout.EndHorizontal ();
 //
 			scrollPos = EditorGUILayout.BeginScrollView (scrollPos);
+
 			for (int i = 0; i < ConfigList.Count; i++) {
 				var info = ConfigList [i];
 				InfoItemLayout (info);
 			}
 			EditorGUILayout.EndScrollView ();
-//
-//
 
 			if (GUI.changed) {
 				saveConfig ();
@@ -89,7 +89,7 @@
 
 		#region config file
 
-		List<PogoAdInfo> ConfigList;
+		public List<PogoAdInfo> ConfigList;
 
 		private static readonly string ConfigFilePath = "Assets/VariousAssets/PogoAdsX/Resources";
 		private static readonly string ConfigFileName = "PogoAdsXManagerConfig.txt";
@@ -128,7 +128,6 @@
 		}
 
 		#endregion
-
 
 	}
 }

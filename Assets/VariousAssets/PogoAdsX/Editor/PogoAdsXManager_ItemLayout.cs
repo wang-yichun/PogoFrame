@@ -8,6 +8,7 @@
 	using System.IO;
 	using UniRx;
 	using System.Linq;
+	using System;
 
 	public partial class PogoAdsXManager : EditorWindow
 	{
@@ -24,6 +25,14 @@
 			} else {
 				GUILayout.Label (gizmo_disabled);
 			}
+
+			EditorGUILayout.BeginHorizontal ();
+			if (info.HasTest) {
+				info.IsTest = GUILayout.Toggle (info.IsTest, "测试模式");
+			}
+
+			EditorGUILayout.EndHorizontal ();
+
 			EditorGUILayout.BeginHorizontal ();
 			if (info.Enable) {
 				if (GUILayout.Button ("禁用")) {
@@ -59,7 +68,7 @@
 
 		void fixedInfoContent (PogoAdInfo info)
 		{
-			float total_width = 550f;
+			float total_width = 460f;
 			EditorGUILayout.BeginVertical (GUILayout.Width (total_width));
 
 			string title = string.Format ("{0} - ({1})", info.Key, info.Title);
@@ -71,11 +80,18 @@
 
 			foreach (var kvp in info.Params) {
 				EditorGUILayout.BeginHorizontal ();
+
+//				if (kvp.Key == "order") {
+//					int ori_value = Convert.ToInt32 (kvp.Value);
+//					int value = EditorGUILayout.DelayedIntField (kvp.Key, ori_value, GUILayout.ExpandWidth (true));
+//					info.Params [kvp.Key] = value.ToString ();
+//				} else {
 				string value = EditorGUILayout.DelayedTextField (kvp.Key, kvp.Value, GUILayout.ExpandWidth (true));
 				if (value != kvp.Value) {
 					info.Params [kvp.Key] = value;
 					break;
 				}
+//				}
 				EditorGUILayout.EndHorizontal ();
 			}
 

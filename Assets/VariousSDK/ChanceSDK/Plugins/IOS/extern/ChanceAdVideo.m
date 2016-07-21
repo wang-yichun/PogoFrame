@@ -11,7 +11,8 @@
 #import "ChanceAd.h"
 //#import "CSInterstitial.h"
 #import "CSVideoAD.h"
-#import "UnityInterface.h"
+//#import "UnityInterface.h"
+#import "CSSplashAd.h"
 
 
 @interface ChanceAdVideo : NSObject<CSVideoADDelegate>
@@ -45,23 +46,23 @@
 // 视频广告请求成功
 - (void)csVideoADRequestVideoADSuccess:(CSVideoAD *)csVideoAD
 {
-   // NSLog(@"----------%s", __PRETTY_FUNCTION__);
-     UnitySendMessage("Chance_Utility","VideoHasCanPlayVideo_Callback","yes");
+    NSLog(@"----------%s", __PRETTY_FUNCTION__);
+//     UnitySendMessage("Chance_Utility","VideoHasCanPlayVideo_Callback","yes");
 }
 
 // 视频广告请求失败
 - (void)csVideoAD:(CSVideoAD *)csVideoAD requestVideoADError:(CSError *)csError
 {
-   // NSLog(@"----------%s  %@", __PRETTY_FUNCTION__, csError.localizedDescription);
-    UnitySendMessage("Chance_Utility","VideoHasCanPlayVideo_Callback","no");
+    NSLog(@"----------%s  %@", __PRETTY_FUNCTION__, csError.localizedDescription);
+//    UnitySendMessage("Chance_Utility","VideoHasCanPlayVideo_Callback","no");
 }
 
 // 视频文件准备好了（注：不可以在这里播放视频广告）
 // isCache为YES表示视频文件为缓存
 - (void)csVideoAD:(CSVideoAD *)csVideoAD videoFileIsReady:(BOOL)isCache
 {
-    if ( isCache==YES) {
-           UnitySendMessage("Chance_Utility","VideoLoadPlayVideo_Callback","yes");
+    if (isCache==YES) {
+        UnitySendMessage("Chance_Utility","VideoLoadPlayVideo_Callback","yes");
     }
     else{
         UnitySendMessage("Chance_Utility","VideoLoadPlayVideo_Callback","no");
@@ -80,7 +81,7 @@
 // 视频广告被取消播放
 - (void)csVideoADCancelPlayVideo:(CSVideoAD *)csVideoAD
 {
-    UnitySendMessage("Joying_Utility", "VideoPlay_Callback_isCompletePlay", "no");
+    UnitySendMessage("Chance_Utility", "VideoPlay_Callback_isCompletePlay", "no");
 }
 
 // 视频广告展现失败
@@ -99,7 +100,7 @@
 - (void)csVideoAD:(CSVideoAD *)csVideoAD clickCloseButtonAndWillClose:(BOOL)close
 {
     if(close){
-           UnitySendMessage("Joying_Utility", "VideoPlay_Callback_isCompletePlay", "no");
+        UnitySendMessage("Chance_Utility", "VideoPlay_Callback_isCompletePlay", "no");
     }
 
 }
@@ -113,10 +114,10 @@
 // 视频广告播放完成（广告不会自动关闭）（real为NO表示播放中点击关闭按钮触发的播放完成）
 - (void)csVideoAD:(CSVideoAD *)csVideoAD replayVideoAD:(BOOL)replay realFinished:(BOOL)real
 {
-    if(real==NO){
-     UnitySendMessage("Joying_Utility", "VideoPlay_Callback_isCompletePlay", "yes");
-    }else{
-     UnitySendMessage("Joying_Utility", "VideoPlay_Callback_isCompletePlay", "no");
+    if (real == YES){
+        UnitySendMessage("Chance_Utility", "VideoPlay_Callback_isCompletePlay", "yes");
+    } else {
+        UnitySendMessage("Chance_Utility", "VideoPlay_Callback_isCompletePlay", "no");
     }
 }
 
@@ -132,28 +133,36 @@ ChanceAdVideo *m_ChanceAdVideo = NULL;
 #if defined(_cplusplus)
 extern "C"{
 #endif
-   // extern void UnitySendMessage(const char* obj, const char* method, const char* msg);
+    
+    extern void UnitySendMessage(const char* obj, const char* method, const char* msg);
     
     void init () {
         if (m_ChanceAdVideo == NULL) {
             m_ChanceAdVideo = [[ChanceAdVideo alloc] init];
         }
-              NSLog(@"NSLog: init");
+        NSLog(@"NSLog: init");
     }
+    
+    void chance_init(char * publisherId, char * placementId) {
+        
+        [ChanceAd startSession:[NSString stringWithUTF8String:publisherId]];
+        
+        [CSSplashAd sharedInstance].placementID = [NSString stringWithUTF8String:placementId];
+        
+        [[CSSplashAd sharedInstance] showSplashInWindow: [[UIApplication sharedApplication] keyWindow]];
+        
+        [CSVideoAD sharedInstance].delegate = m_ChanceAdVideo;
+    }
+    
     void queryVideoAD(){
-          [[CSVideoAD sharedInstance] queryVideoAD];
+        [[CSVideoAD sharedInstance] queryVideoAD];
     }
-    void publisherID(char* publisherID){
-         NSString* PublisherID_str = [NSString stringWithUTF8String:publisherID];
-        [ChanceAd startSession: PublisherID_str];
-    }
-  //  void unitySendMessage(const char* obj, const char* method, const char* msg){
-     //   UnitySendMessage(obj,method,msg);
- //   };
+    
     void loadCSVideoAD(){
         [[CSVideoAD sharedInstance] loadVideoADWithOrientation:true
                                       andDownloadVideoOnlyWifi:true];
     }
+    
     void playVideoAD(){
         // 请求视频广告
         [CSVideoAD sharedInstance].rewardVideo = YES;

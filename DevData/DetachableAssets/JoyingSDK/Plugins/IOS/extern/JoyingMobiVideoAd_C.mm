@@ -31,7 +31,7 @@ extern "C"
 {
     extern void UnitySendMessage(const char* obj, const char* method, const char* msg);
     
-    void init () {
+    void joying_init () {
         if (m_JoyingMobiVideo_C == NULL) {
             m_JoyingMobiVideo_C = [[JoyingMobiVideoAd_C alloc] init];
         }

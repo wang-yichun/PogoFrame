@@ -4,6 +4,7 @@
 	using System.Collections;
 	using System.Collections.Generic;
 	using Newtonsoft.Json;
+	using System;
 
 	[JsonObject (MemberSerialization.OptIn)]
 	public class PogoAdInfo
@@ -21,6 +22,10 @@
 		public Dictionary<string, string> Params;
 		[JsonProperty]
 		public bool SetInEditor;
+		[JsonProperty]
+		public bool HasTest;
+		[JsonProperty]
+		public bool IsTest;
 
 		public PogoAdInfo ()
 		{

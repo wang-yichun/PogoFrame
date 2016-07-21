@@ -36,6 +36,8 @@ namespace pogorock.Joying
 		#region delegate
 
 		public delegate void VideoPlayCallback_IsFinishPlay (bool isFinishPlay);
+		public delegate void VideoPlayCallback_HasCanPlay (bool HasCanPlay);
+		public static event VideoPlayCallback_HasCanPlay OnVideoPlayCallback_HasCanPlay;
 
 		public delegate void VideoPlayCallback_IsLegal (bool isLegal);
 
@@ -65,12 +67,13 @@ namespace pogorock.Joying
 		{
 			#if (UNITY_IPHONE && !UNITY_EDITOR) || SA_DEBUG_MODE
 			Debug.Log ("Joying_Utility InitAppID.");
-			initAppID (appId, appKey);
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     			initAppID (appId, appKey);
 			#endif
 		}
 
 		public void VideoHasCanPlayVideo ()
 		{
+			
 			#if (UNITY_IPHONE && !UNITY_EDITOR) || SA_DEBUG_MODE
 			videoHasCanPlayVideo ();
 			#endif
@@ -80,6 +83,13 @@ namespace pogorock.Joying
 		{
 			#if (UNITY_IPHONE && !UNITY_EDITOR) || SA_DEBUG_MODE
 			Debug.Log ("videoHasCanPlayVideo_Callback: " + idStr);
+			if(OnVideoPlayCallback_HasCanPlay!=null){
+				if(!string.IsNullOrEmpty(idStr)){
+					OnVideoPlayCallback_HasCanPlay.Invoke(true);
+				}else{
+					OnVideoPlayCallback_HasCanPlay.Invoke(false);
+				}
+			}
 			#endif
 		}
 
