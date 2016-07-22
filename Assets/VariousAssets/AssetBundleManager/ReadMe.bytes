@@ -28,6 +28,8 @@ Version 1.1
     - Target Standalone 资源包的区分平台版本
     - Target IOS 资源包的区分平台版本
     - Target Android 资源包的区分平台版本
+    - Filter Mode 过滤模式:忽略(全部都打包), OPT_IN选择性加入, OPT_OUT选择性剔除
+    - Filter 过滤列表(资源路径的前部匹配)
   - "发布 AssetBundles !!" 按钮
     - 将按照列表的设置项打包/复制资源包
 

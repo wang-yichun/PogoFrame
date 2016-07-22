@@ -153,7 +153,11 @@
 					}
 				}
 
-				BuildAssetBundle (url_id, outputPath, buildTarget);
+				if (url.FilterMode == ExportFilterMode.IGNORE) {
+					BuildAssetBundle (url_id, outputPath, buildTarget);
+				} else {
+					BuildAssetBundleWithFilter (url_id, outputPath, buildTarget, url.FilterMode, url.PathFilters);
+				}
 				first_outputpath = outputPath;
 			}
 			return true;
@@ -199,7 +203,7 @@
 			if (!Directory.Exists (outputPath))
 				Directory.CreateDirectory (outputPath);
 
-				BuildPipeline.BuildAssetBundles (outputPath, BuildAssetBundleOptions.None, buildTarget);
+			BuildPipeline.BuildAssetBundles (outputPath, BuildAssetBundleOptions.None, buildTarget);
 		}
 
 		public override void OnInspectorGUI ()

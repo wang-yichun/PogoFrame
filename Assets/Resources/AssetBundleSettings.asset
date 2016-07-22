@@ -48,3 +48,6 @@ MonoBehaviour:
     targetStandalone: 1
     targetIOS: 0
     targetAndroid: 0
+    FilterMode: 1
+    PathFilters:
+    - Assets/OriginAssets

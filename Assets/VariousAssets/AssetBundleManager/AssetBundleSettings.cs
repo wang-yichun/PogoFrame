@@ -60,19 +60,19 @@
 		{
 			if (url.IsLocal) {
 				string full_url = string.Format (
-					"{0}/{1}/{2}/",
-					AssetBundleManager.GetStreamingAssetsPath (),
-					Utility.GetPlatformName (),
-					url.UrlId
-				);
+					                  "{0}/{1}/{2}/",
+					                  AssetBundleManager.GetStreamingAssetsPath (),
+					                  Utility.GetPlatformName (),
+					                  url.UrlId
+				                  );
 				AssetBundleManager.SetBaseDownloadingURL (url.UrlId, full_url);
 			} else {
 				string full_url = string.Format (
-					"{0}/{1}/{2}/",
-					url.Url,
-					Utility.GetPlatformName (),
-					url.UrlId
-				);
+					                  "{0}/{1}/{2}/",
+					                  url.Url,
+					                  Utility.GetPlatformName (),
+					                  url.UrlId
+				                  );
 				AssetBundleManager.SetBaseDownloadingURL (url.UrlId, full_url);
 			}
 		}
@@ -106,5 +106,16 @@
 		public bool targetStandalone;
 		public bool targetIOS;
 		public bool targetAndroid;
+
+		[Space (10)]
+		public ExportFilterMode FilterMode;
+		public List<string> PathFilters;
+	}
+
+	public enum ExportFilterMode
+	{
+		IGNORE,
+		OPT_IN,
+		OPT_OUT
 	}
 }
