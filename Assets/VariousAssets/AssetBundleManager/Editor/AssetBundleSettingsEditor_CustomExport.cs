@@ -79,8 +79,7 @@
 						if (selected) {
 							names.Add (name);
 						}
-					}
-						
+					}	
 				}
 				if (names.Count > 0) {
 					assetBundleBuild.assetNames = names.ToArray ();

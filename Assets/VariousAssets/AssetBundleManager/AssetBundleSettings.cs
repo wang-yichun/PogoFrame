@@ -116,6 +116,7 @@
 	{
 		IGNORE,
 		OPT_IN,
-		OPT_OUT
+		OPT_OUT,
+		NONE
 	}
 }

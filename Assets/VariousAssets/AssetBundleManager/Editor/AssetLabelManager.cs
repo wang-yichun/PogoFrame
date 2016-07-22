@@ -15,7 +15,7 @@
 		public static void AddWindow ()
 		{
 			//创建窗口
-			Rect rect = new Rect (0, 0, 500, 800);
+			Rect rect = new Rect (0, 0, 700f, 800);
 			AssetLabelManager window = (AssetLabelManager)EditorWindow.GetWindowWithRect (
 				                           typeof(AssetLabelManager),
 				                           rect,
@@ -32,7 +32,10 @@
 		{
 			assetBundleNames = AssetDatabase.GetAllAssetBundleNames ();
 			this.assetsDic = null;
+			pathFilters = null;
+			filterMode = ExportFilterMode.NONE;
 		}
+
 
 		private static AssetLabelManager instance;
 
@@ -59,18 +62,68 @@
 		public string[] assetBundleNames;
 		public Dictionary<string,string[]> assetsDic;
 
+		public static List<string> pathFilters;
+		public static ExportFilterMode filterMode;
+		public static string urlId;
+
+		bool selected_in_export_panel (string assetPath)
+		{
+			string name = assetPath;
+
+			if (filterMode == ExportFilterMode.OPT_IN) {
+				foreach (var filter in pathFilters) {
+					if (name.StartsWith (filter)) {
+						return true;
+					}
+				}
+			} else if (filterMode == ExportFilterMode.OPT_OUT) {
+				bool selected = true;
+				foreach (var filter in pathFilters) {
+					if (name.StartsWith (filter)) {
+						selected = false;
+					}
+				}
+				if (selected) {
+					return true;
+				}
+			} else if (filterMode == ExportFilterMode.IGNORE) {
+				return true;
+			}
+			return false;
+		}
+
+		void ExpendAll ()
+		{
+			assetsDic = new Dictionary<string, string[]> ();
+
+			for (int i = 0; i < assetBundleNames.Length; i++) {
+				string assetBundleName = assetBundleNames [i];
+				string[] assetPaths = AssetDatabase.GetAssetPathsFromAssetBundle (assetBundleName);
+				assetsDic.Add (assetBundleName, assetPaths);
+			}
+		}
+
 		void OnGUI ()
 		{
-			GUI.DrawTexture (new Rect (0f, 0f, 500f, 74f), gizmo_title_banner);
+			GUI.DrawTexture (new Rect (0f, 0f, 700f, 74f), gizmo_title_banner);
 			GUILayout.Space (60f);
 			scrollPosition = EditorGUILayout.BeginScrollView (scrollPosition);
 			EditorGUILayout.BeginVertical ("box");
 			if (GUILayout.Button ("刷新")) {
 				Init ();
 			}
+			if (GUILayout.Button ("查看所有")) {
+				ExpendAll ();
+			}
+
+			if (filterMode != ExportFilterMode.NONE && string.IsNullOrEmpty (urlId) == false) {
+				GUILayout.Label (string.Format ("蓝色部分是 UrlId 为 {0} 的资源.", urlId), GetAssetBundleNameStyle (Color.blue)); 
+			}
 
 			GUIStyle s = GetAssetBundleNameStyle (Color.black);
+
 			GUIStyle s2 = GetAssetNameStyle (Color.black);
+			GUIStyle s2_blue = GetAssetBundleNameStyle (Color.blue);
 
 			if (assetBundleNames != null) {
 				for (int i = 0; i < assetBundleNames.Length; i++) {
@@ -85,8 +138,6 @@
 						abn_preStr = "- ";
 					}
 					if (GUILayout.Button (abn_preStr + assetBundleName, s)) {
-
-
 						if (assetsDic.ContainsKey (assetBundleName)) {
 							assetsDic.Remove (assetBundleName);
 						} else {
@@ -103,7 +154,8 @@
 							if (j == assetPaths.Length - 1) {
 								preStr = "    └  ";
 							}
-							if (GUILayout.Button (preStr + assetPath, s2)) {
+							GUIStyle style = selected_in_export_panel (assetPath) ? s2_blue : s2;
+							if (GUILayout.Button (preStr + assetPath, style)) {
 								var asset = AssetDatabase.LoadAssetAtPath<UnityEngine.Object> (assetPath);
 								Selection.activeObject = asset;
 							}

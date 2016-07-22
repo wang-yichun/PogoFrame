@@ -70,8 +70,22 @@
 			exportList.drawHeaderCallback = (Rect rect) => {
 				GUI.Label (rect, "向以下 url 发布资源");
 			};
-
+			exportList.onSelectCallback = OnSelectCallback_Export;
 			Instance = this;
+		}
+
+		void OnSelectCallback_Export (ReorderableList list)
+		{
+			int[] selected_idxs = list.Selected;
+			AssetBundleSettings settings = target as AssetBundleSettings;
+			if (selected_idxs.Length == 1) {
+				int selected_idx = selected_idxs [0];
+				AssetBundleUrl_Export url = settings.exportUrls [selected_idx];
+
+				AssetLabelManager.filterMode = url.FilterMode;
+				AssetLabelManager.pathFilters = url.PathFilters;
+				AssetLabelManager.urlId = url.UrlId;
+			}
 		}
 
 		private string ftp_url_pattern = @"ftp://([\s\S]*?)(:(\d+))?/([^\|]*)(\|([^\|]+))?(\|([^\|/]+))?";
@@ -156,7 +170,7 @@
 					}
 				}
 
-				if (url.FilterMode == ExportFilterMode.IGNORE) {
+				if (url.FilterMode == ExportFilterMode.IGNORE || url.FilterMode == ExportFilterMode.NONE) {
 					BuildAssetBundle (url_id, outputPath, buildTarget);
 				} else {
 					BuildAssetBundleWithFilter (url_id, outputPath, buildTarget, url.FilterMode, url.PathFilters);
