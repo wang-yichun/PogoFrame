@@ -12,6 +12,9 @@
 	using UniRx;
 	using System.Net;
 	using System.Net.Sockets;
+	using System.Collections;
+	using System.Collections.Generic;
+	using Newtonsoft.Json;
 
 	[CustomEditor (typeof(AssetBundleSettings))]
 	public partial class AssetBundleSettingsEditor : Editor
@@ -241,6 +244,8 @@
 			WarningUniqueUrlId ();
 		}
 
+		Vector2 scrollPosition;
+
 		public void ExportHandle ()
 		{
 			if (GUILayout.Button ("发布 AssetBundles !!")) {
@@ -252,17 +257,15 @@
 			exportList.DoLayoutList ();
 
 			EditorGUILayout.Space ();
-			EditorGUILayout.BeginVertical ("box");
-			if (GUILayout.Button ("Get AssetBundle names")) {
-				var names = AssetDatabase.GetAllAssetBundleNames ();
-				foreach (var name in names)
-					Debug.Log ("AssetBundle: " + name);
+
+			if (GUILayout.Button ("打开 Asset Labels Manager")) {
+				AssetLabelManager.AddWindow ();
 			}
-			if (GUILayout.Button ("Custom Export Experimental")) {
-				CustomExport ();
-			}
-			EditorGUILayout.EndVertical ();
+
 		}
+
+		public string[] assetBundleNames;
+		public Dictionary<string,string[]> assetsDic;
 
 		private StringBuilder sb;
 
@@ -312,6 +315,7 @@
 			};
 			return s;
 		}
+
 	}
 
 }
