@@ -38,8 +38,6 @@
 				gizmo_enable = AssetDatabase.LoadAssetAtPath<Texture2D> (root_path + "Gizmos/gizmo_enable.psd");
 				gizmo_disable = AssetDatabase.LoadAssetAtPath<Texture2D> (root_path + "Gizmos/gizmo_disable.psd");
 				gizmo_local = AssetDatabase.LoadAssetAtPath<Texture2D> (root_path + "Gizmos/gizmo_local.psd");
-
-				readme = AssetDatabase.LoadAssetAtPath<TextAsset> (root_path + "Editor/ReadMe.bytes");
 			}
 		}
 
@@ -201,7 +199,7 @@
 			if (!Directory.Exists (outputPath))
 				Directory.CreateDirectory (outputPath);
 
-			BuildPipeline.BuildAssetBundles (outputPath, BuildAssetBundleOptions.None, buildTarget);
+				BuildPipeline.BuildAssetBundles (outputPath, BuildAssetBundleOptions.None, buildTarget);
 		}
 
 		public override void OnInspectorGUI ()
@@ -248,6 +246,18 @@
 				});
 			}
 			exportList.DoLayoutList ();
+
+			EditorGUILayout.Space ();
+			EditorGUILayout.BeginVertical ("box");
+			if (GUILayout.Button ("Get AssetBundle names")) {
+				var names = AssetDatabase.GetAllAssetBundleNames ();
+				foreach (var name in names)
+					Debug.Log ("AssetBundle: " + name);
+			}
+			if (GUILayout.Button ("Custom Export Experimental")) {
+				CustomExport ();
+			}
+			EditorGUILayout.EndVertical ();
 		}
 
 		private StringBuilder sb;
@@ -286,6 +296,17 @@
 				}
 			}
 			return localIP;
+		}
+
+		GUIStyle GetBlueTextStyle ()
+		{
+			GUIStyle s = new GUIStyle ();
+			s.padding = new RectOffset (5, 5, 2, 2);
+			s.alignment = TextAnchor.MiddleCenter;
+			s.normal = new GUIStyleState () {
+				textColor = Color.blue
+			};
+			return s;
 		}
 	}
 

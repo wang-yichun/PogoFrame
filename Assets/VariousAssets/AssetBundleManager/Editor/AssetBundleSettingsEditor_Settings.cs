@@ -8,14 +8,15 @@
 	using System;
 	using System.IO;
 	using System.Text;
+	using UniRx;
 
 	public partial class AssetBundleSettingsEditor : Editor
 	{
 		public string default_absc_filename = "asset_bundle_settings";
 
-		public static TextAsset readme;
-
 		StringBuilder httpServerInfoText = new StringBuilder ();
+
+		bool importOverride = false;
 
 		public void SettingHandle ()
 		{
@@ -23,11 +24,16 @@
 
 			EditorGUILayout.Space ();
 
-			EditorGUILayout.HelpBox (readme.text, MessageType.None, true);
+//			EditorGUILayout.HelpBox (readme.text, MessageType.None, true);
+			if (GUILayout.Button ("ReadMe.txt", GetBlueTextStyle ())) {
+				UnityEditorInternal.InternalEditorUtility.OpenFileAtLineExternal (GetSysRootPath () + "ReadMe.bytes", 1);
+			}
 
 			EditorGUILayout.Space ();
 			EditorGUILayout.BeginVertical ("box");
-			if (GUILayout.Button ("Save to .config files ...")) {
+			GUILayout.Label ("导入导出数据: ");
+
+			if (GUILayout.Button ("Export configs ...")) {
 				string path = EditorUtility.SaveFilePanel ("Save", Application.dataPath, default_absc_filename, "config");
 				if (string.IsNullOrEmpty (path) == false) {
 					using (FileStream fs = new FileStream (@"" + path, FileMode.CreateNew)) {
@@ -36,11 +42,14 @@
 						sw.Write (json_str);
 						sw.Close ();
 					}
-
 				}
 			}
 
-			if (GUILayout.Button ("Load from configs files ...")) {
+
+			EditorGUILayout.BeginHorizontal ();
+			importOverride = GUILayout.Toggle (importOverride, "覆盖", GUILayout.Width (50f));
+
+			if (GUILayout.Button ("Import configs ...")) {
 
 				string path = EditorUtility.OpenFilePanelWithFilters ("Load", Application.dataPath, new string[] {
 					"AssetBundleSettings Config",
@@ -52,11 +61,19 @@
 						string json_str = sr.ReadToEnd ();
 						sr.Close ();
 						AssetBundleSettings tempSettings = JsonConvert.DeserializeObject<AssetBundleSettings> (json_str);
-						settings.loadingUrls = tempSettings.loadingUrls;
-						settings.exportUrls = tempSettings.exportUrls;
+						if (importOverride) {
+							settings.loadingUrls = tempSettings.loadingUrls;
+							settings.exportUrls = tempSettings.exportUrls;
+						} else {
+							settings.loadingUrls.AddRange (tempSettings.loadingUrls);
+							settings.exportUrls.AddRange (tempSettings.exportUrls);
+						}
+
+						AssetDatabase.Refresh ();
 					}
 				}
 			}
+			EditorGUILayout.EndHorizontal ();
 
 			EditorGUILayout.EndVertical ();
 
