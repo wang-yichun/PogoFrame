@@ -23,7 +23,7 @@ MonoBehaviour:
     Title: Local HTTP(Auto Set)
     IsLocal: 0
     Simulation: 0
-    Url: http://192.168.199.215:7888/
+    Url: http://192.168.199.215:7888
   - Enable: 0
     UrlId: asset1
     Title: Local FTP(Auto Set)

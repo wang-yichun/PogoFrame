@@ -165,6 +165,8 @@ namespace pogorock
 				Formatting.Indented
 			));
 
+			DecryptAssetBundle.Init (full_url, true);
+
 //			GetWWW (full_url).Subscribe (_ => {
 //				Debug.Log (AssetBundleSettings.logPrefix + "GetWWW over!!");
 //			});
@@ -181,12 +183,12 @@ namespace pogorock
 //				Debug.Log (AssetBundleSettings.logPrefix + "ab_name: " + ab.name);
 //			});
 
-			ObservableWWW.LoadFromCacheOrDownload (full_url, 0).Subscribe (ab => {
-				Debug.Log (AssetBundleSettings.logPrefix + "LoadFromCacheOrDownload: " + ab.name); 
-			});
+//			ObservableWWW.LoadFromCacheOrDownload (full_url, 0).Subscribe (ab => {
+//				Debug.Log (AssetBundleSettings.logPrefix + "LoadFromCacheOrDownload: " + ab.name); 
+//			});
 
 		}
-		//
+
 		//		public static IObservable<WWW> LoadFromCacheOrDownload (string url, UniRx.IProgress<float> progress = null)
 		//		{
 		//			return Observable.FromCoroutine<WWW> ((observer, cancellation) => LoadFromCacheOrDownloadCore (WWW.LoadFromCacheOrDownload (url, 1), observer, progress, cancellation));
