@@ -28,9 +28,7 @@ namespace pogorock
 			assetURL = EditorGUILayout.TextField ("Asset bundle URL: ", assetURL);
 
 			GUILayout.BeginHorizontal ();
-			if (GUILayout.Button ("Reload")) {
-				load (assetURL);
-			}
+
 			GUILayout.EndHorizontal ();
 		}
 
@@ -39,7 +37,7 @@ namespace pogorock
 			ContinuationManager.Clear ();
 		}
 
-		private  void load (string s)
+		private void load (string s)
 		{
 			www = new WWW (s);
 
