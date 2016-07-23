@@ -92,11 +92,13 @@
 		{
 			Debug.Log ("UploadFiles: " + localFile + " -> " + remoteFile);
 
-			using ( 
-				Stream istream = new FileStream (localFile, FileMode.Open, FileAccess.Read),
-				ostream = client.OpenWrite (remoteFile, FtpDataType.ASCII)) {
+			using (Stream istream = new FileStream (localFile, FileMode.Open, FileAccess.Read)) {
+				m_reset.Reset ();
+				client.BeginOpenWrite (remoteFile, OpenWriteCallback, client);
+				m_reset.WaitOne ();
 
 				byte[] buf = new byte[8192];
+				
 				int read = 0;
 
 				try {
@@ -111,6 +113,28 @@
 				if (client.HashAlgorithms != FtpHashAlgorithm.NONE) {
 					Debug.Assert (client.GetHash (remoteFile).Verify (localFile), "The computed hashes don't match!");
 				}
+
+				ostream.Dispose ();
+				ostream = null;
+			}
+		}
+
+		static Stream ostream;
+
+		static void OpenWriteCallback (IAsyncResult ar)
+		{
+
+			FtpClient conn = ar.AsyncState as FtpClient;
+
+			try {
+				if (conn == null)
+					throw new InvalidOperationException ("The FtpControlConnection object is null!");
+
+				ostream = conn.EndOpenWrite (ar);
+			} catch (Exception ex) {
+				Console.WriteLine (ex.ToString ());
+			} finally {
+				m_reset.Set ();
 			}
 		}
 	}
