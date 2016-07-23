@@ -177,42 +177,47 @@ namespace pogorock
 //			}, ex => {
 //				Debug.LogException (ex);
 //			});
-			ObservableWWW.LoadFromCacheOrDownload (full_url, 1).Subscribe (ab => {
-				Debug.Log (AssetBundleSettings.logPrefix + "ab_name: " + ab.name);
+//			ObservableWWW.LoadFromCacheOrDownload (full_url, 1).Subscribe (ab => {
+//				Debug.Log (AssetBundleSettings.logPrefix + "ab_name: " + ab.name);
+//			});
+
+			ObservableWWW.LoadFromCacheOrDownload (full_url, 0).Subscribe (ab => {
+				Debug.Log (AssetBundleSettings.logPrefix + "LoadFromCacheOrDownload: " + ab.name); 
 			});
+
 		}
-
-		public static IObservable<WWW> LoadFromCacheOrDownload (string url, UniRx.IProgress<float> progress = null)
-		{
-			return Observable.FromCoroutine<WWW> ((observer, cancellation) => LoadFromCacheOrDownloadCore (WWW.LoadFromCacheOrDownload (url, 1), observer, progress, cancellation));
-		}
-
-		static IEnumerator LoadFromCacheOrDownloadCore (WWW www, IObserver<WWW> observer, UniRx.IProgress<float> reportProgress, CancellationToken cancel)
-		{
-			using (www) {
-				while (!www.isDone && !cancel.IsCancellationRequested) {
-					if (reportProgress != null) {
-						try {
-							reportProgress.Report (www.progress);
-						} catch (Exception ex) {
-							observer.OnError (ex);
-							yield break;
-						}
-					}
-					yield return null;
-				}
-
-				if (cancel.IsCancellationRequested)
-					yield break;
-
-				if (!string.IsNullOrEmpty (www.error)) {
-					observer.OnError (new WWWErrorException (www));
-				} else {
-					observer.OnNext (www);
-					observer.OnCompleted ();
-				}
-			}
-		}
+		//
+		//		public static IObservable<WWW> LoadFromCacheOrDownload (string url, UniRx.IProgress<float> progress = null)
+		//		{
+		//			return Observable.FromCoroutine<WWW> ((observer, cancellation) => LoadFromCacheOrDownloadCore (WWW.LoadFromCacheOrDownload (url, 1), observer, progress, cancellation));
+		//		}
+		//
+		//		static IEnumerator LoadFromCacheOrDownloadCore (WWW www, IObserver<WWW> observer, UniRx.IProgress<float> reportProgress, CancellationToken cancel)
+		//		{
+		//			using (www) {
+		//				while (!www.isDone && !cancel.IsCancellationRequested) {
+		//					if (reportProgress != null) {
+		//						try {
+		//							reportProgress.Report (www.progress);
+		//						} catch (Exception ex) {
+		//							observer.OnError (ex);
+		//							yield break;
+		//						}
+		//					}
+		//					yield return null;
+		//				}
+		//
+		//				if (cancel.IsCancellationRequested)
+		//					yield break;
+		//
+		//				if (!string.IsNullOrEmpty (www.error)) {
+		//					observer.OnError (new WWWErrorException (www));
+		//				} else {
+		//					observer.OnNext (www);
+		//					observer.OnCompleted ();
+		//				}
+		//			}
+		//		}
 
 		public void OnMenuButtonClicked_Export (SerializedProperty property)
 		{
