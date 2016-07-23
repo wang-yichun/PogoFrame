@@ -131,9 +131,9 @@ namespace AssetBundles
 		private static void Log (LogType logType, string text)
 		{
 			if (logType == LogType.Error)
-				Debug.LogError ("[AssetBundleManager] " + text);
+				Debug.LogError (AssetBundleSettings.logPrefix + text);
 			else if (m_LogMode == LogMode.All)
-				Debug.Log ("[AssetBundleManager] " + text);
+				Debug.Log (AssetBundleSettings.logPrefix + text);
 		}
 	
 		#if UNITY_EDITOR
@@ -319,7 +319,7 @@ namespace AssetBundles
 		// Where we actuall call WWW to download the assetBundle.
 		static protected bool LoadAssetBundleInternal (string assetBundleName, bool isLoadingAssetBundleManifest, string url_id = "default")
 		{
-			Debug.Log ("assetBundleName: " + assetBundleName);
+//			Debug.Log ("assetBundleName: " + assetBundleName);
 
 			// Already loaded.
 			LoadedAssetBundle bundle = null;
@@ -339,7 +339,7 @@ namespace AssetBundles
 //			string url = (url_id == 0 ? m_BaseDownloadingURL : m_BaseDownloadingURL2) + assetBundleName;
 			string url = m_BaseDownloadingURLs [url_id] + assetBundleName;
 
-			Debug.Log ("assetBundleName: " + assetBundleName + " url: " + url);
+//			Debug.Log ("assetBundleName: " + assetBundleName + " url: " + url);
 
 			// For manifest assetbundle, always download it as we don't have hash for it.
 			if (isLoadingAssetBundleManifest) {

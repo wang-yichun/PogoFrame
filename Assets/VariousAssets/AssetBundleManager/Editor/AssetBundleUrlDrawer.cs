@@ -1,4 +1,6 @@
-﻿namespace pogorock
+﻿using System.Collections;
+
+namespace pogorock
 {
 	using UnityEngine;
 	using UnityEditor;
@@ -157,8 +159,59 @@
 		public void OnMenuButtonClicked_Loading (SerializedProperty property)
 		{
 			AssetBundleUrl_Loading url = GetAssetBundleUrlByItemProperty<AssetBundleUrl_Loading> (property);
+			string full_url = AssetBundleSettings.GetFullUrl (url) + url.UrlId;
+			Debug.Log (AssetBundleSettings.logPrefix + "加载: " + JsonConvert.SerializeObject (
+				new  {url = url, full = full_url}, 
+				Formatting.Indented
+			));
 
-			Debug.Log ("加载: " + JsonConvert.SerializeObject (url, Formatting.Indented));
+//			GetWWW (full_url).Subscribe (_ => {
+//				Debug.Log (AssetBundleSettings.logPrefix + "GetWWW over!!");
+//			});
+
+//			GetWWW ("http://www.baidu.com/").Subscribe ();
+//			ObservableWWW.LoadFromCacheOrDownload(full_url,
+				
+//			ObservableWWW.Get (full_url).Subscribe (x => {
+//				Debug.Log (AssetBundleSettings.logPrefix + x.Substring (0, 100));
+//			}, ex => {
+//				Debug.LogException (ex);
+//			});
+			ObservableWWW.LoadFromCacheOrDownload (full_url, 1).Subscribe (ab => {
+				Debug.Log (AssetBundleSettings.logPrefix + "ab_name: " + ab.name);
+			});
+		}
+
+		public static IObservable<WWW> LoadFromCacheOrDownload (string url, UniRx.IProgress<float> progress = null)
+		{
+			return Observable.FromCoroutine<WWW> ((observer, cancellation) => LoadFromCacheOrDownloadCore (WWW.LoadFromCacheOrDownload (url, 1), observer, progress, cancellation));
+		}
+
+		static IEnumerator LoadFromCacheOrDownloadCore (WWW www, IObserver<WWW> observer, UniRx.IProgress<float> reportProgress, CancellationToken cancel)
+		{
+			using (www) {
+				while (!www.isDone && !cancel.IsCancellationRequested) {
+					if (reportProgress != null) {
+						try {
+							reportProgress.Report (www.progress);
+						} catch (Exception ex) {
+							observer.OnError (ex);
+							yield break;
+						}
+					}
+					yield return null;
+				}
+
+				if (cancel.IsCancellationRequested)
+					yield break;
+
+				if (!string.IsNullOrEmpty (www.error)) {
+					observer.OnError (new WWWErrorException (www));
+				} else {
+					observer.OnNext (www);
+					observer.OnCompleted ();
+				}
+			}
 		}
 
 		public void OnMenuButtonClicked_Export (SerializedProperty property)
@@ -166,7 +219,7 @@
 			int idx;
 			AssetBundleUrl_Export url = GetAssetBundleUrlByItemProperty<AssetBundleUrl_Export> (property, out idx);
 
-			Debug.Log ("发布: " + JsonConvert.SerializeObject (url, Formatting.Indented));
+			Debug.Log (AssetBundleSettings.logPrefix + "发布: " + JsonConvert.SerializeObject (url, Formatting.Indented));
 
 			Observable.NextFrame ().Subscribe (_ => {
 				AssetBundleSettingsEditor.Instance.PublishAssetBundles (url, idx);

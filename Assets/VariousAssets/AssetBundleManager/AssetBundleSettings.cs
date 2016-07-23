@@ -17,6 +17,8 @@
 	[JsonObject (MemberSerialization.OptIn)]
 	public class AssetBundleSettings : ScriptableObject
 	{
+		public static string logPrefix = " <b><color=#00ffaa>[AssetBundleManager] </color></b>";
+
 		public static readonly string assetName = "AssetBundleSettings";
 		public static readonly string fullPath = "Assets/Resources/AssetBundleSettings.asset";
 
@@ -58,23 +60,29 @@
 
 		public static void SetBaseDownloadingURL (AssetBundleUrl_Loading url)
 		{
+			string full_url = GetFullUrl (url);
+			AssetBundleManager.SetBaseDownloadingURL (url.UrlId, full_url);
+		}
+
+		public static string GetFullUrl (AssetBundleUrl_Loading url)
+		{
+			string full_url;
 			if (url.IsLocal) {
-				string full_url = string.Format (
-					                  "{0}/{1}/{2}/",
-					                  AssetBundleManager.GetStreamingAssetsPath (),
-					                  Utility.GetPlatformName (),
-					                  url.UrlId
-				                  );
-				AssetBundleManager.SetBaseDownloadingURL (url.UrlId, full_url);
+				full_url = string.Format (
+					"{0}/{1}/{2}/",
+					AssetBundleManager.GetStreamingAssetsPath (),
+					Utility.GetPlatformName (),
+					url.UrlId
+				);
 			} else {
-				string full_url = string.Format (
-					                  "{0}/{1}/{2}/",
-					                  url.Url,
-					                  Utility.GetPlatformName (),
-					                  url.UrlId
-				                  );
-				AssetBundleManager.SetBaseDownloadingURL (url.UrlId, full_url);
+				full_url = string.Format (
+					"{0}/{1}/{2}/",
+					url.Url,
+					Utility.GetPlatformName (),
+					url.UrlId
+				);
 			}
+			return full_url;
 		}
 
 		#endregion

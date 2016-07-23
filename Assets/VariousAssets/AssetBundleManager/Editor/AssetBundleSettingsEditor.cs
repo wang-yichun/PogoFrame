@@ -116,24 +116,35 @@
 				string url_str = url.Urls [j];
 
 				if (j == 0) {
+					System.Diagnostics.Stopwatch sw = System.Diagnostics.Stopwatch.StartNew ();
+					Debug.LogFormat (AssetBundleSettings.logPrefix + "开始发布资源包向: {0}", url.UrlId);
 					if (url.targetStandalone) {
 						buildTarget = BuildTarget.StandaloneOSXUniversal;
 						if (smartBuildAssetBundle (buildTarget, url_str, url.UrlId, out first_outputpath_standalone, i, url) == false) {
 							break;
 						}
+
 					}
 					if (url.targetIOS) {
+
 						buildTarget = BuildTarget.iOS;
 						if (smartBuildAssetBundle (buildTarget, url_str, url.UrlId, out first_outputpath_ios, i, url) == false) {
 							break;
 						}
+
 					}
 					if (url.targetAndroid) {
 						buildTarget = BuildTarget.Android;
+
 						if (smartBuildAssetBundle (buildTarget, url_str, url.UrlId, out first_outputpath_android, i, url) == false) {
 							break;
 						}
+
 					}
+					Debug.LogFormat (AssetBundleSettings.logPrefix + "发布资源包完成. 总共花费 {0}ms.", sw.Elapsed.TotalMilliseconds);
+					sw.Stop ();
+
+
 				} else {
 					// 进行拷贝
 					if (url.targetStandalone) {
@@ -196,20 +207,38 @@
 
 			Match m = Regex.Match (outputPath, ftp_url_pattern);
 			if (m.Success) {
-				FilesCopyWithFTP.uploadDictionary (
-					client: null,
-					localDictionary: resourcePath,
-					remotePath: m.Groups [4].Value,
-					remoteHost: m.Groups [1].Value,
-					remotePort: m.Groups [3].Value,
-					userName: upl [1],
-					password: upl [2]
-				);
+				System.Diagnostics.Stopwatch sw = System.Diagnostics.Stopwatch.StartNew ();
+				Observable.Start (() => {
+					Debug.LogFormat (AssetBundleSettings.logPrefix + "开始上传资源包到FTP: {0}", outputPath);
+
+					FilesCopyWithFTP.uploadDictionary (
+						client: null,
+						localDictionary: resourcePath,
+						remotePath: m.Groups [4].Value,
+						remoteHost: m.Groups [1].Value,
+						remotePort: m.Groups [3].Value,
+						userName: upl [1],
+						password: upl [2]
+					);
+
+					Debug.LogFormat (AssetBundleSettings.logPrefix + "上传FTP完成. 总共花费 {0}ms.", sw.Elapsed.TotalMilliseconds);
+					sw.Stop ();
+				});
+
 			} else {
-				if (url.Clear) {
-					Directory.Delete (outputPath, true);
-				}
-				FilesCopy.copyDirectory (resourcePath, outputPath);
+				System.Diagnostics.Stopwatch sw = System.Diagnostics.Stopwatch.StartNew ();
+
+				Observable.Start (() => {
+					Debug.LogFormat (AssetBundleSettings.logPrefix + "开始复制资源包到: {0}", outputPath);
+
+					if (url.Clear) {
+						Directory.Delete (outputPath, true);
+					}
+					FilesCopy.copyDirectory (resourcePath, outputPath);
+
+					Debug.LogFormat (AssetBundleSettings.logPrefix + "复制资源包完成. 总共花费 {0}ms.", sw.Elapsed.TotalMilliseconds);
+					sw.Stop ();
+				});
 			}
 		}
 

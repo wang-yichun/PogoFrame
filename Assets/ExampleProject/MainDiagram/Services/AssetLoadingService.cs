@@ -64,8 +64,6 @@ namespace uFrame.ExampleProject
 
 			yield return StartCoroutine (InitializeUseSettings ());
 
-//			Joying_Utility.Instance.InitAppID ("3ca89e8b4b868b6f", "9b95a47c62a3b4b1");
-
 			yield return new WaitForSeconds (.1f);
 
 			Publish (new AssetLoadingProgressEvent () {
@@ -88,7 +86,7 @@ namespace uFrame.ExampleProject
 					if (request != null) {
 						yield return StartCoroutine (request);
 
-						Debug.Log ("[Loading Completed] UrlId: " + url.UrlId + "\n" + AssetBundleManager.GetBaseDownloadingURL (url.UrlId));
+						Debug.Log (AssetBundleSettings.logPrefix + "Loading Completed: UrlId: " + url.UrlId + "\n" + AssetBundleManager.GetBaseDownloadingURL (url.UrlId));
 					}
 				}
 			}
