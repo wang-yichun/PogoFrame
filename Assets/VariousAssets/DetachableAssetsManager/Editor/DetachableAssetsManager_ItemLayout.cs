@@ -178,7 +178,14 @@
 					EditorGUILayout.BeginVertical (GUILayout.Width (20f));
 					info.AssetsPathRoots [i].backup = GUILayout.Toggle (info.AssetsPathRoots [i].backup, "备份");
 					EditorGUILayout.EndVertical ();
-					GUILayout.Label ("      " + info.AssetsPathRoots [i].path);
+
+					string path_full_text = info.AssetsPathRoots [i].path;
+
+					if (GUILayout.Button (path_full_text, GetAssetPathStyle (Color.black))) {
+						var asset = AssetDatabase.LoadAssetAtPath<UnityEngine.Object> (path_full_text);
+						Selection.activeObject = asset;
+					}
+
 					EditorGUILayout.BeginVertical (GUILayout.Width (20f));
 					if (GUILayout.Button (gizmo_del)) {
 						List<AssetsPathRootInfo> list = info.AssetsPathRoots.ToList ();
@@ -252,6 +259,17 @@
 					}
 				}
 			}
+		}
+
+		GUIStyle GetAssetPathStyle (Color color)
+		{
+			GUIStyle s = new GUIStyle ();
+			s.padding = new RectOffset (2, 2, 2, 2);
+			s.alignment = TextAnchor.MiddleLeft;
+			s.normal = new GUIStyleState () {
+				textColor = color
+			};
+			return s;
 		}
 	}
 }
