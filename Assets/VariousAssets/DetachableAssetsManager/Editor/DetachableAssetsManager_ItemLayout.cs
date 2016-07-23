@@ -103,7 +103,15 @@
 			EditorGUILayout.EndVertical ();
 			EditorGUILayout.EndHorizontal ();
 
+			EditorGUILayout.BeginHorizontal ();
 			GUILayout.Label ("    备份: " + info.DevDataPathRoot);
+			EditorGUILayout.BeginVertical (GUILayout.Width (50f));
+			if (GUILayout.Button (gizmo_enter)) {
+				string abs_path = new DirectoryInfo (Application.dataPath + "/../" + info.DevDataPathRoot).FullName;
+				EditorUtility.RevealInFinder (abs_path);
+			}
+			EditorGUILayout.EndVertical ();
+			EditorGUILayout.EndHorizontal ();
 
 			if (info.isMultiPaths) {
 //				if (info.rootsFolded = EditorGUILayout.ToggleLeft ("项目中位置: ", info.rootsFolded)) {

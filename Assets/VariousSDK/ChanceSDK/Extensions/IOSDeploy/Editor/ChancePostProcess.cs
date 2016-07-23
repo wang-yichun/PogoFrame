@@ -118,11 +118,11 @@
 			return string.Join ("\n", newLines.ToArray ());
 		}
 
-		[MenuItem ("PogoTools/Run Chance PostProcess")]
-		public static void Execute ()
-		{
-			string pathToBuiltProject = @"/Users/EthanW/Documents/UnityProjects/UnityChanceAd/Builds/IOSProj";
-			OnPostprocessBuild (BuildTarget.iOS, pathToBuiltProject);
-		}
+//		[MenuItem ("PogoTools/Run Chance PostProcess")]
+//		public static void Execute ()
+//		{
+//			string pathToBuiltProject = @"/Users/EthanW/Documents/UnityProjects/UnityChanceAd/Builds/IOSProj";
+//			OnPostprocessBuild (BuildTarget.iOS, pathToBuiltProject);
+//		}
 	}
 }

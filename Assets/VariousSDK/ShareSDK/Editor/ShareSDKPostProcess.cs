@@ -208,12 +208,12 @@ public class ShareSDKPostProcess
 		}
 	}
 
-	[MenuItem ("PogoTools/Run ShareSDK PostProcess")]
-	public static void Execute ()
-	{
-		string pathToBuiltProject = @"/Users/EthanW/Documents/UnityProjects/PogoFrame/Builds/IOSProj";
-		OnPostprocessBuild (BuildTarget.iOS, pathToBuiltProject);
-	}
+//	[MenuItem ("PogoTools/Run ShareSDK PostProcess")]
+//	public static void Execute ()
+//	{
+//		string pathToBuiltProject = @"/Users/EthanW/Documents/UnityProjects/PogoFrame/Builds/IOSProj";
+//		OnPostprocessBuild (BuildTarget.iOS, pathToBuiltProject);
+//	}
 
 	public static  void SetURLTypesAndWhiteName (string path)
 	{

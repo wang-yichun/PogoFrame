@@ -162,24 +162,11 @@
 			return string.Join ("\n", newLines.ToArray ());
 		}
 
-		[MenuItem ("PogoTools/Run Joying PostProcess")]
-		public static void Execute ()
-		{
-			string pathToBuiltProject = @"/Users/EthanW/Documents/UnityProjects/PogoFrame/Builds/IOSProj";
-			OnPostprocessBuild (BuildTarget.iOS, pathToBuiltProject);
-		}
-
-		[MenuItem ("PogoTools/Joying Define")]
-		public static void Execute2 ()
-		{
-			// add new symbol
-			string new_symbol = "SDK_JOYINGMOBI";
-			string symbols = PlayerSettings.GetScriptingDefineSymbolsForGroup (BuildTargetGroup.Android);
-			string[] symbols_list = symbols.Split (new char[]{ ';' });
-			if (symbols_list.Contains (new_symbol) == false) {
-				symbols += ";" + new_symbol;
-			}
-			PlayerSettings.SetScriptingDefineSymbolsForGroup (BuildTargetGroup.Android, symbols);
-		}
+//		[MenuItem ("PogoTools/Run Joying PostProcess")]
+//		public static void Execute ()
+//		{
+//			string pathToBuiltProject = @"/Users/EthanW/Documents/UnityProjects/PogoFrame/Builds/IOSProj";
+//			OnPostprocessBuild (BuildTarget.iOS, pathToBuiltProject);
+//		}
 	}
 }

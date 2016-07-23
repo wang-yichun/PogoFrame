@@ -32,13 +32,13 @@ public class TestScriptObj : ScriptableObject
 			return instance;
 		}
 	}
-	#if UNITY_EDITOR
-	[MenuItem ("PogoTools/TestScriptObj")]
-	public static void Execute ()
-	{
-		Selection.activeObject = TestScriptObj.Instance;
-	}
-	#endif
+	//	#if UNITY_EDITOR
+	//	[MenuItem ("PogoTools/TestScriptObj")]
+	//	public static void Execute ()
+	//	{
+	//		Selection.activeObject = TestScriptObj.Instance;
+	//	}
+	//	#endif
 
 	// 定义数据载体
 
