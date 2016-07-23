@@ -167,26 +167,6 @@ namespace pogorock
 
 			DecryptAssetBundle.Init (full_url, true);
 
-//			GetWWW (full_url).Subscribe (_ => {
-//				Debug.Log (AssetBundleSettings.logPrefix + "GetWWW over!!");
-//			});
-
-//			GetWWW ("http://www.baidu.com/").Subscribe ();
-//			ObservableWWW.LoadFromCacheOrDownload(full_url,
-				
-//			ObservableWWW.Get (full_url).Subscribe (x => {
-//				Debug.Log (AssetBundleSettings.logPrefix + x.Substring (0, 100));
-//			}, ex => {
-//				Debug.LogException (ex);
-//			});
-//			ObservableWWW.LoadFromCacheOrDownload (full_url, 1).Subscribe (ab => {
-//				Debug.Log (AssetBundleSettings.logPrefix + "ab_name: " + ab.name);
-//			});
-
-//			ObservableWWW.LoadFromCacheOrDownload (full_url, 0).Subscribe (ab => {
-//				Debug.Log (AssetBundleSettings.logPrefix + "LoadFromCacheOrDownload: " + ab.name); 
-//			});
-
 		}
 
 		//		public static IObservable<WWW> LoadFromCacheOrDownload (string url, UniRx.IProgress<float> progress = null)

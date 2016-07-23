@@ -15,7 +15,6 @@ namespace pogorock
 		private string assetURL = "";
 		private static WWW www;
 
-		[MenuItem ("PogoTools/Decrypt Asset Bundle")]
 		public static void Init (string assetURL = "", bool autoRun = false)
 		{    
 			DecryptAssetBundle window = EditorWindow.GetWindow (typeof(DecryptAssetBundle)) as DecryptAssetBundle;
@@ -49,7 +48,9 @@ namespace pogorock
 					AssetBundle bundle = www.assetBundle;
 					string[] d = bundle.GetAllAssetNames ();
 					Debug.Log (JsonConvert.SerializeObject (d, Formatting.Indented));
-								
+					AssetBundleManifest abm = bundle.LoadAsset (d [0]) as AssetBundleManifest;
+					string[] assetBundleNames = abm.GetAllAssetBundles ();
+					Debug.Log (JsonConvert.SerializeObject (assetBundleNames, Formatting.Indented));
 					bundle.Unload (true);
 				}
 			});
