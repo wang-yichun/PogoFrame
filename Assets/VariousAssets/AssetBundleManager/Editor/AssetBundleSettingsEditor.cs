@@ -22,7 +22,7 @@
 
 		public static Texture2D gizmo_enable;
 		public static Texture2D gizmo_disable;
-		public static Texture2D gizmo_local;
+		public static Texture2D gizmo_yellow_dot;
 
 		[InitializeOnLoad]
 		public class Startup
@@ -40,7 +40,7 @@
 
 				gizmo_enable = AssetDatabase.LoadAssetAtPath<Texture2D> (root_path + "Gizmos/gizmo_enable.psd");
 				gizmo_disable = AssetDatabase.LoadAssetAtPath<Texture2D> (root_path + "Gizmos/gizmo_disable.psd");
-				gizmo_local = AssetDatabase.LoadAssetAtPath<Texture2D> (root_path + "Gizmos/gizmo_local.psd");
+				gizmo_yellow_dot = AssetDatabase.LoadAssetAtPath<Texture2D> (root_path + "Gizmos/gizmo_local.psd");
 			}
 		}
 

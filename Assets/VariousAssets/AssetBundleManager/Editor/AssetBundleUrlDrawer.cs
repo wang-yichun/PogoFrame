@@ -22,6 +22,7 @@ namespace pogorock
 
 			bool is_local = false;
 			bool clear = false;
+			bool is_sim = false;
 
 			var s_is_local = property.FindPropertyRelative ("IsLocal");
 			if (s_is_local != null) {
@@ -33,18 +34,23 @@ namespace pogorock
 				clear = s_clear.boolValue;
 			}
 
+			var s_is_sim = property.FindPropertyRelative ("Simulation");
+			if (s_is_sim != null) {
+				is_sim = s_is_sim.boolValue;
+			}
+
 			GUIContent gc = new GUIContent (
 				                string.Format (
 					                "        {0}{1} - [{2}]",
-					                is_local || clear ? "  " : string.Empty,
+					                is_sim || clear ? "  " : string.Empty,
 					                property.FindPropertyRelative ("Title").stringValue,
 					                property.FindPropertyRelative ("UrlId").stringValue
 				                )
 			                );
 			GUI.Label (position, new GUIContent (image));
 
-			if (is_local || clear) {
-				GUI.Label (position, new GUIContent (AssetBundleSettingsEditor.gizmo_local));
+			if (is_sim || clear) {
+				GUI.Label (position, new GUIContent (AssetBundleSettingsEditor.gizmo_yellow_dot));
 			}
 
 			EditorGUI.PropertyField (position, property, gc, true);

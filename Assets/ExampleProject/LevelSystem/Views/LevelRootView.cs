@@ -158,7 +158,7 @@ namespace uFrame.ExampleProject
 			AssetBundleManager.UnloadAssetBundle ("ingame");
 			Caching.CleanCache ();
 
-			yield return StartCoroutine (InstantiateGameObjectAsync ("ingame", "L001", "asset1"));
+			yield return StartCoroutine (InstantiateGameObjectAsync ("ingame", "L001"));
 			LevelRoot.StateProperty.Level_LoadingFinished.OnNext (true);
 		}
 

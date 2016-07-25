@@ -77,7 +77,7 @@ namespace uFrame.ExampleProject
 		{
 			for (int i = 0; i < AssetBundleSettings.Instance.loadingUrls.Count; i++) {
 				AssetBundleUrl_Loading url = AssetBundleSettings.Instance.loadingUrls [i];
-				if (url.Enable) {
+				if (url.Enable && url.Simulation == false) {
 
 
 					AssetBundleSettings.SetBaseDownloadingURL (url);
