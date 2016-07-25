@@ -17,7 +17,15 @@
 	[JsonObject (MemberSerialization.OptIn)]
 	public class AssetBundleSettings : ScriptableObject
 	{
-		public static string logPrefix = " <b><color=#00ffaa>[AssetBundleManager] </color></b>";
+		public static string logPrefix {
+			get {
+				if (EditorGUIUtility.isProSkin) {
+					return "<b><color=#00ffaa>[AssetBundleManager] </color></b>"; 
+				} else {
+					return "<b><color=#007744>[AssetBundleManager] </color></b>"; 
+				}
+			}
+		}
 
 		public static readonly string assetName = "AssetBundleSettings";
 		public static readonly string fullPath = "Assets/Resources/AssetBundleSettings.asset";

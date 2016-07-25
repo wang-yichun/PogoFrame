@@ -84,31 +84,34 @@ namespace pogorock
 		public void UrlItemGUIMenu_Loading (Rect position, SerializedProperty property, GUIContent label)
 		{
 			Rect menuRect = new Rect (position.x, position.y + position.height - GetUrlItemGUIMenuHeight_Loading () - 8f, position.width, GetUrlItemGUIMenuHeight_Loading ());
+//			Rect menuRect = new Rect (position.x, position.y + EditorGUIUtility.singleLineHeight, position.width, GetUrlItemGUIMenuHeight_Loading ()); 
+
 			int buttonCountInRow = 4;
 			float spaceBetweenButton = 5f;
 			float spaceTotal = (buttonCountInRow - 1) * spaceBetweenButton;
 			float buttonWidth = (menuRect.width - spaceTotal) / buttonCountInRow;
 
+			GUIStyle s = GetMenuButtonStyle ();
 			for (int i = 0; i < buttonCountInRow; i++) {
 				Rect buttonRect = new Rect (menuRect.x + (buttonWidth + spaceBetweenButton) * i, menuRect.y, buttonWidth, menuRect.height);
 				switch (i) {
 				case 0:
-					if (GUI.Button (buttonRect, "本地资源")) {
+					if (GUI.Button (buttonRect, "本地资源", s)) {
 						SetStreamingAssetsButtonClicked (property);
 					}
 					break;
 				case 1:
-					if (GUI.Button (buttonRect, "本机HTTP")) {
+					if (GUI.Button (buttonRect, "本机HTTP", s)) {
 						SetHTTPButtonClicked (property);
 					}
 					break;
 				case 2:
-					if (GUI.Button (buttonRect, "本机FTP")) {
+					if (GUI.Button (buttonRect, "本机FTP", s)) {
 						SetFTPButtonClicked (property);
 					}
 					break;
 				case 3:
-					if (GUI.Button (buttonRect, "模拟加载")) {
+					if (GUI.Button (buttonRect, "详细信息")) {
 						OnMenuButtonClicked_Loading (property);
 					}
 					break;
@@ -160,46 +163,9 @@ namespace pogorock
 		{
 			AssetBundleUrl_Loading url = GetAssetBundleUrlByItemProperty<AssetBundleUrl_Loading> (property);
 			string full_url = AssetBundleSettings.GetFullUrl (url) + url.UrlId;
-			Debug.Log (AssetBundleSettings.logPrefix + "加载: " + JsonConvert.SerializeObject (
-				new  {url = url, full = full_url}, 
-				Formatting.Indented
-			));
 
-			DecryptAssetBundle.Init (full_url, true);
-
+			DecryptAssetBundle.Init (url, true);
 		}
-
-		//		public static IObservable<WWW> LoadFromCacheOrDownload (string url, UniRx.IProgress<float> progress = null)
-		//		{
-		//			return Observable.FromCoroutine<WWW> ((observer, cancellation) => LoadFromCacheOrDownloadCore (WWW.LoadFromCacheOrDownload (url, 1), observer, progress, cancellation));
-		//		}
-		//
-		//		static IEnumerator LoadFromCacheOrDownloadCore (WWW www, IObserver<WWW> observer, UniRx.IProgress<float> reportProgress, CancellationToken cancel)
-		//		{
-		//			using (www) {
-		//				while (!www.isDone && !cancel.IsCancellationRequested) {
-		//					if (reportProgress != null) {
-		//						try {
-		//							reportProgress.Report (www.progress);
-		//						} catch (Exception ex) {
-		//							observer.OnError (ex);
-		//							yield break;
-		//						}
-		//					}
-		//					yield return null;
-		//				}
-		//
-		//				if (cancel.IsCancellationRequested)
-		//					yield break;
-		//
-		//				if (!string.IsNullOrEmpty (www.error)) {
-		//					observer.OnError (new WWWErrorException (www));
-		//				} else {
-		//					observer.OnNext (www);
-		//					observer.OnCompleted ();
-		//				}
-		//			}
-		//		}
 
 		public void OnMenuButtonClicked_Export (SerializedProperty property)
 		{
@@ -244,6 +210,18 @@ namespace pogorock
 
 			AssetBundleSettingsEditor.Instance.serializedObject.ApplyModifiedProperties ();
 			Selection.activeObject = AssetBundleSettings.Instance;
+		}
+
+		GUIStyle GetMenuButtonStyle ()
+		{
+			GUIStyle s = new GUIStyle ();
+			s.padding = new RectOffset (5, 5, 2, 2);
+			s.alignment = TextAnchor.MiddleCenter;
+			s.fontStyle = FontStyle.Italic;
+			s.normal = new GUIStyleState () {
+				textColor = Color.gray
+			};
+			return s;
 		}
 	}
 }
