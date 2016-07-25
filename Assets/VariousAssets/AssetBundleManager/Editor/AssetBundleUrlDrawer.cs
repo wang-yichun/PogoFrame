@@ -86,7 +86,7 @@ namespace pogorock
 			Rect menuRect = new Rect (position.x, position.y + position.height - GetUrlItemGUIMenuHeight_Loading () - 8f, position.width, GetUrlItemGUIMenuHeight_Loading ());
 //			Rect menuRect = new Rect (position.x, position.y + EditorGUIUtility.singleLineHeight, position.width, GetUrlItemGUIMenuHeight_Loading ()); 
 
-			int buttonCountInRow = 4;
+			int buttonCountInRow = 5;
 			float spaceBetweenButton = 5f;
 			float spaceTotal = (buttonCountInRow - 1) * spaceBetweenButton;
 			float buttonWidth = (menuRect.width - spaceTotal) / buttonCountInRow;
@@ -96,21 +96,26 @@ namespace pogorock
 				Rect buttonRect = new Rect (menuRect.x + (buttonWidth + spaceBetweenButton) * i, menuRect.y, buttonWidth, menuRect.height);
 				switch (i) {
 				case 0:
-					if (GUI.Button (buttonRect, "本地资源", s)) {
+					if (GUI.Button (buttonRect, "内置", s)) {
 						SetStreamingAssetsButtonClicked (property);
 					}
 					break;
 				case 1:
+					if (GUI.Button (buttonRect, "本地自定义", s)) {
+						SetCustomPathClicked (property);
+					}
+					break;
+				case 2:
 					if (GUI.Button (buttonRect, "本机HTTP", s)) {
 						SetHTTPButtonClicked (property);
 					}
 					break;
-				case 2:
+				case 3:
 					if (GUI.Button (buttonRect, "本机FTP", s)) {
 						SetFTPButtonClicked (property);
 					}
 					break;
-				case 3:
+				case 4:
 					if (GUI.Button (buttonRect, "详细信息")) {
 						OnMenuButtonClicked_Loading (property);
 					}
@@ -185,6 +190,19 @@ namespace pogorock
 			property.FindPropertyRelative ("Simulation").boolValue = false;
 			property.FindPropertyRelative ("IsLocal").boolValue = true;
 			property.FindPropertyRelative ("Title").stringValue = "StreamingAssets Mode(Auto Set)";
+
+			AssetBundleSettingsEditor.Instance.serializedObject.ApplyModifiedProperties ();
+			Selection.activeObject = AssetBundleSettings.Instance;
+		}
+
+		public void SetCustomPathClicked (SerializedProperty property)
+		{
+			DirectoryInfo d = new DirectoryInfo (Application.dataPath);
+			string file_url = "file://" + Path.Combine (d.Parent.ToString (), "AssetBundles");
+			property.FindPropertyRelative ("Url").stringValue = file_url;
+			property.FindPropertyRelative ("Simulation").boolValue = false;
+			property.FindPropertyRelative ("IsLocal").boolValue = false;
+			property.FindPropertyRelative ("Title").stringValue = "Local Custom(Auto Set)";
 
 			AssetBundleSettingsEditor.Instance.serializedObject.ApplyModifiedProperties ();
 			Selection.activeObject = AssetBundleSettings.Instance;

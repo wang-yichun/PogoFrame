@@ -13,6 +13,11 @@ Version 1.1
     - Is Local 本项资源从 StreamingAssets 中读取,将忽略 Url
     - Simulation 本项资源以模拟方式直接从本地读出,仅限编辑器状态下
     - Url 本项资源包的原地址,经常是一个 FTP 或 HTTP 地址
+    - '内置' 自动配置为使用 StreamingAssets 的方式;
+    - '本地自定义' 自动配置为直接使用本地自定义路径下的资源的方式;
+    - '本机 HTTP' 自动配置为本机的 HTTP 的方式(可在 Settings 标签页中开启 HTTP);
+    - '本机的 FTP' 自动配置为本机的 FTP 的方式(可能需要修改为指定的 FTP 位置);
+    - '详细信息' 在编辑器下直接解析该项资源包括的所有资源包名称和资源名称,并在新的窗口中以列表显示;
 
 - Export
   - Title 项的注释
