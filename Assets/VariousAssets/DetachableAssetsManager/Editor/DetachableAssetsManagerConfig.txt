@@ -1,5 +1,17 @@
 [
   {
+    "Name": "ExampleProject",
+    "Description": "uFrame-MVVM Project",
+    "Url": "",
+    "Version": "N/A",
+    "DevDataPathRoot": "DevData/DetachableAssets/ExampleProject",
+    "isMultiPaths": false,
+    "rootsFolded": true,
+    "AssetsPathRoot": "Assets/ExampleProject",
+    "AssetsPathRoots": null,
+    "Symbol": "ExampleProject"
+  },
+  {
     "Name": "NativePlugin",
     "Description": "IOS/Android Native Plugin",
     "Url": "https://stansassets.com/",

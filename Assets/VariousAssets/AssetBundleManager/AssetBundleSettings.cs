@@ -17,7 +17,9 @@
 	[JsonObject (MemberSerialization.OptIn)]
 	public class AssetBundleSettings : ScriptableObject
 	{
-		public static string logPrefix {
+		public static string logPrefix;
+
+		public static string getLogPrefix {
 			get {
 				if (EditorGUIUtility.isProSkin) {
 					return "<b><color=#00ffaa>[AssetBundleManager] </color></b>"; 
@@ -46,6 +48,8 @@
 						AssetDatabase.CreateAsset (instance, fullPath);
 						#endif
 					}
+
+					logPrefix = getLogPrefix;
 				}
 				return instance;
 			}

@@ -29,7 +29,7 @@ public class BaseFinger{
 	public bool isOverGui;
 	public GameObject pickedUIElement;
 
-	#if UNITY_5_3
+	#if UNITY_5_3 || UNITY_5_4
 	public float altitudeAngle;
 	public float azimuthAngle;
 	public float maximumPossiblePressure;
@@ -59,7 +59,7 @@ public class BaseFinger{
 
 		gesture.pickedUIElement = pickedUIElement;
 
-		#if UNITY_5_3
+		#if UNITY_5_3  || UNITY_5_4
 		gesture.altitudeAngle = altitudeAngle;
 		gesture.azimuthAngle = azimuthAngle;
 		gesture.maximumPossiblePressure = maximumPossiblePressure;

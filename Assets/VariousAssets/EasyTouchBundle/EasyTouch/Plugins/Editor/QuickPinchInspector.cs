@@ -2,7 +2,7 @@
 using System.Collections;
 using UnityEditor;
 using HedgehogTeam.EasyTouch;
-#if UNITY_5_3
+#if UNITY_5_3 || UNITY_5_4
 using UnityEditor.SceneManagement;
 #endif
 

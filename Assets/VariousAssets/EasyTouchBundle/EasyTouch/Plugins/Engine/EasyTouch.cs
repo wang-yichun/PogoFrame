@@ -583,7 +583,7 @@ public class EasyTouch : MonoBehaviour {
 				
 				fingers[i].touchCount = touchCount;		
 
-#if UNITY_5_3
+#if UNITY_5_3 || UNITY_5_4
 				fingers[i].altitudeAngle = touch.altitudeAngle;
 				fingers[i].azimuthAngle = touch.azimuthAngle;
 				fingers[i].maximumPossiblePressure = touch.maximumPossiblePressure;

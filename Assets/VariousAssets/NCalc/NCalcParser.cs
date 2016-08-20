@@ -17,6 +17,8 @@ using Stack 		= Antlr.Runtime.Collections.StackList;
 
 using Antlr.Runtime.Tree;
 
+#pragma warning disable 0219
+
 public class NCalcParser : Parser 
 {
     public static readonly string[] tokenNames = new string[] 

@@ -225,10 +225,13 @@ namespace NCalc
                     if (parameter is IEnumerable)
                     {
                         int localsize = 0;
-                        foreach (object o in (IEnumerable)parameter)
-                        {
-                            localsize++;
-                        }
+//                        foreach (object o in (IEnumerable)parameter)
+//                        {
+//                            localsize++;
+//                        }
+						while (((IEnumerable)parameter).GetEnumerator ().MoveNext ()) {
+							localsize++;
+						}
 
                         if (size == -1)
                         {

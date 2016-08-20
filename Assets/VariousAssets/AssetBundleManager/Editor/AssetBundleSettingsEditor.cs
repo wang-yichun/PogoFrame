@@ -223,7 +223,7 @@
 
 					Debug.LogFormat (AssetBundleSettings.logPrefix + "上传FTP完成. 总共花费 {0}ms.", sw.Elapsed.TotalMilliseconds);
 					sw.Stop ();
-				});
+				}).Subscribe ();
 
 			} else {
 				System.Diagnostics.Stopwatch sw = System.Diagnostics.Stopwatch.StartNew ();
@@ -238,7 +238,7 @@
 
 					Debug.LogFormat (AssetBundleSettings.logPrefix + "复制资源包完成. 总共花费 {0}ms.", sw.Elapsed.TotalMilliseconds);
 					sw.Stop ();
-				});
+				}).Subscribe ();
 			}
 		}
 
