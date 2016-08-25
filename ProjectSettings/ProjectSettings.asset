@@ -284,6 +284,7 @@ PlayerSettings:
   ps4PatchPkgPath: 
   ps4PatchLatestPkgPath: 
   ps4PatchChangeinfoPath: 
+  ps4PatchDayOne: 0
   ps4attribUserManagement: 0
   ps4attribMoveSupport: 0
   ps4attrib3DSupport: 0
@@ -342,9 +343,9 @@ PlayerSettings:
   psmSplashimage: {fileID: 0}
   spritePackerPolicy: DefaultPackerPolicy
   scriptingDefineSymbols:
-    1: ExampleProject
-    4: ExampleProject
-    7: ExampleProject
+    1: SDK_Chartboost
+    4: SDK_Chartboost
+    7: SDK_Chartboost
   metroPackageName: PogoFrame
   metroPackageVersion: 
   metroCertificatePath: 

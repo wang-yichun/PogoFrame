@@ -21,11 +21,15 @@
 
 		public static string getLogPrefix {
 			get {
+				#if UNITY_EDITOR
 				if (EditorGUIUtility.isProSkin) {
 					return "<b><color=#00ffaa>[AssetBundleManager] </color></b>"; 
 				} else {
 					return "<b><color=#007744>[AssetBundleManager] </color></b>"; 
 				}
+				#else
+				return "[AssetBundleManager]";
+				#endif
 			}
 		}
 
