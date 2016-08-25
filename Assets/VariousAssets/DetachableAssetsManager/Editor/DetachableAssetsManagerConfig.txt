@@ -1,5 +1,17 @@
 [
   {
+    "Name": "AWSSDK",
+    "Description": "Amazon Web Services",
+    "Url": "https://aws.amazon.com/",
+    "Version": "aws-sdk-unity_3.1.95.0",
+    "DevDataPathRoot": "DevData/DetachableAssets/AWSSDK",
+    "isMultiPaths": false,
+    "rootsFolded": true,
+    "AssetsPathRoot": "Assets/VariousSDK/AWSSDK",
+    "AssetsPathRoots": null,
+    "Symbol": "SDK_AWSSDK"
+  },
+  {
     "Name": "ExampleProject",
     "Description": "uFrame-MVVM Project",
     "Url": "",

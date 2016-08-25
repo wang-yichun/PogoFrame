@@ -16,4 +16,10 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/ExampleProject/Scenes/LevelScene.unity
   - enabled: 1
-    path: Assets/Chartboost/Examples/ChartboostExample/ChartboostExample.unity
+    path: Assets/VariousSDK/AWSSDK/Examples/DynamoDBExample.unity
+  - enabled: 1
+    path: Assets/VariousSDK/AWSSDK/Examples/LowLevelDynamoDBExample.unity
+  - enabled: 1
+    path: Assets/VariousSDK/AWSSDK/Examples/TableQueryAndScanExample.unity
+  - enabled: 1
+    path: Assets/VariousSDK/AWSSDK/Examples/HighLevelExample.unity
