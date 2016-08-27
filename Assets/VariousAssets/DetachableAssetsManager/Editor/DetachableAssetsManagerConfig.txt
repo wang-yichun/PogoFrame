@@ -6,7 +6,7 @@
     "Version": "1.75",
     "DevDataPathRoot": "DevData/DetachableAssets/Photon",
     "isMultiPaths": true,
-    "rootsFolded": true,
+    "rootsFolded": false,
     "AssetsPathRoot": null,
     "AssetsPathRoots": [
       {"path":"Assets/Photon Unity Networking","integrate":true,"backup":true},
