@@ -1,5 +1,26 @@
 [
   {
+    "Name": "Photon",
+    "Description": "Photon Unity Networking",
+    "Url": "https://www.photonengine.com/",
+    "Version": "1.75",
+    "DevDataPathRoot": "DevData/DetachableAssets/Photon",
+    "isMultiPaths": true,
+    "rootsFolded": true,
+    "AssetsPathRoot": null,
+    "AssetsPathRoots": [
+      {"path":"Assets/Photon Unity Networking","integrate":true,"backup":true},
+      {"path":"Assets/PhotonChatApi","integrate":true,"backup":true},
+      {"path":"Assets/Plugins/Photon3Unity3D.dll","integrate":true,"backup":true},
+      {"path":"Assets/Plugins/Metro","integrate":true,"backup":true},
+      {"path":"Assets/Plugins/Photon3Unity3D.xml","integrate":true,"backup":true},
+      {"path":"Assets/Plugins/release_history.txt","integrate":true,"backup":true},
+      {"path":"Assets/Plugins/Uwp","integrate":true,"backup":true},
+      {"path":"Assets/Plugins/WebSocket","integrate":true,"backup":true}
+    ],
+    "Symbol": "SDK_Photon"
+  },
+  {
     "Name": "AWSSDK",
     "Description": "Amazon Web Services",
     "Url": "https://aws.amazon.com/",

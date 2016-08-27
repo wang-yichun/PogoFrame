@@ -343,9 +343,9 @@ PlayerSettings:
   psmSplashimage: {fileID: 0}
   spritePackerPolicy: DefaultPackerPolicy
   scriptingDefineSymbols:
-    1: 
-    4: 
-    7: 
+    1: SDK_Photon
+    4: SDK_Photon
+    7: SDK_Photon
   metroPackageName: PogoFrame
   metroPackageVersion: 
   metroCertificatePath: 

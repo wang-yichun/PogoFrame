@@ -15,11 +15,11 @@ EditorBuildSettings:
     path: Assets/ExampleProject/Scenes/MainMenuScene.unity
   - enabled: 0
     path: Assets/ExampleProject/Scenes/LevelScene.unity
-  - enabled: 1
+  - enabled: 0
     path: Assets/VariousSDK/AWSSDK/Examples/DynamoDBExample.unity
-  - enabled: 1
+  - enabled: 0
     path: Assets/VariousSDK/AWSSDK/Examples/LowLevelDynamoDBExample.unity
-  - enabled: 1
+  - enabled: 0
     path: Assets/VariousSDK/AWSSDK/Examples/TableQueryAndScanExample.unity
-  - enabled: 1
+  - enabled: 0
     path: Assets/VariousSDK/AWSSDK/Examples/HighLevelExample.unity
