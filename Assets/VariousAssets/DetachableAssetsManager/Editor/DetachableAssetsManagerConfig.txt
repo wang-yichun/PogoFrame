@@ -1,5 +1,17 @@
 [
   {
+    "Name": "ZipX",
+    "Description": "7Zip,lzma,LZ4,fastLZ,...",
+    "Url": "",
+    "Version": "2.13",
+    "DevDataPathRoot": "DevData/DetachableAssets/ZipX",
+    "isMultiPaths": false,
+    "rootsFolded": true,
+    "AssetsPathRoot": "Assets/VariousAssets/ZipX",
+    "AssetsPathRoots": null,
+    "Symbol": "SDK_ZipX"
+  },
+  {
     "Name": "Photon",
     "Description": "Photon Unity Networking",
     "Url": "https://www.photonengine.com/",
